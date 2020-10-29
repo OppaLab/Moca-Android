@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUpActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="10dp"
+        android:background="@android:color/white"
+        app:cardCornerRadius="18dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingTop="20dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="20dp">
+
+            <ImageView
+                android:id="@+id/signup_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/moca" />
+
+            <EditText
+                android:id="@+id/signup_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/signup_logo"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/inputs_background"
+                android:hint="Moca@oppalab.com"
+                android:inputType="textEmailAddress"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/signup_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/signup_email"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/inputs_background"
+                android:hint="비밀번호"
+                android:inputType="textPassword"
+                android:padding="10dp"/>
+
+            <EditText
+                android:id="@+id/signup_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/signup_password"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/inputs_background"
+                android:hint="모카"
+                android:inputType="text"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/signup_user_category_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/signup_user_name"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="6dp"
+                android:text="고민 카테고리"
+                android:textSize="18dp"
+                android:textColor="#8a8a8a"/>
+
+            <GridLayout
+                android:id="@+id/signup_user_category"
+                android:layout_below="@id/signup_user_category_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="6dp"
+                android:columnCount="3"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/category_family"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="Family"
+                    android:textColor="#8A8A8A"
+                    android:textSize="18dp" />
+
+                <CheckBox
+                    android:id="@+id/category_friend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="Friend"
+                    android:textColor="#8A8A8A"
+                    android:textSize="18dp" />
+
+                <CheckBox
+                    android:id="@+id/category_couple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Couple"
+                    android:textColor="#8A8A8A"
+                    android:textSize="18dp" />
+
+                <CheckBox
+                    android:id="@+id/category_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Parent"
+                    android:textColor="#8A8A8A"
+                    android:textSize="18dp" />
+
+                <CheckBox
+                    android:id="@+id/category_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Money"
+                    android:textColor="#8A8A8A"
+                    android:textSize="18dp" />
+
+                <CheckBox
+                    android:id="@+id/category_school"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="School"
+                    android:textColor="#8A8A8A"
+                    android:textSize="18dp" />
+
+                <CheckBox
+                    android:id="@+id/category_study"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Study"
+                    android:textColor="#8A8A8A"
+                    android:textSize="18dp" />
+
+                <CheckBox
+                    android:id="@+id/category_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sex"
+                    android:textColor="#8A8A8A"
+                    android:textSize="18dp" />
+            </GridLayout>
+
+            <Button
+                android:id="@+id/signup_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="6dp"
+                android:layout_below="@id/signup_user_category"
+                android:background="@android:color/white"
+                android:text="회원가입"
+                android:textSize="17dp"
+                android:textColor="@android:color/black"/>
+
+            <Button
+                android:id="@+id/signin_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/white"
+                android:text="이미 계정이 있으신가요?"
+                android:textSize="17dp"
+                android:textColor="@android:color/black"/>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
