@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
@@ -47,11 +48,13 @@ class CommentsAdapter(private val mContext: Context,
         var imageProfile: CircleImageView
         var userNameTV: TextView
         var commentTV: TextView
+        var replyBtn: Button
 
         init {
             imageProfile = itemView.findViewById(R.id.user_profile_image_comment)
             userNameTV = itemView.findViewById(R.id.nickname_comment)
             commentTV = itemView.findViewById(R.id.comment_comment)
+            replyBtn = itemView.findViewById(R.id.comment_reply_button)
         }
     }
 
