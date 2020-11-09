@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.oppalab.moca.CommentsActivity
 import com.oppalab.moca.MainActivity
 import com.oppalab.moca.model.Post
 import com.oppalab.moca.model.User
@@ -72,6 +73,8 @@ class PostAdapter
 
         numberOfLikes(holder.likes, post.getPostid())
 
+        getTotalComments(holder.comments, post.getPostid())
+
         holder.likeButton.setOnClickListener{
             if (holder.likeButton.tag == "Like")
             {
@@ -94,6 +97,22 @@ class PostAdapter
 //                mContext.startActivity(intent)
             }
         }
+
+        holder.commentButton.setOnClickListener {
+            val intentComment = Intent(mContext, CommentsActivity::class.java)
+            intentComment.putExtra("postId",post.getPostid())
+            intentComment.putExtra("publisherId",post.getPublisher())
+
+            mContext.startActivity(intentComment)
+        }
+
+        holder.comments.setOnClickListener {
+            val intentComment = Intent(mContext, CommentsActivity::class.java)
+            intentComment.putExtra("postId",post.getPostid())
+            intentComment.putExtra("publisherId",post.getPublisher())
+
+            mContext.startActivity(intentComment)
+        }
     }
 
     private fun numberOfLikes(likes: TextView, postId: String)
@@ -110,6 +129,28 @@ class PostAdapter
                 }
                 else {
                     likes.text = ""
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+            }
+        })
+    }
+
+    private fun getTotalComments(comments: TextView, postId: String)
+    {
+        val commentsRef = FirebaseDatabase.getInstance().reference
+            .child("Comments").child(postId)
+
+        commentsRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot)
+            {
+                if (p0.exists())
+                {
+                    comments.text = "view all " + p0.childrenCount.toString() + "comments"
+                }
+                else {
+                    comments.text = ""
                 }
             }
 
