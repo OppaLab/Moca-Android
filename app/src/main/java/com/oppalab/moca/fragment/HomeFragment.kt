@@ -16,9 +16,6 @@ import com.oppalab.moca.adapter.PostAdapter
 import com.oppalab.moca.model.Post
 import com.oppalab.moca.R
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class HomeFragment : Fragment() {
 
     private var postAdapter: PostAdapter? = null

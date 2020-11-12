@@ -2,12 +2,10 @@ package com.oppalab.moca.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import android.widget.RadioGroup
 import android.widget.SeekBar
 import android.widget.ToggleButton
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,9 +14,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.oppalab.moca.R
 import com.oppalab.moca.`interface`.BrushFragmentListener
 import com.oppalab.moca.adapter.ColorAdapter
-import kotlinx.android.synthetic.main.fragment_brush.*
 
-class BrushFragment : BottomSheetDialogFragment(), ColorAdapter.ColorSelectedListener {
+class BrushFragment : BottomSheetDialogFragment(), ColorAdapter.ColorAdapterClickListener {
     companion object {
         internal var instance: BrushFragment? = null
         fun getInstance():BrushFragment {
@@ -50,7 +47,7 @@ class BrushFragment : BottomSheetDialogFragment(), ColorAdapter.ColorSelectedLis
         color_recyclerview!!.setHasFixedSize(true)
         color_recyclerview!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 
-        colorAdpater = ColorAdapter(context, genColorList(), this@BrushFragment)
+        colorAdpater = ColorAdapter(requireContext(), this@BrushFragment)
         color_recyclerview!!.adapter = colorAdpater
 
         seekbar_brush_size!!.setOnSeekBarChangeListener(object:SeekBar.OnSeekBarChangeListener{
@@ -91,23 +88,11 @@ class BrushFragment : BottomSheetDialogFragment(), ColorAdapter.ColorSelectedLis
         return itemView
     }
 
-    private fun genColorList(): MutableList<Int>? {
-        var colorList = ArrayList<Int>()
-
-        colorList.add(Color.parseColor("#131722"))
-        colorList.add(Color.parseColor("#f94c7a"))
-        colorList.add(Color.parseColor("#9937fa"))
-        colorList.add(Color.parseColor("#def3ff"))
-        colorList.add(Color.parseColor("#ffffff"))
-
-        return colorList
-    }
-
-    override fun onColorSelectedListener(color: Int) {
-        listener?.onBrushColorChangedListener(color)
-    }
-
     fun setListener(listener: BrushFragmentListener) {
         this.listener = listener
+    }
+
+    override fun onColorItemSelected(color: Int) {
+        listener!!.onBrushColorChangedListener(color)
     }
 }

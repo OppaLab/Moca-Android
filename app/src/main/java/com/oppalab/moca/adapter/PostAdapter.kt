@@ -69,19 +69,19 @@ class PostAdapter
 
         publisherInfo(holder.profileImage, holder.nickName, post.getPublisher())
 
-        isLikes(post.getPostid(), holder.likeButton)
+        isLikes(post.getPostId(), holder.likeButton)
 
-        numberOfLikes(holder.likes, post.getPostid())
+        numberOfLikes(holder.likes, post.getPostId())
 
-        getTotalComments(holder.comments, post.getPostid())
+        getTotalComments(holder.comments, post.getPostId())
 
         holder.likeButton.setOnClickListener{
             if (holder.likeButton.tag == "Like")
             {
-                Log.d("Likes PostId", post.getPostid())
+                Log.d("Likes PostId", post.getPostId())
                 FirebaseDatabase.getInstance().reference
                     .child("Likes")
-                    .child(post.getPostid())
+                    .child(post.getPostId())
                     .child(firebaseUser!!.uid)
                     .setValue(true)
             }
@@ -89,7 +89,7 @@ class PostAdapter
             {
                 FirebaseDatabase.getInstance().reference
                     .child("Likes")
-                    .child(post.getPostid())
+                    .child(post.getPostId())
                     .child(firebaseUser!!.uid)
                     .removeValue()
 
@@ -100,7 +100,7 @@ class PostAdapter
 
         holder.commentButton.setOnClickListener {
             val intentComment = Intent(mContext, CommentsActivity::class.java)
-            intentComment.putExtra("postId",post.getPostid())
+            intentComment.putExtra("postId",post.getPostId())
             intentComment.putExtra("publisherId",post.getPublisher())
 
             mContext.startActivity(intentComment)
@@ -108,7 +108,7 @@ class PostAdapter
 
         holder.comments.setOnClickListener {
             val intentComment = Intent(mContext, CommentsActivity::class.java)
-            intentComment.putExtra("postId",post.getPostid())
+            intentComment.putExtra("postId",post.getPostId())
             intentComment.putExtra("publisherId",post.getPublisher())
 
             mContext.startActivity(intentComment)
