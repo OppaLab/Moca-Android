@@ -18,6 +18,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
+import kotlinx.android.synthetic.main.activity_account_setting.*
 import kotlinx.android.synthetic.main.activity_add_post.*
 import kotlinx.android.synthetic.main.thumbnail_content.*
 import java.io.ByteArrayOutputStream
@@ -26,6 +27,8 @@ class AddPostActivity : AppCompatActivity() {
 
     private var storagePostRef: StorageReference?=null
     var myUrl = ""
+    private var categories = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +44,21 @@ class AddPostActivity : AppCompatActivity() {
 
         save_new_post_btn.isClickable = true
         save_new_post_btn.setOnClickListener {
+            if (post_category_family.isChecked) categories += "Family,"
+            if (post_category_friend.isChecked) categories += "Friend,"
+            if (post_category_parent.isChecked) categories += "Parent,"
+            if (post_category_couple.isChecked) categories += "Couple,"
+            if (post_category_money.isChecked) categories += "Money,"
+            if (post_category_school.isChecked) categories += "School,"
+            if (post_category_study.isChecked) categories += "Study,"
+            if (post_category_sex.isChecked) categories += "Sex,"
+            categories.substring(0, categories.length-1)
             uploadPost(arr)
         }
+
+
+
+
     }
 
     private fun uploadPost(arr : ByteArray)
@@ -53,6 +69,8 @@ class AddPostActivity : AppCompatActivity() {
         when{
             TextUtils.isEmpty(post_subject.text.toString()) -> Toast.makeText(this, "제목을 기입해주세요.",Toast.LENGTH_LONG).show()
             TextUtils.isEmpty(post_description.text.toString()) -> Toast.makeText(this,"고민을 채워주세요.",Toast.LENGTH_LONG).show()
+            categories == "" -> Toast.makeText(this, "카테고리를 골라주세요.", Toast.LENGTH_LONG).show()
+
 
             else -> {
                 val progressDialog = ProgressDialog(this)
@@ -88,6 +106,7 @@ class AddPostActivity : AppCompatActivity() {
                             postMap["content"] = content
                             postMap["publisher"] = FirebaseAuth.getInstance().currentUser!!.uid
                             postMap["thumbnail"] = myUrl
+                            postMap["category"] = categories.toLowerCase()
 
 
                             ref.child(postId).updateChildren(postMap)

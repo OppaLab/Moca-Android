@@ -1,15 +1,14 @@
 package com.oppalab.moca.model
 
-class Comment {
+class Reply {
     private var comment: String = ""
     private var publisher: String = ""
-    private lateinit var replyData: ArrayList<Reply>
+
     constructor()
 
-    constructor(comment: String, publisher: String, replyData: ArrayList<Reply>) {
+    constructor(comment: String, publisher: String) {
         this.comment = comment
         this.publisher = publisher
-        this.replyData = replyData
     }
 
     fun getComment(): String{
@@ -20,10 +19,6 @@ class Comment {
         return publisher
     }
 
-    fun getReplyData(): ArrayList<Reply>{
-        return replyData
-    }
-
     fun setComment(comment: String){
         this.comment = comment
     }
@@ -31,9 +26,4 @@ class Comment {
     fun setPublisher(publisher: String){
         this.publisher = publisher
     }
-
-    fun setReplyData(replyData: ArrayList<Reply>){
-        this.replyData = replyData
-    }
-
 }
