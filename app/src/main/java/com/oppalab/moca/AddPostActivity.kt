@@ -2,10 +2,12 @@ package com.oppalab.moca
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,16 +20,24 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
+import com.oppalab.moca.util.RetrofitConnection
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_account_setting.*
 import kotlinx.android.synthetic.main.activity_add_post.*
 import kotlinx.android.synthetic.main.thumbnail_content.*
-import java.io.ByteArrayOutputStream
+import okhttp3.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.http.Multipart
+import java.io.*
 
 class AddPostActivity : AppCompatActivity() {
 
-    private var storagePostRef: StorageReference?=null
+    private var storagePostRef: StorageReference? = null
     var myUrl = ""
     private var categories = ""
+    lateinit var image: Bitmap
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +46,7 @@ class AddPostActivity : AppCompatActivity() {
 
         var intent: Intent = getIntent();
         var arr = getIntent().getByteArrayExtra("image")!!
-        var image = BitmapFactory.decodeByteArray(arr, 0, arr!!.size)
+        image = BitmapFactory.decodeByteArray(arr, 0, arr!!.size)
         var thumbnail: ImageView = findViewById(R.id.thumbnail_image);
         thumbnail.setImageBitmap(image);
 
@@ -52,23 +62,27 @@ class AddPostActivity : AppCompatActivity() {
             if (post_category_school.isChecked) categories += "School,"
             if (post_category_study.isChecked) categories += "Study,"
             if (post_category_sex.isChecked) categories += "Sex,"
-            categories.substring(0, categories.length-1)
+            categories.substring(0, categories.length - 1)
             uploadPost(arr)
         }
 
-
-
-
     }
 
-    private fun uploadPost(arr : ByteArray)
-    {
+    private fun uploadPost(arr: ByteArray) {
         val title = post_subject.text.toString()
         val content = post_description.text.toString()
 
-        when{
-            TextUtils.isEmpty(post_subject.text.toString()) -> Toast.makeText(this, "제목을 기입해주세요.",Toast.LENGTH_LONG).show()
-            TextUtils.isEmpty(post_description.text.toString()) -> Toast.makeText(this,"고민을 채워주세요.",Toast.LENGTH_LONG).show()
+        when {
+            TextUtils.isEmpty(post_subject.text.toString()) -> Toast.makeText(
+                this,
+                "제목을 기입해주세요.",
+                Toast.LENGTH_LONG
+            ).show()
+            TextUtils.isEmpty(post_description.text.toString()) -> Toast.makeText(
+                this,
+                "고민을 채워주세요.",
+                Toast.LENGTH_LONG
+            ).show()
             categories == "" -> Toast.makeText(this, "카테고리를 골라주세요.", Toast.LENGTH_LONG).show()
 
 
@@ -84,23 +98,21 @@ class AddPostActivity : AppCompatActivity() {
                 var uploadTask: StorageTask<*>
                 uploadTask = fileRef.putBytes(arr)
 
-                uploadTask.continueWithTask(Continuation <UploadTask.TaskSnapshot, Task <Uri>>{ task ->
-                    if(!task.isSuccessful)
-                    {
-                        task.exception?.let{
+                uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let {
                             throw it
                             progressDialog.dismiss()
                         }
                     }
                     return@Continuation fileRef.downloadUrl
                 })
-                    .addOnCompleteListener (OnCompleteListener <Uri>{task->
-                        if(task.isSuccessful)
-                        {
+                    .addOnCompleteListener(OnCompleteListener<Uri> { task ->
+                        if (task.isSuccessful) {
                             val downloadUrl = task.result
                             myUrl = downloadUrl.toString()
 
-                            val postMap = HashMap<String , Any>()
+                            val postMap = HashMap<String, Any>()
                             postMap["postId"] = postId!!
                             postMap["title"] = title
                             postMap["content"] = content
@@ -109,10 +121,61 @@ class AddPostActivity : AppCompatActivity() {
                             postMap["category"] = categories.toLowerCase()
 
 
+                            val file = File(applicationContext.cacheDir, postId)
+                            file.createNewFile()
+
+                            val bos = ByteArrayOutputStream()
+                            image.compress(Bitmap.CompressFormat.PNG, 0, bos)
+                            val bitmapdata = bos.toByteArray()
+
+                            try {
+                                val fos = FileOutputStream(file)
+                                fos.write(bitmapdata)
+                                fos.flush()
+                                fos.close()
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+
+                            val reqFile =
+                                RequestBody.create(MediaType.parse("thumbnailImageFile/*"), file)
+                            val body =
+                                MultipartBody.Part.createFormData("thumbnailImageFile", file.name, reqFile)
+
+                            RetrofitConnection.server.createPost(
+                                thumbnailImageFile = body,
+                                postTitle = title,
+                                postBody = content,
+                                postCategories = categories.split(","),
+                                userId = 1
+                            ).enqueue(object : Callback<Long> {
+                                override fun onResponse(
+                                    call: Call<Long>,
+                                    response: Response<Long>
+                                ) {
+                                    if (response?.isSuccessful) {
+                                        Toast.makeText(
+                                            getApplicationContext(),
+                                            "File Uploaded Successfully...",
+                                            Toast.LENGTH_LONG
+                                        ).show();
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<Long>, t: Throwable) {
+                                    Log.d("retrofit result", t.message.toString())
+                                    Toast.makeText(
+                                        getApplicationContext(),
+                                        "Fail",
+                                        Toast.LENGTH_LONG
+                                    ).show();
+                                }
+
+                            })
                             ref.child(postId).updateChildren(postMap)
 
 
-                            Toast.makeText(this,"고민이 등록되었습니다.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "고민이 등록되었습니다.", Toast.LENGTH_LONG).show()
 
 
                             val intent = Intent(this@AddPostActivity, MainActivity::class.java)
@@ -120,9 +183,7 @@ class AddPostActivity : AppCompatActivity() {
                             finish()
 
                             progressDialog.dismiss()
-                        }
-                        else
-                        {
+                        } else {
                             progressDialog.dismiss()
                         }
                     })

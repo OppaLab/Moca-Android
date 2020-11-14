@@ -44,7 +44,6 @@ class PostAdapter
 
         Picasso.get().load(post.getThumbnail()).into(holder.thumbnail)
 
-
         //제목
         if (post.getTitle().equals(""))
         {

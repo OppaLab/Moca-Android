@@ -3,8 +3,8 @@ package com.oppalab.moca.util
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitConnection {
-    val URL = "localhost:8080"
+object RetrofitConnection {
+    val URL = "http://10.0.2.2:8080"
     val retrofit = Retrofit.Builder().baseUrl(URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

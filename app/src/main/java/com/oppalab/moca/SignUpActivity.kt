@@ -10,6 +10,7 @@ import androidx.core.view.children
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.oppalab.moca.util.RetrofitConnection
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : AppCompatActivity() {
@@ -88,6 +89,8 @@ class SignUpActivity : AppCompatActivity() {
         userMap["category"] = userCategory
         userMap["image"] =
             "https://firebasestorage.googleapis.com/v0/b/moca-a7445.appspot.com/o/Default_Images%2Ffriend.png?alt=media&token=3e162428-277f-4514-add5-751c2ec3b5ae"
+
+        RetrofitConnection.server.signUp(email = email, nickname = userName.toLowerCase(), userCategoryList = userCategory.split(","))
 
         usersRef.child(currentUserID).setValue(userMap)
             .addOnCompleteListener {

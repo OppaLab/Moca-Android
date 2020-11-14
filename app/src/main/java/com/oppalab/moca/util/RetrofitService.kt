@@ -3,6 +3,7 @@ package com.oppalab.moca.util
 import GetCommentsOnPostDTO
 import com.oppalab.moca.dto.*
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -15,19 +16,19 @@ interface RetrofitService {
         @Field("nickname") nickname: String,
         @Field("email") email: String,
         @Field("userCategoryList") userCategoryList: List<String>
-    ): Call<SignUpDTO>
+    ): Call<Long>
 
     @Multipart
     @POST("/profileImage")
     fun setProfileImage(
         @Query("userId") userId: Long,
         @Part profileImageFile: MultipartBody.Part
-    ): Call<SetProfileImageDTO>
+    ): Call<String>
 
     @GET("/image/profile/{fileName}")
     fun getProfileImage(
         @Path("fileName") filename: String
-    ): Call<GetProfileImageDTO>
+    ): Call<ResponseBody>
 
 
     //post
@@ -45,42 +46,38 @@ interface RetrofitService {
     ): Call<GetMyPostDTO>
 
     @Multipart
-    @POST("/post")
+    @POST("/post")                  /******************SUCCEESS*********************/
     fun createPost(
-        @Query("thumbnailImageFilePathName") thumbnailImageFilePathName:String,
         @Query("postTitle") postTitle:String,
         @Query("postBody") postBody:String,
         @Query("userId") userId:Long,
         @Query("postCategories") postCategories:List<String>,
         @Part thumbnailImageFile: MultipartBody.Part
-    ): Call<CreatePostDTO>
+    ): Call<Long>
 
     @DELETE("/post")
     fun deletePost(
         @Query("postId") postId: Long,
         @Query("userId") userId: Long
-    )
+    ): Call<Long>
 
     @POST("/review")
     fun createReview(
         @Field ("postId") postId : Long,
         @Field ("userId") userId : Long,
         @Field ("review") review : String
-    ): Call<CreateReviewDTO>
+    ): Call<Long>
 
     @GET("/comment")
     fun getCommentOnPost(
-        @Query("userId") userId: Long,
-        @Query("nickname") nickname : String,
-        @Query("comment") comment: String,
-        @Query("createdAt") createdAt: Long,
+        @Query("postId") postId: Long,
         @Query("page") page: Long
     ): Call<GetCommentsOnPostDTO>
 
     @GET("/image/thumbnail/{fileName}")
     fun getThumbnailImage(
         @Path("fileName") filename: String
-    ): Call<GetThumbnailImageDTO>
+    ): Call<ResponseBody>
 
     //like
 
@@ -89,14 +86,14 @@ interface RetrofitService {
         @Field("postId") postId: Long,
         @Field ("reviewId") reviewId: Long,
         @Field("userId") userId: Long,
-    ): Call<CreateLikeDTO>
+    ): Call<Long>
 
     @DELETE("/unlike")
     fun unlikePost(
         @Field("postId") postId: Long,
         @Field ("reviewId") reviewId: Long,
         @Field("userId") userId: Long,
-    )
+    ): Call<Long>
 
     //comment
 
@@ -106,11 +103,11 @@ interface RetrofitService {
         @Field ("reviewId") reviewId: Long,
         @Field("userId") userId: Long,
         @Field("comment") comment : String
-    ): Call<CreateCommentDTO>
+    ): Call<Long>
 
     @DELETE("/comment")
     fun deleteComment(
         @Field("commentId") commentId: Long,
-        @Field ("reviewId") reviewId: Long
-    )
+        @Field ("userId") reviewId: Long
+    ): Call<Long>
 }

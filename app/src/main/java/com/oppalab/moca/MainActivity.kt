@@ -9,6 +9,7 @@ import com.oppalab.moca.fragment.HomeFragment
 import com.oppalab.moca.fragment.NotificationFragment
 import com.oppalab.moca.fragment.ProfileFragment
 import com.oppalab.moca.fragment.SearchFragment
+import com.oppalab.moca.util.RetrofitConnection
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
