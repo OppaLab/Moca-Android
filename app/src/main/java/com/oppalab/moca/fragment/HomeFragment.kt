@@ -55,6 +55,28 @@ class HomeFragment : Fragment() {
     }
 
     private fun retrievePosts1() {
+        //
+        RetrofitConnection.server.getFeedsAtHome(userId = PreferenceManager.getLong(requireContext(),"userId"), page = 0).enqueue(
+            object : Callback<GetFeedsAtHomeDTO> {
+                override fun onResponse(
+                    call: Call<GetFeedsAtHomeDTO>,
+                    response: Response<GetFeedsAtHomeDTO>
+                ) {
+                    Log.d("POSTS", response.body().toString())
+                    if (response.body()!!.last == true) {
+                        Toast.makeText(context, "마지막 페이지 입니다.", Toast.LENGTH_LONG)
+                    }
+
+                }
+
+                override fun onFailure(call: Call<GetFeedsAtHomeDTO>, t: Throwable) {
+
+                }
+
+            })
+
+
+        //firebase
         val postsRef = FirebaseDatabase.getInstance().reference.child("Posts")
 
 

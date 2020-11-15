@@ -2,8 +2,10 @@ package com.oppalab.moca.util
 
 import GetCommentsOnPostDTO
 import com.oppalab.moca.dto.*
+import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
+import okio.BufferedSource
 import retrofit2.Call
 import retrofit2.http.*
 
