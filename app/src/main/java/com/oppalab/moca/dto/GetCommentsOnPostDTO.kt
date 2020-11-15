@@ -1,7 +1,8 @@
+import com.oppalab.moca.dto.CommentsOnPost
+import com.oppalab.moca.dto.FeedsAtHome
+
 data class GetCommentsOnPostDTO (
-    val userId : Long,
-    val nickname : String,
-    val comment : String,
-    val createdAt : Long,
-    val page : Long
+    val page: Int,
+    val content: List<CommentsOnPost>,
+    val last: Boolean
 )
