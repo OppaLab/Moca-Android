@@ -5,13 +5,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.LinearLayout.VERTICAL
 import android.widget.TextView
 import androidx.annotation.NonNull
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -24,7 +19,6 @@ import com.oppalab.moca.model.Comment
 import com.oppalab.moca.model.User
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.comments_item_layout.view.*
 
 class CommentsAdapter(private val mContext: Context,
                       private val mComment: MutableList<Comment>?
@@ -40,7 +34,7 @@ class CommentsAdapter(private val mContext: Context,
         return ViewHolder(view)
     }
 
-    @SuppressLint("WrongConstant")
+
     override fun onBindViewHolder(holder: CommentsAdapter.ViewHolder, position: Int) {
         firebaseUser = FirebaseAuth.getInstance().currentUser
 
