@@ -13,13 +13,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.oppalab.moca.adapter.CommentsAdapter
-import com.oppalab.moca.adapter.ReplyAdapter
 import com.oppalab.moca.model.Comment
 import com.oppalab.moca.model.Reply
 import com.oppalab.moca.model.User
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_comments.*
-import kotlinx.android.synthetic.main.comments_item_layout.*
 
 class CommentsActivity : AppCompatActivity() {
 
@@ -29,8 +27,6 @@ class CommentsActivity : AppCompatActivity() {
     private var firebaseUser: FirebaseUser? = null
     private var commentAdapter: CommentsAdapter? = null
     private var commentList: MutableList<Comment>? = null
-    private var replyAdapter: ReplyAdapter? = null
-    private var replyList: MutableList<Reply>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,15 +50,6 @@ class CommentsActivity : AppCompatActivity() {
         commentAdapter = CommentsAdapter(this, commentList)
         comment_recyclerView.adapter = commentAdapter
 
-//        var reply_recyclerView: RecyclerView
-//        reply_recyclerView = findViewById(R.id.recycler_view_reply)
-//        var reply_linearLayoutManager = LinearLayoutManager(this)
-//        reply_recyclerView.layoutManager = reply_linearLayoutManager
-//
-//        replyList = ArrayList()
-//        replyAdapter = ReplyAdapter(this, replyList)
-//        reply_recyclerView.adapter = replyAdapter
-
         userInfo()
         readComments()
         getPostImage()
@@ -76,14 +63,8 @@ class CommentsActivity : AppCompatActivity() {
            }
            else {
                addComment()
-//               add_comment!!.setText("@" + firebaseUser!!.uid)
            }
         } )
-
-
-//        comment_reply_button.setOnClickListener( View.OnClickListener {
-//            add_comment!!.setText("@" + publisherId)
-//        })
 
     }
 

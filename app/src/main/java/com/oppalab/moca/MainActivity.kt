@@ -5,11 +5,10 @@ import androidx.fragment.app.Fragment
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import com.oppalab.moca.fragment.HomeFragment
+import com.oppalab.moca.fragment.HomeFragmentRetro
 import com.oppalab.moca.fragment.NotificationFragment
 import com.oppalab.moca.fragment.ProfileFragment
 import com.oppalab.moca.fragment.SearchFragment
-import com.oppalab.moca.util.RetrofitConnection
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.nav_home -> {
-                moveToFragment(HomeFragment())
+                moveToFragment(HomeFragmentRetro())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_search -> {
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         nav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        moveToFragment(HomeFragment())
+        moveToFragment(HomeFragmentRetro())
     }
 
     private fun moveToFragment(fragment: Fragment) {
