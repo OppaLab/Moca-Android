@@ -17,7 +17,6 @@ import com.google.firebase.database.ValueEventListener
 import com.oppalab.moca.adapter.PostAdapter
 import com.oppalab.moca.model.Post
 import com.oppalab.moca.R
-import com.oppalab.moca.dto.FeedsAtHome
 import com.oppalab.moca.dto.GetFeedsAtHomeDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
@@ -55,8 +54,8 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    private fun retrievePosts2() {
-        //retrofit
+    private fun retrievePosts1() {
+        //
         RetrofitConnection.server.getFeedsAtHome(userId = PreferenceManager.getLong(requireContext(),"userId"), page = 0).enqueue(
             object : Callback<GetFeedsAtHomeDTO> {
                 override fun onResponse(
@@ -64,15 +63,6 @@ class HomeFragment : Fragment() {
                     response: Response<GetFeedsAtHomeDTO>
                 ) {
                     Log.d("POSTS", response.body().toString())
-
-
-                    for (post in response.body()!!.content) {
-                        val post = response.body().content
-                        postList!!.add(post!!)
-                        postAdapter!!.notifyDataSetChanged()
-                    }
-
-
                     if (response.body()!!.last == true) {
                         Toast.makeText(context, "마지막 페이지 입니다.", Toast.LENGTH_LONG)
                     }
@@ -85,15 +75,8 @@ class HomeFragment : Fragment() {
             })
 
 
-    }
-
-
-
-    private fun retrievePosts1() {
-
         //firebase
         val postsRef = FirebaseDatabase.getInstance().reference.child("Posts")
-
 
         postsRef.addValueEventListener(object : ValueEventListener
         {
@@ -114,6 +97,7 @@ class HomeFragment : Fragment() {
                 TODO("Not yet implemented")
             }
         })
+
     }
 
     private fun checkFollowings() {
