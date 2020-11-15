@@ -48,18 +48,9 @@ class CommentsAdapter(private val mContext: Context,
         holder.commentTV.text = comment.getComment()
         getUserInfo(holder.imageProfile, holder.userNameTV, comment.getPublisher())
 
-        val childLayoutManager = LinearLayoutManager(holder.itemView.recycler_view_reply.context, VERTICAL, false)
 
-        holder.itemView.recycler_view_reply.apply {
-            layoutManager = childLayoutManager
-            adapter = ReplyAdapter(mContext, mReply = null)
-            setRecycledViewPool(viewPool)
-        }
 
-//        holder.replyBtn.setOnClickListener {
-//            holder.editText.setText("@" + firebaseUser!!.displayName)
-//
-//        }
+
     }
 
     override fun getItemCount(): Int {
@@ -70,15 +61,11 @@ class CommentsAdapter(private val mContext: Context,
         var imageProfile: CircleImageView
         var userNameTV: TextView
         var commentTV: TextView
-        var replyBtn: Button
-//        lateinit var editText: EditText
 
         init {
             imageProfile = itemView.findViewById(R.id.user_profile_image_comment)
             userNameTV = itemView.findViewById(R.id.nickname_comment)
             commentTV = itemView.findViewById(R.id.comment_comment)
-            replyBtn = itemView.findViewById(R.id.comment_reply_button)
-//            editText = itemView.findViewById(R.id.add_comment)
         }
     }
 

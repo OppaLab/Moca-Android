@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import com.oppalab.moca.adapter.PostAdapter
 import com.oppalab.moca.model.Post
 import com.oppalab.moca.R
+import com.oppalab.moca.dto.FeedsAtHome
 import com.oppalab.moca.dto.GetFeedsAtHomeDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
@@ -54,8 +55,8 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    private fun retrievePosts1() {
-        //
+    private fun retrievePosts2() {
+        //retrofit
         RetrofitConnection.server.getFeedsAtHome(userId = PreferenceManager.getLong(requireContext(),"userId"), page = 0).enqueue(
             object : Callback<GetFeedsAtHomeDTO> {
                 override fun onResponse(
@@ -63,6 +64,15 @@ class HomeFragment : Fragment() {
                     response: Response<GetFeedsAtHomeDTO>
                 ) {
                     Log.d("POSTS", response.body().toString())
+
+
+                    for (post in response.body()!!.content) {
+                        val post = response.body().content
+                        postList!!.add(post!!)
+                        postAdapter!!.notifyDataSetChanged()
+                    }
+
+
                     if (response.body()!!.last == true) {
                         Toast.makeText(context, "마지막 페이지 입니다.", Toast.LENGTH_LONG)
                     }
@@ -75,6 +85,12 @@ class HomeFragment : Fragment() {
 
             })
 
+
+    }
+
+
+
+    private fun retrievePosts1() {
 
         //firebase
         val postsRef = FirebaseDatabase.getInstance().reference.child("Posts")
@@ -99,48 +115,6 @@ class HomeFragment : Fragment() {
                 TODO("Not yet implemented")
             }
         })
-
-//        RetrofitConnection.server.getFeedsAtHome(PreferenceManager.getLong(requireContext(),"userId"),0).enqueue(object : Callback<GetFeedsAtHomeDTO>{
-//            override fun onResponse(
-//                call: Call<GetFeedsAtHomeDTO>,
-//                response: Response<GetFeedsAtHomeDTO>
-//            ) {
-//                fun onDataChange(p0: DataSnapshot) {
-//                    postList?.clear()
-//
-//                    for (snapshot in p0.children)
-//                    {
-//                        val post = snapshot.getValue(Post::class.java)
-//
-//                        postList!!.add(post!!)
-//                        postAdapter!!.notifyDataSetChanged()
-//
-//                    }
-//                }
-//
-//                if (response?.isSuccessful) {
-//                    Toast.makeText(
-//                        context,
-//                        "Post list called successfully",
-//                        Toast.LENGTH_LONG
-//                    ).show();
-//                }
-//
-//            }
-//
-//            override fun onFailure(call: Call<GetFeedsAtHomeDTO>, t: Throwable) {
-//                Log.d("retrofit result", t.message.toString())
-//                Toast.makeText(
-//                    context,
-//                    "Fail",
-//                    Toast.LENGTH_LONG
-//                ).show();
-//            }
-//        })
-
-
-
-
     }
 
     private fun checkFollowings() {

@@ -13,13 +13,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.oppalab.moca.adapter.CommentsAdapter
-import com.oppalab.moca.adapter.ReplyAdapter
 import com.oppalab.moca.model.Comment
-import com.oppalab.moca.model.Reply
 import com.oppalab.moca.model.User
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_comments.*
-import kotlinx.android.synthetic.main.comments_item_layout.*
 
 class CommentsActivity : AppCompatActivity() {
 
@@ -29,8 +26,6 @@ class CommentsActivity : AppCompatActivity() {
     private var firebaseUser: FirebaseUser? = null
     private var commentAdapter: CommentsAdapter? = null
     private var commentList: MutableList<Comment>? = null
-    private var replyAdapter: ReplyAdapter? = null
-    private var replyList: MutableList<Reply>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,19 +49,10 @@ class CommentsActivity : AppCompatActivity() {
         commentAdapter = CommentsAdapter(this, commentList)
         comment_recyclerView.adapter = commentAdapter
 
-//        var reply_recyclerView: RecyclerView
-//        reply_recyclerView = findViewById(R.id.recycler_view_reply)
-//        var reply_linearLayoutManager = LinearLayoutManager(this)
-//        reply_recyclerView.layoutManager = reply_linearLayoutManager
-//
-//        replyList = ArrayList()
-//        replyAdapter = ReplyAdapter(this, replyList)
-//        reply_recyclerView.adapter = replyAdapter
 
         userInfo()
         readComments()
         getPostImage()
-        readReply()
 
 //        FirebaseDatabase.getInstance().reference.child("Users").child(user.get)
 
@@ -79,11 +65,6 @@ class CommentsActivity : AppCompatActivity() {
 //               add_comment!!.setText("@" + firebaseUser!!.uid)
            }
         } )
-
-
-//        comment_reply_button.setOnClickListener( View.OnClickListener {
-//            add_comment!!.setText("@" + publisherId)
-//        })
 
     }
 
@@ -101,23 +82,6 @@ class CommentsActivity : AppCompatActivity() {
         add_comment!!.text.clear()
 
     }
-
-    private fun addReply() {
-        val replyRef = FirebaseDatabase.getInstance().reference
-            .child("Reply")
-            .child(commentId!!)
-
-        val replyMap = HashMap<String, Any>()
-        replyMap["comment"] = add_comment!!.text.toString()
-        replyMap["publisher"] = firebaseUser!!
-
-        replyRef.push().setValue(replyMap)
-
-        add_comment!!.text.clear()
-
-
-    }
-
 
 
     private fun userInfo() {
@@ -158,31 +122,6 @@ class CommentsActivity : AppCompatActivity() {
             .child(postId)
 
         commentsRef.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    commentList!!.clear()
-
-                    for (snapshot in snapshot.children){
-                        val comment = snapshot.getValue(Comment::class.java)
-                        commentList!!.add(comment!!)
-                    }
-
-                    commentAdapter!!.notifyDataSetChanged()
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-
-    private fun readReply() {
-        val replyRef = FirebaseDatabase.getInstance()
-            .reference.child("Reply")
-            .child(postId)
-
-        replyRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     commentList!!.clear()

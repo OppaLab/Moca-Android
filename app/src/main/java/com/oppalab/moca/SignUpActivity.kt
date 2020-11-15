@@ -113,7 +113,7 @@ class SignUpActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Long>, response: Response<Long>) {
                 if (response?.isSuccessful) {
                     PreferenceManager.setLong(applicationContext,"userId", response.body()!!)
-                    Log.d("KEY",PreferenceManager.getLong(applicationContext, "userId").toString())
+                    Log.d("retrofit signup userId",PreferenceManager.getLong(applicationContext, "userId").toString())
                     Toast.makeText(
                         getApplicationContext(),
                         "SignUp Complete",

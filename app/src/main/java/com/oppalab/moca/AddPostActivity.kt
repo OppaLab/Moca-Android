@@ -155,6 +155,7 @@ class AddPostActivity : AppCompatActivity() {
                                     response: Response<Long>
                                 ) {
                                     if (response?.isSuccessful) {
+                                        Log.d("retrofit addpost userId", PreferenceManager.getLong(applicationContext,"userId").toString())
                                         Toast.makeText(
                                             getApplicationContext(),
                                             "File Uploaded Successfully...",
