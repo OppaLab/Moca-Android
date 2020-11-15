@@ -82,7 +82,6 @@ class HomeFragment : Fragment() {
                 override fun onFailure(call: Call<GetFeedsAtHomeDTO>, t: Throwable) {
 
                 }
-
             })
 
 

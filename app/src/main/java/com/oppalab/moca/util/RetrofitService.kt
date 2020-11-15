@@ -2,7 +2,6 @@ package com.oppalab.moca.util
 
 import GetCommentsOnPostDTO
 import com.oppalab.moca.dto.*
-import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import okio.BufferedSource
@@ -27,12 +26,6 @@ interface RetrofitService {
         @Query("userId") userId: Long,
         @Part profileImageFile: MultipartBody.Part
     ): Call<String>
-
-    @GET("/image/profile/{fileName}")
-    fun getProfileImage(
-        @Path("fileName") filename: String
-    ): Call<ResponseBody>
-
 
     //post
 
@@ -78,27 +71,22 @@ interface RetrofitService {
         @Query("page") page: Long
     ): Call<GetCommentsOnPostDTO>
 
-    @GET("/image/thumbnail/{fileName}")
-    fun getThumbnailImage(
-        @Path("fileName") filename: String
-    ): Call<ResponseBody>
-
     //like
 
     @FormUrlEncoded
     @POST("/like")
     fun likePost(
         @Field("postId") postId: Long,
-        @Field ("reviewId") reviewId: Long,
         @Field("userId") userId: Long,
+        @Field("reviewId") reviewId: String,
     ): Call<Long>
 
     @FormUrlEncoded
     @DELETE("/unlike")
     fun unlikePost(
-        @Field("postId") postId: Long,
-        @Field ("reviewId") reviewId: Long,
-        @Field("userId") userId: Long,
+        @Query("postId") postId: Long,
+        @Query("userId") userId: Long,
+        @Query("reviewId") reviewId: String,
     ): Call<Long>
 
     //comment

@@ -48,9 +48,12 @@ class CommentsAdapter(private val mContext: Context,
         holder.commentTV.text = comment.getComment()
         getUserInfo(holder.imageProfile, holder.userNameTV, comment.getPublisher())
 
+        val childLayoutManager = LinearLayoutManager(holder.itemView.recycler_view_reply.context, VERTICAL, false)
 
-
-
+        holder.itemView.recycler_view_reply.apply {
+            layoutManager = childLayoutManager
+            setRecycledViewPool(viewPool)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -61,11 +64,13 @@ class CommentsAdapter(private val mContext: Context,
         var imageProfile: CircleImageView
         var userNameTV: TextView
         var commentTV: TextView
+        var replyBtn: Button
 
         init {
             imageProfile = itemView.findViewById(R.id.user_profile_image_comment)
             userNameTV = itemView.findViewById(R.id.nickname_comment)
             commentTV = itemView.findViewById(R.id.comment_comment)
+            replyBtn = itemView.findViewById(R.id.comment_reply_button)
         }
     }
 
@@ -89,5 +94,4 @@ class CommentsAdapter(private val mContext: Context,
             }
         })
     }
-
 }
