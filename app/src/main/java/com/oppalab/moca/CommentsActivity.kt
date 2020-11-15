@@ -14,7 +14,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.oppalab.moca.adapter.CommentsAdapter
 import com.oppalab.moca.model.Comment
-import com.oppalab.moca.model.Reply
 import com.oppalab.moca.model.User
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_comments.*
@@ -53,7 +52,6 @@ class CommentsActivity : AppCompatActivity() {
         userInfo()
         readComments()
         getPostImage()
-        readReply()
 
 //        FirebaseDatabase.getInstance().reference.child("Users").child(user.get)
 
@@ -82,23 +80,6 @@ class CommentsActivity : AppCompatActivity() {
         add_comment!!.text.clear()
 
     }
-
-    private fun addReply() {
-        val replyRef = FirebaseDatabase.getInstance().reference
-            .child("Reply")
-            .child(commentId!!)
-
-        val replyMap = HashMap<String, Any>()
-        replyMap["comment"] = add_comment!!.text.toString()
-        replyMap["publisher"] = firebaseUser!!
-
-        replyRef.push().setValue(replyMap)
-
-        add_comment!!.text.clear()
-
-
-    }
-
 
 
     private fun userInfo() {
@@ -139,31 +120,6 @@ class CommentsActivity : AppCompatActivity() {
             .child(postId)
 
         commentsRef.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()){
-                    commentList!!.clear()
-
-                    for (snapshot in snapshot.children){
-                        val comment = snapshot.getValue(Comment::class.java)
-                        commentList!!.add(comment!!)
-                    }
-
-                    commentAdapter!!.notifyDataSetChanged()
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-
-    private fun readReply() {
-        val replyRef = FirebaseDatabase.getInstance()
-            .reference.child("Reply")
-            .child(postId)
-
-        replyRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     commentList!!.clear()
