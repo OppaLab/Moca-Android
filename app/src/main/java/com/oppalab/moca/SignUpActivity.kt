@@ -5,13 +5,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import androidx.core.view.children
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -30,7 +35,7 @@ class SignUpActivity : AppCompatActivity() {
             if (category_school.isChecked) categories += "School,"
             if (category_study.isChecked) categories += "Study,"
             if (category_sex.isChecked) categories += "Sex,"
-            categories.substring(0,categories.length-1)
+            categories.substring(0, categories.length - 1)
             CreatAccount()
         }
 
@@ -46,10 +51,20 @@ class SignUpActivity : AppCompatActivity() {
         val userCategory: String = categories
 
         when {
-            TextUtils.isEmpty(email) -> Toast.makeText(this, "이메일 입력이 필요합니다.", Toast.LENGTH_LONG).show()
-            TextUtils.isEmpty(password) -> Toast.makeText(this, "비밀번호 입력이 필요합니다.", Toast.LENGTH_LONG).show()
-            TextUtils.isEmpty(userName) -> Toast.makeText(this, "유저 네임이 필요합니다.", Toast.LENGTH_LONG).show()
-            TextUtils.isEmpty(userCategory) -> Toast.makeText(this, "카테고리 설정이 필요합니다..", Toast.LENGTH_LONG).show()
+            TextUtils.isEmpty(email) -> Toast.makeText(this, "이메일 입력이 필요합니다.", Toast.LENGTH_LONG)
+                .show()
+            TextUtils.isEmpty(password) -> Toast.makeText(
+                this,
+                "비밀번호 입력이 필요합니다.",
+                Toast.LENGTH_LONG
+            ).show()
+            TextUtils.isEmpty(userName) -> Toast.makeText(this, "유저 네임이 필요합니다.", Toast.LENGTH_LONG)
+                .show()
+            TextUtils.isEmpty(userCategory) -> Toast.makeText(
+                this,
+                "카테고리 설정이 필요합니다..",
+                Toast.LENGTH_LONG
+            ).show()
 
             else -> {
                 val progressDialog = ProgressDialog(this@SignUpActivity)
@@ -90,7 +105,33 @@ class SignUpActivity : AppCompatActivity() {
         userMap["image"] =
             "https://firebasestorage.googleapis.com/v0/b/moca-a7445.appspot.com/o/Default_Images%2Ffriend.png?alt=media&token=3e162428-277f-4514-add5-751c2ec3b5ae"
 
-        RetrofitConnection.server.signUp(email = email, nickname = userName.toLowerCase(), userCategoryList = userCategory.split(","))
+        RetrofitConnection.server.signUp(
+            nickname = userName.toLowerCase(),
+            email = email,
+            userCategoryList = userCategory.split(",")
+        ).enqueue(object : Callback<Long> {
+            override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                if (response?.isSuccessful) {
+                    PreferenceManager.setLong(applicationContext,"userId", response.body()!!)
+                    Log.d("KEY",PreferenceManager.getLong(applicationContext, "userId").toString())
+                    Toast.makeText(
+                        getApplicationContext(),
+                        "SignUp Complete",
+                        Toast.LENGTH_LONG
+                    ).show();
+                }
+            }
+
+            override fun onFailure(call: Call<Long>, t: Throwable) {
+                Log.d("retrofit result", t.message.toString())
+                Toast.makeText(
+                    getApplicationContext(),
+                    "Fail",
+                    Toast.LENGTH_LONG
+                ).show();
+            }
+
+        })
 
         usersRef.child(currentUserID).setValue(userMap)
             .addOnCompleteListener {
