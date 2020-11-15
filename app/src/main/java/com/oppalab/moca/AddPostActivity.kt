@@ -20,6 +20,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
+import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_account_setting.*
@@ -147,7 +148,7 @@ class AddPostActivity : AppCompatActivity() {
                                 postTitle = title,
                                 postBody = content,
                                 postCategories = categories.split(","),
-                                userId = 1
+                                userId = PreferenceManager.getLong(applicationContext,"userId")
                             ).enqueue(object : Callback<Long> {
                                 override fun onResponse(
                                     call: Call<Long>,
@@ -258,4 +259,3 @@ class AddPostActivity : AppCompatActivity() {
 //
 //    }
 }
-

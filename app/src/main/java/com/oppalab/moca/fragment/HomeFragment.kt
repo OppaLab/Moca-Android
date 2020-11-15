@@ -1,9 +1,11 @@
 package com.oppalab.moca.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +17,12 @@ import com.google.firebase.database.ValueEventListener
 import com.oppalab.moca.adapter.PostAdapter
 import com.oppalab.moca.model.Post
 import com.oppalab.moca.R
+import com.oppalab.moca.dto.GetFeedsAtHomeDTO
+import com.oppalab.moca.util.PreferenceManager
+import com.oppalab.moca.util.RetrofitConnection
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeFragment : Fragment() {
 
@@ -49,6 +57,7 @@ class HomeFragment : Fragment() {
     private fun retrievePosts1() {
         val postsRef = FirebaseDatabase.getInstance().reference.child("Posts")
 
+
         postsRef.addValueEventListener(object : ValueEventListener
         {
             override fun onDataChange(p0: DataSnapshot) {
@@ -68,6 +77,47 @@ class HomeFragment : Fragment() {
                 TODO("Not yet implemented")
             }
         })
+
+//        RetrofitConnection.server.getFeedsAtHome(PreferenceManager.getLong(requireContext(),"userId"),0).enqueue(object : Callback<GetFeedsAtHomeDTO>{
+//            override fun onResponse(
+//                call: Call<GetFeedsAtHomeDTO>,
+//                response: Response<GetFeedsAtHomeDTO>
+//            ) {
+//                fun onDataChange(p0: DataSnapshot) {
+//                    postList?.clear()
+//
+//                    for (snapshot in p0.children)
+//                    {
+//                        val post = snapshot.getValue(Post::class.java)
+//
+//                        postList!!.add(post!!)
+//                        postAdapter!!.notifyDataSetChanged()
+//
+//                    }
+//                }
+//
+//                if (response?.isSuccessful) {
+//                    Toast.makeText(
+//                        context,
+//                        "Post list called successfully",
+//                        Toast.LENGTH_LONG
+//                    ).show();
+//                }
+//
+//            }
+//
+//            override fun onFailure(call: Call<GetFeedsAtHomeDTO>, t: Throwable) {
+//                Log.d("retrofit result", t.message.toString())
+//                Toast.makeText(
+//                    context,
+//                    "Fail",
+//                    Toast.LENGTH_LONG
+//                ).show();
+//            }
+//        })
+
+
+
 
     }
 

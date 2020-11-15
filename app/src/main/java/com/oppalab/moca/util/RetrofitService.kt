@@ -11,6 +11,7 @@ interface RetrofitService {
 
     //user
 
+    @FormUrlEncoded
     @POST("/signup")
     fun signUp(
         @Field("nickname") nickname: String,
@@ -61,6 +62,7 @@ interface RetrofitService {
         @Query("userId") userId: Long
     ): Call<Long>
 
+    @FormUrlEncoded
     @POST("/review")
     fun createReview(
         @Field ("postId") postId : Long,
@@ -81,6 +83,7 @@ interface RetrofitService {
 
     //like
 
+    @FormUrlEncoded
     @POST("/like")
     fun likePost(
         @Field("postId") postId: Long,
@@ -88,6 +91,7 @@ interface RetrofitService {
         @Field("userId") userId: Long,
     ): Call<Long>
 
+    @FormUrlEncoded
     @DELETE("/unlike")
     fun unlikePost(
         @Field("postId") postId: Long,
@@ -97,6 +101,7 @@ interface RetrofitService {
 
     //comment
 
+    @FormUrlEncoded
     @POST("/comment")
     fun createComment(
         @Field("postId") postId: Long,
@@ -105,6 +110,7 @@ interface RetrofitService {
         @Field("comment") comment : String
     ): Call<Long>
 
+    @FormUrlEncoded
     @DELETE("/comment")
     fun deleteComment(
         @Field("commentId") commentId: Long,
