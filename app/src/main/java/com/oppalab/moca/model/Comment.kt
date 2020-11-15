@@ -25,5 +25,4 @@ class Comment {
     fun setPublisher(publisher: String){
         this.publisher = publisher
     }
-
 }

@@ -37,7 +37,6 @@
             android:text="댓글내용"
             android:textSize="16sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
 
