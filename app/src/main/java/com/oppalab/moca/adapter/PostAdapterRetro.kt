@@ -108,7 +108,7 @@ class PostAdapterRetro
                     postId = post.postId,
                     userId = currentUser,
                     reviewId = ""
-                ).enqueue(object : Callback<Long> {
+                    ).enqueue(object : Callback<Long> {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "Like 삭제 : like_id = " + response.body())
                         holder.likeButton.setImageResource(R.drawable.heart_not_clicked)
