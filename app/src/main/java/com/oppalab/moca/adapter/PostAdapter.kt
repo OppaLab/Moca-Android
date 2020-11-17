@@ -16,15 +16,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.oppalab.moca.CommentsActivity
-import com.oppalab.moca.MainActivity
 import com.oppalab.moca.model.Post
 import com.oppalab.moca.model.User
 import com.oppalab.moca.R
 import com.oppalab.moca.dto.GetFeedsAtHomeDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
-import com.oppalab.moca.util.RetrofitService
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
@@ -92,86 +89,6 @@ class PostAdapter
         val view = LayoutInflater.from(mContext).inflate(R.layout.posts_layout, parent, false)
         return ViewHolder(view)
     }
-
-
-//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        firebaseUser = FirebaseAuth.getInstance().currentUser
-//
-//        val post = mPost[position]
-//
-//        Picasso.get().load(post.getThumbnail()).into(holder.thumbnail)
-//
-//        //제목
-//        if (post.getTitle().equals(""))
-//        {
-//            holder.title.visibility = View.GONE
-//        }
-//        else
-//        {
-//            holder.title.visibility = View.VISIBLE
-//            holder.title.setText(post.getTitle())
-//        }
-//
-//        //내용
-//        if (post.getContent().equals(""))
-//        {
-//            holder.description.visibility = View.GONE
-//        }
-//        else
-//        {
-//            holder.description.visibility = View.VISIBLE
-//            holder.description.setText(post.getContent())
-//        }
-//
-//        publisherInfo(holder.profileImage, holder.nickName, post.getPublisher())
-//
-//        isLikes(post.getPostId(), holder.likeButton)
-//
-//        numberOfLikes(holder.likes, post.getPostId())
-//
-//        getTotalComments(holder.comments, post.getPostId())
-//
-//        holder.likeButton.setOnClickListener{
-//            if (holder.likeButton.tag == "Like")
-//            {
-//                Log.d("Likes PostId", post.getPostId())
-//                FirebaseDatabase.getInstance().reference
-//                    .child("Likes")
-//                    .child(post.getPostId())
-//                    .child(firebaseUser!!.uid)
-//                    .setValue(true)
-//            }
-//            else
-//            {
-//                FirebaseDatabase.getInstance().reference
-//                    .child("Likes")
-//                    .child(post.getPostId())
-//                    .child(firebaseUser!!.uid)
-//                    .removeValue()
-//
-//                val intent = Intent(mContext, MainActivity::class.java)
-////                mContext.startActivity(intent)
-//            }
-//        }
-//
-//
-//
-//        holder.commentButton.setOnClickListener {
-//            val intentComment = Intent(mContext, CommentsActivity::class.java)
-//            intentComment.putExtra("postId",post.getPostId())
-//            intentComment.putExtra("publisherId",post.getPublisher())
-//
-//            mContext.startActivity(intentComment)
-//        }
-//
-//        holder.comments.setOnClickListener {
-//            val intentComment = Intent(mContext, CommentsActivity::class.java)
-//            intentComment.putExtra("postId",post.getPostId())
-//            intentComment.putExtra("publisherId",post.getPublisher())
-//
-//            mContext.startActivity(intentComment)
-//        }
-//    }
 
     private fun numberOfLikes(likes: TextView, postId: String)
     {
