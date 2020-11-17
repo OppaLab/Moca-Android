@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.CommentsActivity
+import com.oppalab.moca.CommentsActivityRetro
 import com.oppalab.moca.R
 import com.oppalab.moca.dto.FeedsAtHome
 import com.oppalab.moca.util.PreferenceManager
@@ -77,7 +78,7 @@ class PostAdapterRetro
         if (post.commentCount == 0L) {
             holder.comments.text = ""
         } else {
-            holder.comments.text = "view all " + post.commentCount + "comments"
+            holder.comments.text = "view all " + post.commentCount + " comments"
         }
 
         holder.likeButton.setOnClickListener {
@@ -107,16 +108,19 @@ class PostAdapterRetro
                     postId = post.postId,
                     userId = currentUser,
                     reviewId = ""
-                ).enqueue(object : Callback<Long> {
+                    ).enqueue(object : Callback<Long> {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "Like 삭제 : like_id = " + response.body())
                         holder.likeButton.setImageResource(R.drawable.heart_not_clicked)
                         holder.likeButton.tag = "Like"
 
-                        if (post.likeCount - 1L == 0L) {
+                        if (post.likeCount -1L == 0L) {
                             holder.likes.text = ""
                         } else {
-                            holder.likes.text = (post.likeCount-1L).toString() + "명이 공감"
+                            holder.likes.text = (post.likeCount).toString() + "명이 공감"
+                            if (post.likeCount == 0L) {
+                                holder.likes.text = ""
+                            }
                         }
                     }
 
@@ -129,16 +133,18 @@ class PostAdapterRetro
         }
 
         holder.commentButton.setOnClickListener {
-            val intentComment = Intent(mContext, CommentsActivity::class.java)
-            intentComment.putExtra("postId", post.postId)
+            val intentComment = Intent(mContext, CommentsActivityRetro::class.java)
+            intentComment.putExtra("postId", post.postId.toString())
+            intentComment.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
             intentComment.putExtra("publisherId", post.nickname)
 
             mContext.startActivity(intentComment)
         }
 
         holder.comments.setOnClickListener {
-            val intentComment = Intent(mContext, CommentsActivity::class.java)
-            intentComment.putExtra("postId", post.postId)
+            val intentComment = Intent(mContext, CommentsActivityRetro::class.java)
+            intentComment.putExtra("postId", post.postId.toString())
+            intentComment.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
             intentComment.putExtra("publisherId", post.nickname)
 
             mContext.startActivity(intentComment)

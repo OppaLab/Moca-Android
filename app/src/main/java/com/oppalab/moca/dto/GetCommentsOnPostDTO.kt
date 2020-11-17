@@ -4,5 +4,4 @@ import com.oppalab.moca.dto.FeedsAtHome
 data class GetCommentsOnPostDTO (
     val page: Int,
     val content: List<CommentsOnPost>,
-    val last: Boolean
 )

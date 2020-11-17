@@ -68,6 +68,7 @@ interface RetrofitService {
     @GET("/comment")
     fun getCommentOnPost(
         @Query("postId") postId: Long,
+        @Query("reviewId") reviewId: String,
         @Query("page") page: Long
     ): Call<GetCommentsOnPostDTO>
 
@@ -95,7 +96,7 @@ interface RetrofitService {
     @POST("/comment")
     fun createComment(
         @Field("postId") postId: Long,
-        @Field ("reviewId") reviewId: Long,
+        @Field ("reviewId") reviewId: String,
         @Field("userId") userId: Long,
         @Field("comment") comment : String
     ): Call<Long>
