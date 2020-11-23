@@ -12,6 +12,7 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.CommentsActivity
 import com.oppalab.moca.CommentsActivityRetro
+import com.oppalab.moca.PostDetailActivity
 //import com.oppalab.moca.PostDetailActivity
 import com.oppalab.moca.R
 import com.oppalab.moca.dto.FeedsAtHome
@@ -154,18 +155,19 @@ class PostAdapterRetro
             mContext.startActivity(intentComment)
         }
 
-//        holder.thumbnail.setOnClickListener {
-//            val intentPostDetail = Intent(mContext, PostDetailActivity::class.java)
-//            intentPostDetail.putExtra("publisherId", post.nickname)
-//            intentPostDetail.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
-//            intentPostDetail.putExtra("content", post.postBody)
-//            intentPostDetail.putExtra("likeCount", post.likeCount)
-//            intentPostDetail.putExtra("like", post.like)
-//            intentPostDetail.putExtra("postId", post.postId.toString())
-//            intentPostDetail.putExtra("subject", post.postTitle)
-//
-//            mContext.startActivity(intentPostDetail)
-//        }
+        holder.thumbnail.setOnClickListener {
+            val intentPostDetail = Intent(mContext, PostDetailActivity::class.java)
+            intentPostDetail.putExtra("publisherId", post.nickname)
+            intentPostDetail.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
+            intentPostDetail.putExtra("content", post.postBody)
+            intentPostDetail.putExtra("likeCount", post.likeCount.toString())
+            intentPostDetail.putExtra("commentCount", post.commentCount.toString())
+            intentPostDetail.putExtra("like", post.like)
+            intentPostDetail.putExtra("postId", post.postId.toString())
+            intentPostDetail.putExtra("subject", post.postTitle)
+
+            mContext.startActivity(intentPostDetail)
+        }
 
     }
 

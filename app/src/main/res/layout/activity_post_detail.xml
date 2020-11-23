@@ -73,8 +73,9 @@
             android:layout_width="41dp"
             android:layout_height="40dp"
             android:src="@drawable/heart_not_clicked" />
+
         <TextView
-            android:id="@+id/likes"
+            android:id="@+id/post_detail_like_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -111,7 +112,8 @@
         android:id="@+id/post_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/post_detail_menu"/>
+        android:layout_below="@+id/post_detail_menu"
+        android:textColor="@color/colorPrimary"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/post_detail_recycler_view_comments"

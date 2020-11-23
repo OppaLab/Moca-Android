@@ -20,6 +20,12 @@ interface RetrofitService {
         @Field("userCategoryList") userCategoryList: List<String>
     ): Call<Long>
 
+    @FormUrlEncoded
+    @POST("/signin")
+    fun signIn(
+        @Field("email") email: String
+    ): Call<Long>
+
     @Multipart
     @POST("/profileImage")
     fun setProfileImage(
