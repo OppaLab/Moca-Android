@@ -6,28 +6,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.oppalab.moca.adapter.CommentsAdapterRetro
 import com.oppalab.moca.dto.CommentsOnPost
-import com.oppalab.moca.model.Comment
-import com.oppalab.moca.model.User
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_comments.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 class CommentsActivityRetro : AppCompatActivity() {
 
