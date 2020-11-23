@@ -55,7 +55,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/inputs_background"
-                android:hint="비밀번"
+                android:hint="비밀번호"
                 android:inputType="textPassword"
                 android:padding="10dp"/>
 
