@@ -2,14 +2,12 @@ package com.oppalab.moca.fragment
 
 import android.content.Context
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -68,7 +66,7 @@ class ProfileFragment : Fragment() {
         recyclerview_mypost_thumbnail.adapter = myThumbnailAdapter
 
 
-        RetrofitConnection.server.getMyPosts(userId = currentUser, page = 0).enqueue(object: Callback<GetMyPostDTO> {
+        RetrofitConnection.server.getPosts(userId = currentUser,search = "", category = "", page = 0).enqueue(object: Callback<GetMyPostDTO> {
             override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                 Log.d("retrofit", response.body().toString())
                 postList!!.clear()

@@ -36,8 +36,10 @@ interface RetrofitService {
     ): Call<GetFeedsAtHomeDTO>
 
     @GET("/post")
-    fun getMyPosts(
+    fun getPosts(
         @Query("userId") userId: Long,
+        @Query("search") search: String,
+        @Query("category") category: String,
         @Query("page") page: Long
     ): Call<GetMyPostDTO>
 

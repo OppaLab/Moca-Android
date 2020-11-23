@@ -12,5 +12,6 @@ data class MyPostDTO (
     val postBody: String,
     val thumbnailImageFilePath: String,
     val createdAt: Long,
-    val categories: List<String>
+    val categories: List<String>,
+    val reviewId: Long
 )

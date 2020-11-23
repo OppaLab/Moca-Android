@@ -10,7 +10,6 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.R
 import com.oppalab.moca.dto.CommentsOnPost
-import com.oppalab.moca.model.Comment
 import com.oppalab.moca.util.PreferenceManager
 import de.hdodenhof.circleimageview.CircleImageView
 

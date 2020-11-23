@@ -12,6 +12,7 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.CommentsActivity
 import com.oppalab.moca.CommentsActivityRetro
+//import com.oppalab.moca.PostDetailActivity
 import com.oppalab.moca.R
 import com.oppalab.moca.dto.FeedsAtHome
 import com.oppalab.moca.util.PreferenceManager
@@ -39,7 +40,9 @@ class PostAdapterRetro
 
         val post = mPost[position]
 
-        Picasso.get().load(RetrofitConnection.URL+"/image/thumbnail/"+post.thumbnailImageFilePath).into(holder.thumbnail)
+        Picasso.get()
+            .load(RetrofitConnection.URL + "/image/thumbnail/" + post.thumbnailImageFilePath)
+            .into(holder.thumbnail)
 
         //제목
         if (post.postTitle.equals("")) {
@@ -57,7 +60,8 @@ class PostAdapterRetro
             holder.description.setText(post.postBody)
         }
 
-        Picasso.get().load(RetrofitConnection.URL+"image/profile/"+post.profileImageFilePath).placeholder(R.drawable.profile)
+        Picasso.get().load(RetrofitConnection.URL + "image/profile/" + post.profileImageFilePath)
+            .placeholder(R.drawable.profile)
             .into(holder.profileImage)
         holder.nickName.text = post.nickname
 
@@ -95,7 +99,7 @@ class PostAdapterRetro
                         holder.likeButton.setImageResource(R.drawable.heart_clicked)
                         holder.likeButton.tag = "Liked"
 
-                        holder.likes.text = (post.likeCount+1L).toString() + "명이 공감"
+                        holder.likes.text = (post.likeCount + 1L).toString() + "명이 공감"
                     }
 
                     override fun onFailure(call: Call<Long>, t: Throwable) {
@@ -108,13 +112,13 @@ class PostAdapterRetro
                     postId = post.postId,
                     userId = currentUser,
                     reviewId = ""
-                    ).enqueue(object : Callback<Long> {
+                ).enqueue(object : Callback<Long> {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "Like 삭제 : like_id = " + response.body())
                         holder.likeButton.setImageResource(R.drawable.heart_not_clicked)
                         holder.likeButton.tag = "Like"
 
-                        if (post.likeCount -1L == 0L) {
+                        if (post.likeCount - 1L == 0L) {
                             holder.likes.text = ""
                         } else {
                             holder.likes.text = (post.likeCount).toString() + "명이 공감"
@@ -149,6 +153,20 @@ class PostAdapterRetro
 
             mContext.startActivity(intentComment)
         }
+
+//        holder.thumbnail.setOnClickListener {
+//            val intentPostDetail = Intent(mContext, PostDetailActivity::class.java)
+//            intentPostDetail.putExtra("publisherId", post.nickname)
+//            intentPostDetail.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
+//            intentPostDetail.putExtra("content", post.postBody)
+//            intentPostDetail.putExtra("likeCount", post.likeCount)
+//            intentPostDetail.putExtra("like", post.like)
+//            intentPostDetail.putExtra("postId", post.postId.toString())
+//            intentPostDetail.putExtra("subject", post.postTitle)
+//
+//            mContext.startActivity(intentPostDetail)
+//        }
+
     }
 
     override fun getItemCount(): Int {
