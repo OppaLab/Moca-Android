@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import com.oppalab.moca.fragment.HomeFragmentRetro
-import com.oppalab.moca.fragment.NotificationFragment
-import com.oppalab.moca.fragment.ProfileFragment
-import com.oppalab.moca.fragment.SearchFragment
+import com.oppalab.moca.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_profile -> {
-                moveToFragment(ProfileFragment())
+                moveToFragment(ProfileFragmentRetro())
                 return@OnNavigationItemSelectedListener true
             }
         }

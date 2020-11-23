@@ -1,6 +1,7 @@
 package com.oppalab.moca.dto
 
-data class GetMyPostDTO (
+data class GetPostDTO (
     val page: Int,
     val content: List<MyPostDTO>
 )
+
