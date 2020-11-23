@@ -75,7 +75,7 @@ interface RetrofitService {
 
     @GET("/comment")
     fun getCommentOnPost(
-        @Query("postId") postId: Long,
+        @Query("postId") postId: String,
         @Query("reviewId") reviewId: String,
         @Query("page") page: Long
     ): Call<GetCommentsOnPostDTO>
@@ -85,14 +85,14 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/like")
     fun likePost(
-        @Field("postId") postId: Long,
+        @Field("postId") postId: String,
         @Field("userId") userId: Long,
         @Field("reviewId") reviewId: String,
     ): Call<Long>
 
     @DELETE("/unlike")
     fun unlikePost(
-        @Query("postId") postId: Long,
+        @Query("postId") postId: String,
         @Query("userId") userId: Long,
         @Query("reviewId") reviewId: String,
     ): Call<Long>
@@ -102,7 +102,7 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/comment")
     fun createComment(
-        @Field("postId") postId: Long,
+        @Field("postId") postId: String,
         @Field ("reviewId") reviewId: String,
         @Field("userId") userId: Long,
         @Field("comment") comment : String
@@ -111,7 +111,7 @@ interface RetrofitService {
     @FormUrlEncoded
     @DELETE("/comment")
     fun deleteComment(
-        @Field("commentId") commentId: Long,
-        @Field ("userId") reviewId: Long
+        @Field("commentId") commentId: String,
+        @Field ("userId") reviewId: String
     ): Call<Long>
 }

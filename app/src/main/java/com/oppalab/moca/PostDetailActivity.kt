@@ -87,7 +87,7 @@ class PostDetailActivity : AppCompatActivity() {
                 Log.d("Likes PostId", postId.toString())
 
                 RetrofitConnection.server.likePost(
-                    postId = postId,
+                    postId = postId.toString(),
                     userId = currentUser,
                     reviewId = ""
                 ).enqueue(object : Callback<Long> {
@@ -106,7 +106,7 @@ class PostDetailActivity : AppCompatActivity() {
                 })
             } else {
                 RetrofitConnection.server.unlikePost(
-                    postId = postId,
+                    postId = postId.toString(),
                     userId = currentUser,
                     reviewId = ""
                 ).enqueue(object : Callback<Long> {
@@ -133,7 +133,7 @@ class PostDetailActivity : AppCompatActivity() {
             }
         }
 
-        RetrofitConnection.server.getCommentOnPost(postId = postId, reviewId = "", page = 0).enqueue(object: Callback<GetCommentsOnPostDTO> {
+        RetrofitConnection.server.getCommentOnPost(postId = postId.toString(), reviewId = "", page = 0).enqueue(object: Callback<GetCommentsOnPostDTO> {
             override fun onResponse(
                 call: Call<GetCommentsOnPostDTO>,
                 response: Response<GetCommentsOnPostDTO>
@@ -163,7 +163,7 @@ class PostDetailActivity : AppCompatActivity() {
                 ).show()
             } else {
                 RetrofitConnection.server.createComment(
-                    postId = postId.toLong(),
+                    postId = postId.toString(),
                     reviewId = "", currentUser,
                     comment = add_comment.text.toString()
                 ).enqueue(object: Callback<Long> {

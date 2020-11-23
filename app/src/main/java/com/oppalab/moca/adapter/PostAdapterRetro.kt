@@ -91,7 +91,7 @@ class PostAdapterRetro
                 Log.d("Likes PostId", post.postId.toString())
 
                 RetrofitConnection.server.likePost(
-                    postId = post.postId,
+                    postId = post.postId.toString(),
                     userId = currentUser,
                     reviewId = ""
                 ).enqueue(object : Callback<Long> {
@@ -110,7 +110,7 @@ class PostAdapterRetro
                 })
             } else {
                 RetrofitConnection.server.unlikePost(
-                    postId = post.postId,
+                    postId = post.postId.toString(),
                     userId = currentUser,
                     reviewId = ""
                 ).enqueue(object : Callback<Long> {
