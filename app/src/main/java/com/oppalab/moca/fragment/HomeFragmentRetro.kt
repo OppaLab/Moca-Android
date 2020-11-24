@@ -1,5 +1,6 @@
 package com.oppalab.moca.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,12 +10,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.oppalab.moca.OtherUserActivity
 import com.oppalab.moca.R
 import com.oppalab.moca.adapter.PostAdapterRetro
 import com.oppalab.moca.dto.FeedsAtHome
 import com.oppalab.moca.dto.GetFeedsAtHomeDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
+import kotlinx.android.synthetic.main.posts_layout.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,6 +45,7 @@ class HomeFragmentRetro : Fragment() {
         recyclerView.adapter = postAdapterRetro
 
         retrievePosts1()
+
 
         return view
     }

@@ -10,16 +10,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
-import com.oppalab.moca.CommentsActivity
-import com.oppalab.moca.CommentsActivityRetro
-import com.oppalab.moca.PostDetailActivity
+import com.oppalab.moca.*
 //import com.oppalab.moca.PostDetailActivity
-import com.oppalab.moca.R
 import com.oppalab.moca.dto.FeedsAtHome
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.posts_layout.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -138,6 +136,12 @@ class PostAdapterRetro
             }
         }
 
+        holder.nickName.setOnClickListener{
+            val intentUserProfile = Intent(mContext, OtherUserActivity::class.java)
+            intentUserProfile.putExtra("publisherId", post.nickname)
+            mContext.startActivity(intentUserProfile)
+        }
+
         holder.commentButton.setOnClickListener {
             val intentComment = Intent(mContext, CommentsActivityRetro::class.java)
             intentComment.putExtra("postId", post.postId.toString())
@@ -180,6 +184,7 @@ class PostAdapterRetro
     override fun getItemCount(): Int {
         return mPost.size
     }
+
 
 
     inner class ViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
