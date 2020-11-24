@@ -18,7 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-<!--        <activity android:name=".PostDetailActivity"></activity>-->
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -32,6 +31,7 @@
         <activity android:name=".CommentsActivityRetro" />
         <activity android:name=".AddPostActivity" />
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".PostDetailActivity"/>
         <activity android:name=".SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

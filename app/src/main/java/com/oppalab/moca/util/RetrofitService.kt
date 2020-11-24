@@ -3,6 +3,8 @@ package com.oppalab.moca.util
 import GetCommentsOnPostDTO
 import com.oppalab.moca.dto.*
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
+import okio.BufferedSource
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -18,6 +20,11 @@ interface RetrofitService {
         @Field("userCategoryList") userCategoryList: List<String>
     ): Call<Long>
 
+    @FormUrlEncoded
+    @POST("/signin")
+    fun signIn(
+        @Field("email") email: String
+    ): Call<Long>
 
     @Multipart
     @POST("/profileImage")
@@ -25,28 +32,6 @@ interface RetrofitService {
         @Query("userId") userId: Long,
         @Part profileImageFile: MultipartBody.Part
     ): Call<String>
-
-    @GET("/profile")
-    fun getProfile(
-        @Query("userId") userId: Long
-    ): Call<GetProfileDTO>
-
-
-    //follow & follower
-
-    @FormUrlEncoded
-    @POST("/follow")
-    fun followUser(
-        @Query("userId") userId: Long
-    ): Call<Long>
-
-    @FormUrlEncoded
-    @DELETE("/unfollow")
-    fun unfollowUser(
-        @Query("userId") userId: Long,
-        @Query("followedUserId") reviewId: Long
-    ): Call<Long>
-
 
     //post
 
@@ -62,7 +47,7 @@ interface RetrofitService {
         @Query("search") search: String,
         @Query("category") category: String,
         @Query("page") page: Long
-    ): Call<GetPostDTO>
+    ): Call<GetMyPostDTO>
 
     @Multipart
     @POST("/post")                  /******************SUCCEESS*********************/
@@ -90,7 +75,7 @@ interface RetrofitService {
 
     @GET("/comment")
     fun getCommentOnPost(
-        @Query("postId") postId: Long,
+        @Query("postId") postId: String,
         @Query("reviewId") reviewId: String,
         @Query("page") page: Long
     ): Call<GetCommentsOnPostDTO>
@@ -100,15 +85,14 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/like")
     fun likePost(
-        @Field("postId") postId: Long,
+        @Field("postId") postId: String,
         @Field("userId") userId: Long,
         @Field("reviewId") reviewId: String,
     ): Call<Long>
 
-    @FormUrlEncoded
     @DELETE("/unlike")
     fun unlikePost(
-        @Query("postId") postId: Long,
+        @Query("postId") postId: String,
         @Query("userId") userId: Long,
         @Query("reviewId") reviewId: String,
     ): Call<Long>
@@ -118,7 +102,7 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/comment")
     fun createComment(
-        @Field("postId") postId: Long,
+        @Field("postId") postId: String,
         @Field ("reviewId") reviewId: String,
         @Field("userId") userId: Long,
         @Field("comment") comment : String
@@ -127,8 +111,7 @@ interface RetrofitService {
     @FormUrlEncoded
     @DELETE("/comment")
     fun deleteComment(
-        @Field("commentId") commentId: Long,
-        @Field ("userId") reviewId: Long
+        @Field("commentId") commentId: String,
+        @Field ("userId") reviewId: String
     ): Call<Long>
-
 }

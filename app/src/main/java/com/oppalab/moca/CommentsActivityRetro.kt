@@ -55,7 +55,7 @@ class CommentsActivityRetro : AppCompatActivity() {
         Picasso.get().load(RetrofitConnection.URL + "/image/thumbnail/" + thumbnailImageFilePath)
             .into(post_image_comment)
 
-        RetrofitConnection.server.getCommentOnPost(postId = postId.toLong(), reviewId = "", page = 0)
+        RetrofitConnection.server.getCommentOnPost(postId = postId.toString(), reviewId = "", page = 0)
             .enqueue(object : Callback<GetCommentsOnPostDTO> {
                 override fun onResponse(
                     call: Call<GetCommentsOnPostDTO>,
@@ -90,7 +90,7 @@ class CommentsActivityRetro : AppCompatActivity() {
                 ).show()
             } else {
                 RetrofitConnection.server.createComment(
-                    postId = postId.toLong(),
+                    postId = postId.toString(),
                     reviewId = "", currentUser,
                     comment = add_comment.text.toString()
                 ).enqueue(object: Callback<Long> {
