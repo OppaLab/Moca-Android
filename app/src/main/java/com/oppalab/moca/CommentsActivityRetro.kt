@@ -23,7 +23,6 @@ class CommentsActivityRetro : AppCompatActivity() {
     private var postId = 0L
     private var publisherId = ""
     private var thumbnailImageFilePath = ""
-    private var commentId = ""
     private var commentAdapter: CommentsAdapterRetro? = null
     private var commentList: MutableList<CommentsOnPost>? = null
 
@@ -38,7 +37,6 @@ class CommentsActivityRetro : AppCompatActivity() {
         postId = intent.getStringExtra("postId")!!.toLong()
         publisherId = intent.getStringExtra("publisherId")!!
         thumbnailImageFilePath = intent.getStringExtra("thumbnailImageFilePath")!!
-//        commentId = intent.getStringExtra("commentId")!!
 
 
         var comment_recyclerView: RecyclerView

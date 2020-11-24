@@ -5,5 +5,6 @@ data class GetProfileDTO(
     var profileImageFilePath: String,
     var numberOfPosts: Long,
     var numberOfFollowers: Long,
-    var numberOfFollowings: Long
+    var numberOfFollowings: Long,
+    var isFollowed: Boolean
 )

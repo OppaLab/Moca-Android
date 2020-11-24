@@ -33,6 +33,7 @@ interface RetrofitService {
 
     @GET("/profile")
     fun getProfile(
+        @Query("myUserId") myUserId: Long,
         @Query("userId") userId: Long
     ): Call<GetProfileDTO>
 
