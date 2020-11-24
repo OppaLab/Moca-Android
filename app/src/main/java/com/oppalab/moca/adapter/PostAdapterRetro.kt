@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.*
 //import com.oppalab.moca.PostDetailActivity
@@ -182,6 +184,20 @@ class PostAdapterRetro
             mContext.startActivity(intentPostDetail)
         }
 
+        holder.review.setOnClickListener {
+            if(post.reviewId == 0L)
+            {
+                Toast.makeText(mContext, "후기가 아직 없습니다.", Toast.LENGTH_LONG).show()
+            } else {
+                val intentReview = Intent(mContext, ReviewActivity::class.java)
+                intentReview.putExtra("currentUser", currentUser.toString())
+                intentReview.putExtra("userId", post.userId.toString())
+                intentReview.putExtra("reviewId", post.reviewId.toString())
+                intentReview.putExtra("postId",post.postId.toString())
+                mContext.startActivity(intentReview)
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -195,7 +211,7 @@ class PostAdapterRetro
         var thumbnail: ImageView
         var likeButton: ImageView
         var commentButton: ImageView
-        var saveButton: ImageView
+        var review: ImageView
         var nickName: TextView
         var likes: TextView
         var title: TextView
@@ -208,7 +224,7 @@ class PostAdapterRetro
             thumbnail = itemView.findViewById(R.id.post_image_home)
             likeButton = itemView.findViewById(R.id.post_image_like_btn)
             commentButton = itemView.findViewById(R.id.post_image_comment_btn)
-            saveButton = itemView.findViewById(R.id.post_save_comment_btn)
+            review = itemView.findViewById(R.id.post_review_btn)
             nickName = itemView.findViewById(R.id.nickname_post_card)
             title = itemView.findViewById(R.id.title_post_card)
             likes = itemView.findViewById(R.id.likes)
