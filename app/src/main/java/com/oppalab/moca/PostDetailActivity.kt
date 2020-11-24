@@ -43,7 +43,7 @@ class PostDetailActivity : AppCompatActivity() {
         publisherId = intent.getStringExtra("publisherId")!!
         subject = intent.getStringExtra("subject")!!
         thumbnailImageFilePath = intent.getStringExtra("thumbnailImageFilePath")!!
-        if (intent.getStringExtra("like") == "true") like = true
+        if (intent.getStringExtra("like") == "Liked") like = true
         likeCount = intent.getStringExtra("likeCount")!!.toLong()
         commentCount = intent.getStringExtra("commentCount")!!.toLong()
         content = intent.getStringExtra("content")!!

@@ -40,6 +40,7 @@ class PostAdapterRetro
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val post = mPost[position]
+        var curCommentCount = post.commentCount
 
         Picasso.get()
             .load(RetrofitConnection.URL + "/image/thumbnail/" + post.thumbnailImageFilePath)
@@ -80,7 +81,7 @@ class PostAdapterRetro
             holder.likes.text = post.likeCount.toString() + "명이 공감"
         }
 
-        if (post.commentCount == 0L) {
+        if (curCommentCount == 0L) {
             holder.comments.text = ""
         } else {
             holder.comments.text = "view all " + post.commentCount + " comments"
@@ -160,9 +161,14 @@ class PostAdapterRetro
             intentPostDetail.putExtra("publisherId", post.nickname)
             intentPostDetail.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
             intentPostDetail.putExtra("content", post.postBody)
-            intentPostDetail.putExtra("likeCount", post.likeCount.toString())
+            if (holder.likeButton.tag == "Liked") {
+                intentPostDetail.putExtra("likeCount", (post.likeCount+1).toString())
+            } else {
+                intentPostDetail.putExtra("likeCount", post.likeCount.toString())
+            }
+
             intentPostDetail.putExtra("commentCount", post.commentCount.toString())
-            intentPostDetail.putExtra("like", post.like)
+            intentPostDetail.putExtra("like", holder.likeButton.tag.toString())
             intentPostDetail.putExtra("postId", post.postId.toString())
             intentPostDetail.putExtra("subject", post.postTitle)
 
