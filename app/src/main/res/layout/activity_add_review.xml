@@ -3,19 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/thumbnail_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ThumbnailActivity">
+    tools:context=".AddReviewActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/thumbnail_app_bar_layout"
+        android:id="@+id/add_review_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/thumbnail_toolbar"
+            android:id="@+id/add_review_toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="6dp"
@@ -28,13 +27,14 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/close_thumbnail_btn"
+                    android:id="@+id/close_add_review_btn"
                     android:layout_width="20dp"
                     android:layout_height="30dp"
-                    android:layout_alignParentStart="true"/>
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/close" />
 
                 <ImageView
-                    android:id="@+id/thumbnail_save_btn"
+                    android:id="@+id/save_new_review_btn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
@@ -46,6 +46,29 @@
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-    <include layout = "@layout/thumbnail_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="5dp"
+            android:text="후기내용"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/review_description"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:layout_margin="5dp"
+            android:hint="후기글의 내용을 작성해주세요." />
+    </LinearLayout>
 
 </RelativeLayout>

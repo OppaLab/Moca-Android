@@ -93,6 +93,15 @@
                     android:textSize="15dp"
                     android:textStyle="bold" />
 
+                <ImageView
+                    android:id="@+id/add_detail_review_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="39dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="50dp"
+                    android:visibility="gone"
+                    android:src="@drawable/review" />
 
                 <ImageView
                     android:id="@+id/post_detail_review_btn"

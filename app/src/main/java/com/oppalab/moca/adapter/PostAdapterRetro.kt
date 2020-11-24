@@ -176,6 +176,8 @@ class PostAdapterRetro
             intentPostDetail.putExtra("like", holder.likeButton.tag.toString())
             intentPostDetail.putExtra("postId", post.postId.toString())
             intentPostDetail.putExtra("subject", post.postTitle)
+            intentPostDetail.putExtra("postUserId",post.userId.toString())
+            intentPostDetail.putExtra("reviewId",post.reviewId.toString())
 
             mContext.startActivity(intentPostDetail)
         }

@@ -83,11 +83,11 @@ class ProfileFragmentRetro : Fragment() {
                 Log.d("retrofit", response.body().toString())
                 val profile = response.body()
 //                Picasso.get().load(RetrofitConnection.URL+"image/profile/"+response.body()!!.profileImageFilePath).into(circleimageview_thumbmail)
-                profile_fragment_username.text = profile!!.nickname
-                profile_full_name.text = profile!!.nickname
-                total_posts.text = profile!!.numberOfPosts.toString()
-                total_followers.text = profile!!.numberOfFollowers.toString()
-                total_following.text = profile!!.numberOfFollowings.toString()
+                view.profile_fragment_username.text = profile!!.nickname
+                view.profile_full_name.text = profile!!.nickname
+                view.total_posts.text = profile!!.numberOfPosts.toString()
+                view.total_followers.text = profile!!.numberOfFollowers.toString()
+                view.total_following.text = profile!!.numberOfFollowings.toString()
             }
 
             override fun onFailure(call: Call<GetProfileDTO>, t: Throwable) {

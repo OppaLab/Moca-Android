@@ -133,4 +133,10 @@ interface RetrofitService {
         @Field("commentId") commentId: String,
         @Field ("userId") reviewId: String
     ): Call<Long>
+
+    @GET("/review")
+    fun getReview(
+        @Query ("userId") userId: String,
+        @Query ("reviewId") reviewId: String
+    ): Call<GetReviewDTO>
 }
