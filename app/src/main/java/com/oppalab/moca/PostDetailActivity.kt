@@ -95,8 +95,9 @@ class PostDetailActivity : AppCompatActivity() {
                         Log.d("retrofit", "Like 생성 : like_id = " + response.body())
                         post_image_like_btn.setImageResource(R.drawable.heart_clicked)
                         post_image_like_btn.tag = "Liked"
+                        likeCount += 1
 
-                        post_detail_like_count.text = (likeCount + 1L).toString() + "명이 공감"
+                        post_detail_like_count.text = (likeCount).toString() + "명이 공감합니다."
                     }
 
                     override fun onFailure(call: Call<Long>, t: Throwable) {
@@ -114,11 +115,12 @@ class PostDetailActivity : AppCompatActivity() {
                         Log.d("retrofit", "Like 삭제 : like_id = " + response.body())
                         post_image_like_btn.setImageResource(R.drawable.heart_not_clicked)
                         post_image_like_btn.tag = "Like"
+                        likeCount += -1
 
-                        if (likeCount - 1L == 0L) {
+                        if (likeCount == 0L) {
                             post_detail_like_count.text = ""
                         } else {
-                            post_detail_like_count.text = (likeCount).toString() + "명이 공감"
+                            post_detail_like_count.text = (likeCount).toString() + "명이 공감합니다."
                             if (likeCount == 0L) {
                                 post_detail_like_count.text = ""
                             }
