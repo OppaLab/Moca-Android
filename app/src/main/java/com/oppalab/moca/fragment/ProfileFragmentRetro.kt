@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.oppalab.moca.AccountSettingActivity
 import com.oppalab.moca.R
 import com.oppalab.moca.adapter.MyThumbnailAdapter
-import com.oppalab.moca.dto.GetPostDTO
+import com.oppalab.moca.dto.GetMyPostDTO
 import com.oppalab.moca.dto.GetProfileDTO
 import com.oppalab.moca.dto.MyPostDTO
 import com.oppalab.moca.util.PreferenceManager
@@ -37,8 +37,9 @@ class ProfileFragmentRetro : Fragment() {
     private lateinit var firebaseUser: FirebaseUser
     private var currentUser: Long = 0L
     private var postList: MutableList<MyPostDTO>? = null
-    private var myProfile: MutableList<GetProfileDTO>? = null
+//    private var myProfile: GetProfileDTO? = null
     private var myThumbnailAdapter: MyThumbnailAdapter? = null
+//    var user_full_name:TextView?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +47,7 @@ class ProfileFragmentRetro : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
+//        user_full_name = view.findViewById<TextView>(R.id.profile_full_name)
         currentUser = PreferenceManager.getLong(requireContext(), "userId")
 
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
@@ -79,10 +81,13 @@ class ProfileFragmentRetro : Fragment() {
             Callback<GetProfileDTO> {
             override fun onResponse(call: Call<GetProfileDTO>, response: Response<GetProfileDTO>) {
                 Log.d("retrofit", response.body().toString())
-                val profile: GetProfileDTO = myProfile!![1]
-                Picasso.get().load(RetrofitConnection.URL+"image/profile/"+profile.profileImageFilePath).into(circleimageview_thumbmail)
-
-
+                val profile = response.body()
+//                Picasso.get().load(RetrofitConnection.URL+"image/profile/"+response.body()!!.profileImageFilePath).into(circleimageview_thumbmail)
+                profile_fragment_username.text = profile!!.nickname
+                profile_full_name.text = profile!!.nickname
+                total_posts.text = profile!!.numberOfPosts.toString()
+                total_followers.text = profile!!.numberOfFollowers.toString()
+                total_following.text = profile!!.numberOfFollowings.toString()
             }
 
             override fun onFailure(call: Call<GetProfileDTO>, t: Throwable) {
@@ -96,8 +101,8 @@ class ProfileFragmentRetro : Fragment() {
 
 
         RetrofitConnection.server.getPosts(userId = currentUser, page = 0, category = "", search = "").enqueue(object:
-            Callback<GetPostDTO> {
-            override fun onResponse(call: Call<GetPostDTO>, response: Response<GetPostDTO>) {
+            Callback<GetMyPostDTO> {
+            override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                 Log.d("retrofit", response.body().toString())
                 postList!!.clear()
                 for (post in response.body()!!.content) {
@@ -107,7 +112,7 @@ class ProfileFragmentRetro : Fragment() {
                 myThumbnailAdapter!!.notifyDataSetChanged()
             }
 
-            override fun onFailure(call: Call<GetPostDTO>, t: Throwable) {
+            override fun onFailure(call: Call<GetMyPostDTO>, t: Throwable) {
             }
 
         })

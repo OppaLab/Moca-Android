@@ -3,8 +3,6 @@ package com.oppalab.moca.util
 import GetCommentsOnPostDTO
 import com.oppalab.moca.dto.*
 import okhttp3.MultipartBody
-import okhttp3.ResponseBody
-import okio.BufferedSource
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -32,6 +30,27 @@ interface RetrofitService {
         @Query("userId") userId: Long,
         @Part profileImageFile: MultipartBody.Part
     ): Call<String>
+
+    @GET("/profile")
+    fun getProfile(
+        @Query("userId") userId: Long
+    ): Call<GetProfileDTO>
+
+
+    //follow & follower
+
+    @FormUrlEncoded
+    @POST("/follow")
+    fun followUser(
+        @Query("userId") userId: Long
+    ): Call<Long>
+
+    @FormUrlEncoded
+    @DELETE("/unfollow")
+    fun unfollowUser(
+        @Query("userId") userId: Long,
+        @Query("followedUserId") reviewId: Long
+    ): Call<Long>
 
     //post
 
