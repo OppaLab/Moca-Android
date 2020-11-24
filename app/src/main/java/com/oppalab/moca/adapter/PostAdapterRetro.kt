@@ -138,7 +138,8 @@ class PostAdapterRetro
 
         holder.nickName.setOnClickListener{
             val intentUserProfile = Intent(mContext, OtherUserActivity::class.java)
-            intentUserProfile.putExtra("publisherId", post.nickname)
+            intentUserProfile.putExtra("publisherId", post.userId)
+            Log.d("publisherId",post.userId.toString())
             mContext.startActivity(intentUserProfile)
         }
 

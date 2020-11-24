@@ -14,8 +14,8 @@ import com.oppalab.moca.dto.MyPostDTO
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
 
-class MyThumbnailAdapter(private val mContext: Context, mPost: List<MyPostDTO>):
-    RecyclerView.Adapter<MyThumbnailAdapter.ViewHolder>() {
+class OtherUserAdapter(private val mContext: Context, mPost: List<MyPostDTO>):
+    RecyclerView.Adapter<OtherUserAdapter.ViewHolder>() {
 
     private var mPost: List<MyPostDTO>? = null
 
@@ -51,6 +51,8 @@ class MyThumbnailAdapter(private val mContext: Context, mPost: List<MyPostDTO>):
     override fun getItemCount(): Int {
         return mPost!!.size
     }
+
+
 
     inner class ViewHolder(@NonNull itemView: View): RecyclerView.ViewHolder(itemView) {
         var postThumbnail: ImageView
