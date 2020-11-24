@@ -40,6 +40,7 @@ class PostAdapterRetro
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val post = mPost[position]
+        var curLikeCount = post.likeCount
         var curCommentCount = post.commentCount
 
         Picasso.get()
@@ -75,16 +76,16 @@ class PostAdapterRetro
             holder.likeButton.tag = "Like"
         }
 
-        if (post.likeCount.toInt() == 0) {
+        if (curLikeCount.toInt() == 0) {
             holder.likes.text = ""
         } else {
-            holder.likes.text = post.likeCount.toString() + "명이 공감"
+            holder.likes.text = curLikeCount.toString() + "명이 공감"
         }
 
         if (curCommentCount == 0L) {
             holder.comments.text = ""
         } else {
-            holder.comments.text = "view all " + post.commentCount + " comments"
+            holder.comments.text = "view all " + curCommentCount + " comments"
         }
 
         holder.likeButton.setOnClickListener {
@@ -97,11 +98,13 @@ class PostAdapterRetro
                     reviewId = ""
                 ).enqueue(object : Callback<Long> {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                        curLikeCount++
+
                         Log.d("retrofit", "Like 생성 : like_id = " + response.body())
                         holder.likeButton.setImageResource(R.drawable.heart_clicked)
                         holder.likeButton.tag = "Liked"
 
-                        holder.likes.text = (post.likeCount + 1L).toString() + "명이 공감"
+                        holder.likes.text = (curLikeCount).toString() + "명이 공감"
                     }
 
                     override fun onFailure(call: Call<Long>, t: Throwable) {
@@ -120,11 +123,13 @@ class PostAdapterRetro
                         holder.likeButton.setImageResource(R.drawable.heart_not_clicked)
                         holder.likeButton.tag = "Like"
 
-                        if (post.likeCount - 1L == 0L) {
+                        curLikeCount += -1
+
+                        if (curLikeCount == 0L) {
                             holder.likes.text = ""
                         } else {
-                            holder.likes.text = (post.likeCount).toString() + "명이 공감"
-                            if (post.likeCount == 0L) {
+                            holder.likes.text = (curLikeCount).toString() + "명이 공감"
+                            if (curLikeCount == 0L) {
                                 holder.likes.text = ""
                             }
                         }
@@ -169,9 +174,9 @@ class PostAdapterRetro
             intentPostDetail.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
             intentPostDetail.putExtra("content", post.postBody)
             if (holder.likeButton.tag == "Liked") {
-                intentPostDetail.putExtra("likeCount", (post.likeCount+1).toString())
+                intentPostDetail.putExtra("likeCount", (curLikeCount).toString())
             } else {
-                intentPostDetail.putExtra("likeCount", post.likeCount.toString())
+                intentPostDetail.putExtra("likeCount", curLikeCount.toString())
             }
 
             intentPostDetail.putExtra("commentCount", post.commentCount.toString())

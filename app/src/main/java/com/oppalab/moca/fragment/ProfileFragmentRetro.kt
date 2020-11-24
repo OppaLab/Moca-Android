@@ -77,7 +77,7 @@ class ProfileFragmentRetro : Fragment() {
         circleimageview_thumbmail = view.findViewById(R.id.profile_profile_image)
 
 
-        RetrofitConnection.server.getProfile(userId = currentUser).enqueue(object :
+        RetrofitConnection.server.getProfile(myUserId = currentUser, userId = currentUser).enqueue(object :
             Callback<GetProfileDTO> {
             override fun onResponse(call: Call<GetProfileDTO>, response: Response<GetProfileDTO>) {
                 Log.d("retrofit", response.body().toString())

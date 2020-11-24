@@ -157,6 +157,7 @@ class PostDetailActivity : AppCompatActivity() {
                 }
 
                 commentAdapter!!.notifyDataSetChanged()
+                post_detail_comments_count.text = response.body()!!.content.size.toString() + "개의 댓글이 있습니다."
             }
 
             override fun onFailure(call: Call<GetCommentsOnPostDTO>, t: Throwable) {
@@ -179,6 +180,12 @@ class PostDetailActivity : AppCompatActivity() {
                 ).enqueue(object: Callback<Long> {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "댓글 생성")
+                        commentCount++
+                        if (commentCount.toInt() == 0) {
+                            post_detail_comments_count.text = "댓글이 없어요TT 댓글을 작성해주세요."
+                        } else {
+                            post_detail_comments_count.text = commentCount.toString() + "개의 댓글이 있습니다."
+                        }
                         add_comment!!.text.clear()
                         finish()
                         startActivity(intent)

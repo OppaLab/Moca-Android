@@ -43,14 +43,14 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/follow")
     fun followUser(
-        @Query("userId") userId: Long
+        @Field("userId") userId: Long,
+        @Field("followedUserId") followedUserId: Long
     ): Call<Long>
 
-    @FormUrlEncoded
     @DELETE("/unfollow")
     fun unfollowUser(
         @Query("userId") userId: Long,
-        @Query("followedUserId") reviewId: Long
+        @Query("followedUserId") followedUserId: Long
     ): Call<Long>
 
     //post

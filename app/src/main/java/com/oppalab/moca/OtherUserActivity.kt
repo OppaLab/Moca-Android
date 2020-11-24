@@ -43,6 +43,7 @@ class OtherUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_other_user)
 
+        val currentUser = PreferenceManager.getLong(applicationContext,"userId")
         val intent = intent
         publisher_profile_Id = intent.getLongExtra("publisherId", 0)
 
@@ -69,7 +70,7 @@ class OtherUserActivity : AppCompatActivity() {
         circleimageview_thumbmail = findViewById(R.id.other_user_profile_profile_image)
 
 
-        RetrofitConnection.server.getProfile(userId = publisher_profile_Id).enqueue(object :
+        RetrofitConnection.server.getProfile(myUserId = currentUser, userId = publisher_profile_Id).enqueue(object :
             Callback<GetProfileDTO> {
             override fun onResponse(call: Call<GetProfileDTO>, response: Response<GetProfileDTO>) {
                 Log.d("retrofit", response.body().toString())
