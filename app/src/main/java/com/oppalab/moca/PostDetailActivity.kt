@@ -44,6 +44,7 @@ class PostDetailActivity : AppCompatActivity() {
         subject = intent.getStringExtra("subject")!!
         thumbnailImageFilePath = intent.getStringExtra("thumbnailImageFilePath")!!
         if (intent.getStringExtra("like") == "Liked") like = true
+        else if (intent.getStringExtra("like") == "True") like = true
         likeCount = intent.getStringExtra("likeCount")!!.toLong()
         commentCount = intent.getStringExtra("commentCount")!!.toLong()
         content = intent.getStringExtra("content")!!
@@ -95,8 +96,9 @@ class PostDetailActivity : AppCompatActivity() {
                         Log.d("retrofit", "Like 생성 : like_id = " + response.body())
                         post_image_like_btn.setImageResource(R.drawable.heart_clicked)
                         post_image_like_btn.tag = "Liked"
+                        likeCount += 1
 
-                        post_detail_like_count.text = (likeCount + 1L).toString() + "명이 공감"
+                        post_detail_like_count.text = (likeCount).toString() + "명이 공감합니다."
                     }
 
                     override fun onFailure(call: Call<Long>, t: Throwable) {
@@ -114,11 +116,12 @@ class PostDetailActivity : AppCompatActivity() {
                         Log.d("retrofit", "Like 삭제 : like_id = " + response.body())
                         post_image_like_btn.setImageResource(R.drawable.heart_not_clicked)
                         post_image_like_btn.tag = "Like"
+                        likeCount += -1
 
-                        if (likeCount - 1L == 0L) {
+                        if (likeCount == 0L) {
                             post_detail_like_count.text = ""
                         } else {
-                            post_detail_like_count.text = (likeCount).toString() + "명이 공감"
+                            post_detail_like_count.text = (likeCount).toString() + "명이 공감합니다."
                             if (likeCount == 0L) {
                                 post_detail_like_count.text = ""
                             }
