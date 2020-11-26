@@ -30,6 +30,7 @@ class SearchFragment : Fragment() {
     private var postList: MutableList<MyPostDTO>? = null
     private var myThumbnailAdapter: MyThumbnailAdapter? = null
     private var sort: String = ""
+    private var search: String = "DEFAULT"
     private var curCategory: String = ""
 
     override fun onCreateView(
@@ -59,7 +60,7 @@ class SearchFragment : Fragment() {
                 when (position) {
                     0 -> {
                         sort = ""
-                        RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = "DEFAULT", category = curCategory, sort=sort).enqueue(object:
+                        RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort=sort).enqueue(object:
                             Callback<GetMyPostDTO> {
                             override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                                 Log.d("retrofit", response.body().toString())
@@ -108,7 +109,7 @@ class SearchFragment : Fragment() {
 
         }
 
-        RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = "DEFAULT", category = curCategory, sort=sort).enqueue(object:
+        RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort=sort).enqueue(object:
             Callback<GetMyPostDTO> {
             override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                 Log.d("retrofit", response.body().toString())
@@ -127,7 +128,8 @@ class SearchFragment : Fragment() {
         })
 
         view.search_fragment_icon.setOnClickListener {
-            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search_edit_text.text.toString(), category = "", sort=sort).enqueue(object:
+            search = search_edit_text.text.toString()
+            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = "", sort=sort).enqueue(object:
                 Callback<GetMyPostDTO> {
                 override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                     Log.d("retrofit", response.body().toString())
@@ -148,7 +150,8 @@ class SearchFragment : Fragment() {
 
         view.search_category_couple_btn.setOnClickListener {
             curCategory = "Couple"
-            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = "", category = curCategory, sort=sort).enqueue(object:
+            search = ""
+            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort=sort).enqueue(object:
                 Callback<GetMyPostDTO> {
                 override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                     Log.d("retrofit", response.body().toString())
@@ -168,7 +171,8 @@ class SearchFragment : Fragment() {
         }
         view.search_category_family_btn.setOnClickListener {
             curCategory = "Family"
-            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = "", category = curCategory, sort = sort).enqueue(object:
+            search = ""
+            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
                 override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                     Log.d("retrofit", response.body().toString())
@@ -188,7 +192,8 @@ class SearchFragment : Fragment() {
         }
         view.search_category_friend_btn.setOnClickListener {
             curCategory = "Friend"
-            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = "", category = curCategory, sort = sort).enqueue(object:
+            search = ""
+            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
                 override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                     Log.d("retrofit", response.body().toString())
@@ -208,7 +213,8 @@ class SearchFragment : Fragment() {
         }
         view.search_category_money_btn.setOnClickListener {
             curCategory = "Money"
-            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = "", category = curCategory, sort = sort).enqueue(object:
+            search = ""
+            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
                 override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                     Log.d("retrofit", response.body().toString())
@@ -228,7 +234,8 @@ class SearchFragment : Fragment() {
         }
         view.search_category_parent_btn.setOnClickListener {
             curCategory = "Parent"
-            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = "", category = curCategory, sort = sort).enqueue(object:
+            search = ""
+            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
                 override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                     Log.d("retrofit", response.body().toString())
@@ -248,7 +255,8 @@ class SearchFragment : Fragment() {
         }
         view.search_category_school_btn.setOnClickListener {
             curCategory = "School"
-            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = "", category = curCategory, sort = sort).enqueue(object:
+            search = ""
+            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
                 override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                     Log.d("retrofit", response.body().toString())
@@ -268,7 +276,8 @@ class SearchFragment : Fragment() {
         }
         view.search_category_sex_btn.setOnClickListener {
             curCategory = "Sex"
-            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = "", category = curCategory, sort = sort).enqueue(object:
+            search = ""
+            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
                 override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                     Log.d("retrofit", response.body().toString())
@@ -288,7 +297,8 @@ class SearchFragment : Fragment() {
         }
         view.search_category_study_btn.setOnClickListener {
             curCategory = "Study"
-            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = "", category = curCategory, sort = sort).enqueue(object:
+            search = ""
+            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
                 override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                     Log.d("retrofit", response.body().toString())

@@ -161,15 +161,25 @@
     </LinearLayout>
 
 
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_recycler_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/search_sort_layout"
-        android:visibility="visible">
+        android:orientation="vertical"
+        android:padding="4dp"
+        android:layout_below="@+id/search_sort_layout">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/search_progress_bar"/>
+    </LinearLayout>
+
 
 </RelativeLayout>

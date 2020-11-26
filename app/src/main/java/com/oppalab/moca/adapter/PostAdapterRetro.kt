@@ -30,6 +30,11 @@ class PostAdapterRetro
     private val mPost: List<FeedsAtHome>
 ) : RecyclerView.Adapter<PostAdapterRetro.ViewHolder>() {
 
+    companion object {
+        private const val TYPE_POST = 0
+        private const val TYPE_LOADING = 1
+    }
+
     private var currentUser = PreferenceManager.getLong(mContext, "userId")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -208,7 +213,6 @@ class PostAdapterRetro
     override fun getItemCount(): Int {
         return mPost.size
     }
-
 
 
     inner class ViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
