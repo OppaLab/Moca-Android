@@ -66,7 +66,7 @@ class ProfileFragment : Fragment() {
         recyclerview_mypost_thumbnail.adapter = myThumbnailAdapter
 
 
-        RetrofitConnection.server.getPosts(userId = currentUser,search = "", category = "", page = 0).enqueue(object: Callback<GetMyPostDTO> {
+        RetrofitConnection.server.getPosts(userId = currentUser,search = "", category = "", page = 0, sort="").enqueue(object: Callback<GetMyPostDTO> {
             override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                 Log.d("retrofit", response.body().toString())
                 postList!!.clear()

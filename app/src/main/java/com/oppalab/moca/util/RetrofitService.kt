@@ -66,7 +66,8 @@ interface RetrofitService {
         @Query("userId") userId: Long,
         @Query("search") search: String,
         @Query("category") category: String,
-        @Query("page") page: Long
+        @Query("page") page: Long,
+        @Query("sort") sort: String
     ): Call<GetMyPostDTO>
 
     @Multipart
@@ -134,4 +135,10 @@ interface RetrofitService {
         @Field("commentId") commentId: String,
         @Field ("userId") reviewId: String
     ): Call<Long>
+
+    @GET("/review")
+    fun getReview(
+        @Query ("userId") userId: String,
+        @Query ("reviewId") reviewId: String
+    ): Call<GetReviewDTO>
 }

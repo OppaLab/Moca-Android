@@ -1,6 +1,7 @@
 package com.oppalab.moca
 
 import GetCommentsOnPostDTO
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,8 @@ import retrofit2.Response
 
 class PostDetailActivity : AppCompatActivity() {
     private var postId = 0L
+    private var postUserId = ""
+    private var reviewId = ""
     private var publisherId = ""
     private var content = ""
     private var likeCount = 0L
@@ -39,8 +42,12 @@ class PostDetailActivity : AppCompatActivity() {
         val currentUser = PreferenceManager.getLong(applicationContext, "userId")
 
         val intent = intent
+
         postId = intent.getStringExtra("postId")!!.toLong()
+        postUserId = intent.getStringExtra("postUserId")!!
         publisherId = intent.getStringExtra("publisherId")!!
+        reviewId = intent.getStringExtra("reviewId")!!
+        Log.d("모지", reviewId)
         subject = intent.getStringExtra("subject")!!
         thumbnailImageFilePath = intent.getStringExtra("thumbnailImageFilePath")!!
         if (intent.getStringExtra("like") == "Liked") like = true
@@ -150,6 +157,7 @@ class PostDetailActivity : AppCompatActivity() {
                 }
 
                 commentAdapter!!.notifyDataSetChanged()
+                post_detail_comments_count.text = response.body()!!.content.size.toString() + "개의 댓글이 있습니다."
             }
 
             override fun onFailure(call: Call<GetCommentsOnPostDTO>, t: Throwable) {
@@ -172,6 +180,12 @@ class PostDetailActivity : AppCompatActivity() {
                 ).enqueue(object: Callback<Long> {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "댓글 생성")
+                        commentCount++
+                        if (commentCount.toInt() == 0) {
+                            post_detail_comments_count.text = "댓글이 없어요TT 댓글을 작성해주세요."
+                        } else {
+                            post_detail_comments_count.text = commentCount.toString() + "개의 댓글이 있습니다."
+                        }
                         add_comment!!.text.clear()
                         finish()
                         startActivity(intent)
@@ -184,6 +198,31 @@ class PostDetailActivity : AppCompatActivity() {
                 })
             }
         })
+
+        if(currentUser.toString() == postUserId && reviewId == "0")
+        {
+            add_detail_review_btn.visibility = View.VISIBLE
+        }
+
+        add_detail_review_btn.setOnClickListener {
+            val intentAddReview = Intent(this, AddReviewActivity::class.java)
+            intentAddReview.putExtra("postId",postId.toString())
+            intentAddReview.putExtra("userId",currentUser.toString())
+            startActivity(intentAddReview)
+        }
+        post_detail_review_btn.setOnClickListener{
+            if(reviewId == "0")
+            {
+                Toast.makeText(this@PostDetailActivity, "후기가 아직 없습니다.", Toast.LENGTH_LONG).show()
+            } else {
+                val intentReview = Intent(this, ReviewActivity::class.java)
+                intentReview.putExtra("currentUser", currentUser.toString())
+                intentReview.putExtra("userId",postUserId)
+                intentReview.putExtra("reviewId", reviewId)
+                intentReview.putExtra("postId",postId.toString())
+                startActivity(intentReview)
+            }
+        }
 
 
     }

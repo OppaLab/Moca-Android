@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.*
 //import com.oppalab.moca.PostDetailActivity
@@ -38,6 +40,7 @@ class PostAdapterRetro
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val post = mPost[position]
+        var curLikeCount = post.likeCount
         var curCommentCount = post.commentCount
 
         Picasso.get()
@@ -73,16 +76,16 @@ class PostAdapterRetro
             holder.likeButton.tag = "Like"
         }
 
-        if (post.likeCount.toInt() == 0) {
+        if (curLikeCount.toInt() == 0) {
             holder.likes.text = ""
         } else {
-            holder.likes.text = post.likeCount.toString() + "명이 공감"
+            holder.likes.text = curLikeCount.toString() + "명이 공감"
         }
 
         if (curCommentCount == 0L) {
             holder.comments.text = ""
         } else {
-            holder.comments.text = "view all " + post.commentCount + " comments"
+            holder.comments.text = "view all " + curCommentCount + " comments"
         }
 
         holder.likeButton.setOnClickListener {
@@ -95,11 +98,13 @@ class PostAdapterRetro
                     reviewId = ""
                 ).enqueue(object : Callback<Long> {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                        curLikeCount++
+
                         Log.d("retrofit", "Like 생성 : like_id = " + response.body())
                         holder.likeButton.setImageResource(R.drawable.heart_clicked)
                         holder.likeButton.tag = "Liked"
 
-                        holder.likes.text = (post.likeCount + 1L).toString() + "명이 공감"
+                        holder.likes.text = (curLikeCount).toString() + "명이 공감"
                     }
 
                     override fun onFailure(call: Call<Long>, t: Throwable) {
@@ -118,11 +123,13 @@ class PostAdapterRetro
                         holder.likeButton.setImageResource(R.drawable.heart_not_clicked)
                         holder.likeButton.tag = "Like"
 
-                        if (post.likeCount - 1L == 0L) {
+                        curLikeCount += -1
+
+                        if (curLikeCount == 0L) {
                             holder.likes.text = ""
                         } else {
-                            holder.likes.text = (post.likeCount).toString() + "명이 공감"
-                            if (post.likeCount == 0L) {
+                            holder.likes.text = (curLikeCount).toString() + "명이 공감"
+                            if (curLikeCount == 0L) {
                                 holder.likes.text = ""
                             }
                         }
@@ -167,17 +174,33 @@ class PostAdapterRetro
             intentPostDetail.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
             intentPostDetail.putExtra("content", post.postBody)
             if (holder.likeButton.tag == "Liked") {
-                intentPostDetail.putExtra("likeCount", (post.likeCount+1).toString())
+                intentPostDetail.putExtra("likeCount", (curLikeCount).toString())
             } else {
-                intentPostDetail.putExtra("likeCount", post.likeCount.toString())
+                intentPostDetail.putExtra("likeCount", curLikeCount.toString())
             }
 
             intentPostDetail.putExtra("commentCount", post.commentCount.toString())
             intentPostDetail.putExtra("like", holder.likeButton.tag.toString())
             intentPostDetail.putExtra("postId", post.postId.toString())
             intentPostDetail.putExtra("subject", post.postTitle)
+            intentPostDetail.putExtra("postUserId",post.userId.toString())
+            intentPostDetail.putExtra("reviewId",post.reviewId.toString())
 
             mContext.startActivity(intentPostDetail)
+        }
+
+        holder.review.setOnClickListener {
+            if(post.reviewId == 0L)
+            {
+                Toast.makeText(mContext, "후기가 아직 없습니다.", Toast.LENGTH_LONG).show()
+            } else {
+                val intentReview = Intent(mContext, ReviewActivity::class.java)
+                intentReview.putExtra("currentUser", currentUser.toString())
+                intentReview.putExtra("userId", post.userId.toString())
+                intentReview.putExtra("reviewId", post.reviewId.toString())
+                intentReview.putExtra("postId",post.postId.toString())
+                mContext.startActivity(intentReview)
+            }
         }
 
     }
@@ -193,7 +216,7 @@ class PostAdapterRetro
         var thumbnail: ImageView
         var likeButton: ImageView
         var commentButton: ImageView
-        var saveButton: ImageView
+        var review: ImageView
         var nickName: TextView
         var likes: TextView
         var title: TextView
@@ -206,7 +229,7 @@ class PostAdapterRetro
             thumbnail = itemView.findViewById(R.id.post_image_home)
             likeButton = itemView.findViewById(R.id.post_image_like_btn)
             commentButton = itemView.findViewById(R.id.post_image_comment_btn)
-            saveButton = itemView.findViewById(R.id.post_save_comment_btn)
+            review = itemView.findViewById(R.id.post_review_btn)
             nickName = itemView.findViewById(R.id.nickname_post_card)
             title = itemView.findViewById(R.id.title_post_card)
             likes = itemView.findViewById(R.id.likes)

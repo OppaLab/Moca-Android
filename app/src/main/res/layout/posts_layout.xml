@@ -82,7 +82,7 @@
                 android:src="@drawable/comment" />
 
             <ImageView
-                android:id="@+id/post_save_comment_btn"
+                android:id="@+id/post_review_btn"
                 android:layout_width="40dp"
                 android:layout_height="39dp"
                 android:layout_alignParentEnd="true"
