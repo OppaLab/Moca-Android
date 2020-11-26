@@ -1,21 +1,12 @@
 package com.oppalab.moca
 
-import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.FirebaseDatabase
 import com.oppalab.moca.adapter.OtherUserAdapter
 import com.oppalab.moca.dto.GetMyPostDTO
 import com.oppalab.moca.dto.GetProfileDTO
@@ -24,9 +15,6 @@ import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_other_user.*
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.fragment_profile.profile_fragment_username
-import kotlinx.android.synthetic.main.fragment_profile.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,7 +22,9 @@ import java.util.*
 
 class OtherUserActivity : AppCompatActivity() {
 
-    private var publisher_profile_Id: Long = 0
+    private var publisherProfileId: Long = 0
+    private var currentUser: Long = 0
+    private var otherUserProfile: GetProfileDTO? = null
     private var postList: MutableList<MyPostDTO>? = null
     private var otherUserAdapter: OtherUserAdapter? = null
 
@@ -44,7 +34,9 @@ class OtherUserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_other_user)
 
         val intent = intent
-        publisher_profile_Id = intent.getLongExtra("publisherId", 0)
+        publisherProfileId = intent.getLongExtra("publisherId", 0)
+        currentUser = PreferenceManager.getLong(this, "userId")
+
 
 
         Toast.makeText(this, "OtherUserActivity", Toast.LENGTH_LONG)
@@ -55,31 +47,41 @@ class OtherUserActivity : AppCompatActivity() {
 //            this.profileId = pref.getString("profileId", "none").toString()
 //        }
 
-        var recyclerview_mypost_thumbnail: RecyclerView
-        recyclerview_mypost_thumbnail = findViewById(R.id.other_user_recyclerview_grid_view)
-        recyclerview_mypost_thumbnail.setHasFixedSize(true)
+        val recyclerview_other_user_profile: RecyclerView
+        recyclerview_other_user_profile = findViewById(R.id.other_user_recyclerview_grid_view)
+        recyclerview_other_user_profile.setHasFixedSize(true)
         postList = ArrayList()
         val linearLayoutManager: LinearLayoutManager = GridLayoutManager(this, 3)
-        recyclerview_mypost_thumbnail.layoutManager = linearLayoutManager
+        recyclerview_other_user_profile.layoutManager = linearLayoutManager
 
-        otherUserAdapter = this?.let { OtherUserAdapter(it, postList as ArrayList<MyPostDTO>) }
-        recyclerview_mypost_thumbnail.adapter = otherUserAdapter
+        otherUserAdapter = OtherUserAdapter(this, postList as ArrayList<MyPostDTO>)
+        recyclerview_other_user_profile.adapter = otherUserAdapter
 
-        var circleimageview_thumbmail: CircleImageView
-        circleimageview_thumbmail = findViewById(R.id.other_user_profile_profile_image)
+//        val circleimageview_thumbmail: CircleImageView
+//        circleimageview_thumbmail = findViewById(R.id.other_user_profile_profile_image)
 
 
-        RetrofitConnection.server.getProfile(userId = publisher_profile_Id).enqueue(object :
+        RetrofitConnection.server.getProfile(myUserId = currentUser,userId = publisherProfileId).enqueue(object :
             Callback<GetProfileDTO> {
             override fun onResponse(call: Call<GetProfileDTO>, response: Response<GetProfileDTO>) {
                 Log.d("retrofit", response.body().toString())
-                val profile = response.body()
+                otherUserProfile = response.body()
 //                Picasso.get().load(RetrofitConnection.URL+"image/profile/"+response.body()!!.profileImageFilePath).into(circleimageview_thumbmail)
-                other_user_profile_fragment_username.text = profile!!.nickname
-                other_user_profile_full_name.text = profile!!.nickname
-                other_user_total_posts.text = profile!!.numberOfPosts.toString()
-                other_user_total_followers.text = profile!!.numberOfFollowers.toString()
-                other_user_total_following.text = profile!!.numberOfFollowings.toString()
+                other_user_profile_fragment_username.text = otherUserProfile!!.nickname
+                other_user_profile_full_name.text = otherUserProfile!!.nickname
+                other_user_total_posts.text = otherUserProfile!!.numberOfPosts.toString()
+                other_user_total_followers.text = otherUserProfile!!.numberOfFollowers.toString()
+                other_user_total_following.text = otherUserProfile!!.numberOfFollowings.toString()
+
+                Log.d("retrofit isFollowed", otherUserProfile!!.isFollowed.toString())
+                if (otherUserProfile!!.isFollowed) {
+                    other_user_follow_button.text = ("UnFollow")
+                    other_user_follow_button.tag = "Followed"
+                } else {
+                    other_user_follow_button.text = ("Follow")
+                    other_user_follow_button.tag = "UnFollow"
+                }
+
             }
 
             override fun onFailure(call: Call<GetProfileDTO>, t: Throwable) {
@@ -88,7 +90,7 @@ class OtherUserActivity : AppCompatActivity() {
 
         })
 
-        RetrofitConnection.server.getPosts(userId = publisher_profile_Id, page = 0, category = "", search = "").enqueue(object:
+        RetrofitConnection.server.getPosts(userId = publisherProfileId, page = 0, category = "", search = "").enqueue(object:
             Callback<GetMyPostDTO> {
             override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                 Log.d("retrofit", response.body().toString())
@@ -96,7 +98,7 @@ class OtherUserActivity : AppCompatActivity() {
                 for (post in response.body()!!.content) {
                     postList!!.add(post)
                 }
-                Collections.reverse(postList)
+                Collections.reverse(postList!!)
                 otherUserAdapter!!.notifyDataSetChanged()
             }
 
@@ -104,6 +106,48 @@ class OtherUserActivity : AppCompatActivity() {
             }
 
         })
+
+
+
+
+        other_user_follow_button.setOnClickListener {
+            Log.d("follow", otherUserProfile!!.isFollowed.toString())
+            if (other_user_follow_button.tag == "UnFollow") {
+                Log.d("Follow This User", otherUserProfile!!.nickname)
+
+                RetrofitConnection.server.followUser(userId = currentUser, followedUserId = publisherProfileId).enqueue(object: Callback<Long>{
+                    override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                        Log.d("retrofit", "Follow 생성 : followed_id = " + response.body())
+                        other_user_follow_button.tag = "Followed"
+                        other_user_follow_button.text = ("UnFollow")
+                        other_user_total_followers.text = ((otherUserProfile!!.numberOfFollowers + 1).toString())
+                    }
+                    override fun onFailure(call: Call<Long>, t: Throwable) {
+                        Log.d("retrofit", t.message.toString())
+                    }
+                })
+            } else {
+                RetrofitConnection.server.unfollowUser(userId = currentUser, followedUserId = publisherProfileId).enqueue(object : Callback<Long>{
+                    override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                        Log.d("retrofit", "Follow 삭제 : unfollowed_id = " + response.body())
+                        other_user_follow_button.tag = "UnFollow"
+                        other_user_follow_button.text = ("Follow")
+                        if (otherUserProfile!!.numberOfFollowers - 1 == 0L){
+                            other_user_total_followers.text = "0"
+                        } else {
+                            other_user_total_followers.text = ((otherUserProfile!!.numberOfFollowers - 1).toString())
+                            if (otherUserProfile!!.numberOfFollowers == 0L){
+                                other_user_total_followers.text = "0"
+                            }
+                        }
+                    }
+                    override fun onFailure(call: Call<Long>, t: Throwable) {
+                        Log.d("retrofit", t.message.toString())
+                    }
+                })
+            }
+        }
+
 
     }
 }
