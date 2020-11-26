@@ -89,7 +89,7 @@ class OtherUserActivity : AppCompatActivity() {
 
         })
 
-        RetrofitConnection.server.getPosts(userId = publisher_profile_Id, page = 0, category = "", search = "").enqueue(object:
+        RetrofitConnection.server.getPosts(userId = publisher_profile_Id, page = 0, category = "", search = "", sort = "").enqueue(object:
             Callback<GetMyPostDTO> {
             override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                 Log.d("retrofit", response.body().toString())
