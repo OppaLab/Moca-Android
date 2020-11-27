@@ -35,7 +35,7 @@ class OtherUserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_other_user)
 
         val intent = intent
-        publisherProfileId = intent.getStringExtra("publisherId")!!
+        publisherProfileId = intent.getLongExtra("publisherId",0)!!.toString()
         currentUser = PreferenceManager.getLong(this, "userId")
 
 

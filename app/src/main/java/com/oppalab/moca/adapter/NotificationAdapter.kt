@@ -187,7 +187,7 @@ class NotificationAdapter (
 
     private fun moveToProfile(userId: Long) {
         val intentProfile = Intent(mContext, OtherUserActivity::class.java)
-        intentProfile.putExtra("userId",userId)
+        intentProfile.putExtra("publisherId",userId)
         mContext.startActivity(intentProfile)
     }
 }
