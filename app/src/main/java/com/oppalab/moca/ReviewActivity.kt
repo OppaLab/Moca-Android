@@ -1,12 +1,14 @@
 package com.oppalab.moca
 
 import GetCommentsOnPostDTO
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.adapter.CommentsAdapterRetro
 import com.oppalab.moca.dto.CommentsOnPost
 import com.oppalab.moca.dto.GetReviewDTO
@@ -216,5 +218,57 @@ class ReviewActivity : AppCompatActivity() {
                 })
             }
         })
+
+        //Swipe 추가
+        val swipe = object: CommentsAdapterRetro.SwipeHelper(this, review_recycler_view_comments, 200) {
+            override fun instantiateDeleteButton(
+                viewHolder: RecyclerView.ViewHolder,
+                buffer: MutableList<DeleteButton>
+            ) {
+                buffer.add(
+                    DeleteButton(this@ReviewActivity, "Delete", 30, 0,
+                        Color.parseColor("#FF3C30"),
+                        object:CommentsAdapterRetro.CommentClickListener{
+                            override fun onClick(pos: Int) {
+                                if(currentUser == commentList!![pos].userId) {
+                                    RetrofitConnection.server.deleteComment(
+                                        commentId = commentList!![pos].commentId,
+                                        userId = commentList!![pos].userId
+                                    ).enqueue(object : Callback<Long> {
+                                        override fun onResponse(
+                                            call: Call<Long>,
+                                            response: Response<Long>
+                                        ) {
+                                            Log.d(
+                                                "retrofit",
+                                                "Comment 삭제 : comment_id = " + response.body()
+                                            )
+                                            commentAdapter!!.notifyDataSetChanged()
+                                            finish()
+                                            startActivity(intent)
+                                        }
+
+                                        override fun onFailure(call: Call<Long>, t: Throwable) {
+                                            Log.d("retrofit", "Comment 삭제 실패" + t.message.toString())
+                                        }
+                                    })
+                                }
+                                else {
+                                    Toast.makeText(
+                                        this@ReviewActivity,
+                                        "본인만 삭제할 수 있습니다.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    Log.d(
+                                        "DELETE COMMENT",
+                                        "본인만 삭제할 수 있습니다."
+                                    )
+                                }
+                            }
+                        })
+                )
+            }
+        }
+
     }
 }
