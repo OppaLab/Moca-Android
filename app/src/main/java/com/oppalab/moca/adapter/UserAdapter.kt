@@ -15,7 +15,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.oppalab.moca.R
-import com.oppalab.moca.fragment.ProfileFragmentRetro
+import com.oppalab.moca.fragment.ProfileFragment
 import com.oppalab.moca.model.User
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
@@ -47,7 +47,7 @@ class UserAdapter(
             pref.apply()
 
             (mContext as FragmentActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ProfileFragmentRetro()).commit()
+                .replace(R.id.fragment_container, ProfileFragment()).commit()
         })
 
         holder.followButton.setOnClickListener {

@@ -30,7 +30,8 @@
                     android:id="@+id/close_add_post_btn"
                     android:layout_width="20dp"
                     android:layout_height="30dp"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/close" />
 
                 <ImageView
                     android:id="@+id/save_new_post_btn"
@@ -47,12 +48,11 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
-        android:id="@+id/add_post_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/add_post_app_bar_layout">
+        android:layout_below="@id/add_post_app_bar_layout">문
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -111,105 +111,5 @@
             android:layout_height="150dp"/>
 
     </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/add_post_linear"
-        android:layout_marginTop="30dp">
-
-        <TextView
-            android:id="@+id/post_user_category_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="6dp"
-            android:text="고민 카테고리"
-            android:textSize="18dp"
-            android:textColor="#8a8a8a"/>
-
-        <GridLayout
-            android:id="@+id/post_user_category"
-            android:layout_below="@id/post_user_category_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="fill_horizontal"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="6dp"
-            android:columnCount="3"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/post_category_family"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:text="Family"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
-
-            <CheckBox
-                android:id="@+id/post_category_friend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:text="Friend"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
-
-            <CheckBox
-                android:id="@+id/post_category_couple"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Couple"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
-
-            <CheckBox
-                android:id="@+id/post_category_parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Parent"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
-
-            <CheckBox
-                android:id="@+id/post_category_money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Money"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
-
-            <CheckBox
-                android:id="@+id/post_category_school"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="School"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
-
-            <CheckBox
-                android:id="@+id/post_category_study"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Study"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
-
-            <CheckBox
-                android:id="@+id/post_category_sex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sex"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
-        </GridLayout>
-    </LinearLayout>
-
 
 </RelativeLayout>
