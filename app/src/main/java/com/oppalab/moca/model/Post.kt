@@ -1,7 +1,7 @@
 package com.oppalab.moca.model
 
 class Post {
-    private var postId: String = ""
+    private var postid: String = ""
     private var title: String = ""
     private var content: String = ""
     private var publisher: String = ""
@@ -9,22 +9,22 @@ class Post {
 
     constructor()
 
-    constructor(postId: String, title: String, content: String, publisher: String, thumbnail: String) {
-        this.postId = postId
+    constructor(postid: String, title: String, content: String, publisher: String, thumbnail: String) {
+        this.postid = postid
         this.title = title
         this.content = content
         this.publisher = publisher
         this.thumbnail = thumbnail
     }
 
-    fun getPostId(): String
+    fun getPostid(): String
     {
-        return  postId
+        return  postid
     }
 
-    fun setPostId(postId: String)
+    fun setPostid(postid: String)
     {
-        this.postId = postId
+        this.postid = postid
     }
 
     fun getTitle(): String
