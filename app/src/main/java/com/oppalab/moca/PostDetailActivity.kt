@@ -8,8 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.adapter.CommentsAdapterRetro
@@ -38,13 +36,12 @@ class PostDetailActivity : AppCompatActivity() {
     private var commentCount = 0L
     private var commentAdapter: CommentsAdapterRetro? = null
     private var commentList: MutableList<CommentsOnPost>? = null
-    private var currentUser = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_detail)
 
-        currentUser = PreferenceManager.getLong(applicationContext, "userId")
+        val currentUser = PreferenceManager.getLong(applicationContext, "userId")
 
         val intent = intent
 
@@ -95,6 +92,13 @@ class PostDetailActivity : AppCompatActivity() {
             post_detail_comments_count.text = "댓글이 없어요TT 댓글을 작성해주세요."
         } else {
             post_detail_comments_count.text = commentCount.toString() + "개의 댓글이 있습니다."
+        }
+
+        post_detail_publisher.setOnClickListener {
+            val intentUserProfile = Intent(this, OtherUserActivity::class.java)
+            intentUserProfile.putExtra("publisherId", postUserId.toString())
+            startActivity(intentUserProfile)
+            finish()
         }
 
         post_image_like_btn.setOnClickListener {
@@ -230,8 +234,6 @@ class PostDetailActivity : AppCompatActivity() {
                 startActivity(intentReview)
             }
         }
-
-        //Swipe 추가
         val swipe = object: CommentsAdapterRetro.SwipeHelper(this, post_detail_recycler_view_comments, 200) {
             override fun instantiateDeleteButton(
                 viewHolder: RecyclerView.ViewHolder,
@@ -239,48 +241,48 @@ class PostDetailActivity : AppCompatActivity() {
             ) {
                 buffer.add(
                     DeleteButton(this@PostDetailActivity, "Delete", 30, 0,
-                    Color.parseColor("#FF3C30"),
-                    object:CommentsAdapterRetro.CommentClickListener{
-                        override fun onClick(pos: Int) {
-                            if(currentUser == commentList!![pos].userId) {
-                                RetrofitConnection.server.deleteComment(
-                                    commentId = commentList!![pos].commentId,
-                                    userId = commentList!![pos].userId
-                                ).enqueue(object : Callback<Long> {
-                                    override fun onResponse(
-                                        call: Call<Long>,
-                                        response: Response<Long>
-                                    ) {
-                                        Log.d(
-                                            "retrofit",
-                                            "Comment 삭제 : comment_id = " + response.body()
-                                        )
-                                        commentAdapter!!.notifyDataSetChanged()
-                                        finish()
-                                        startActivity(intent)
-                                    }
+                        Color.parseColor("#FF3C30"),
+                        object:CommentsAdapterRetro.CommentClickListener{
+                            override fun onClick(pos: Int) {
+                                if(currentUser == commentList!![pos].userId) {
+                                    RetrofitConnection.server.deleteComment(
+                                        commentId = commentList!![pos].commentId,
+                                        userId = commentList!![pos].userId
+                                    ).enqueue(object : Callback<Long> {
+                                        override fun onResponse(
+                                            call: Call<Long>,
+                                            response: Response<Long>
+                                        ) {
+                                            Log.d(
+                                                "retrofit",
+                                                "Comment 삭제 : comment_id = " + response.body()
+                                            )
+                                            commentAdapter!!.notifyDataSetChanged()
+                                            finish()
+                                            startActivity(intent)
+                                        }
 
-                                    override fun onFailure(call: Call<Long>, t: Throwable) {
-                                        Log.d("retrofit", "Comment 삭제 실패" + t.message.toString())
-                                    }
-                                })
+                                        override fun onFailure(call: Call<Long>, t: Throwable) {
+                                            Log.d("retrofit", "Comment 삭제 실패" + t.message.toString())
+                                        }
+                                    })
+                                }
+                                else {
+                                    Toast.makeText(
+                                        this@PostDetailActivity,
+                                        "본인만 삭제할 수 있습니다.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    Log.d(
+                                        "DELETE COMMENT",
+                                        "본인만 삭제할 수 있습니다."
+                                    )
+                                }
                             }
-                            else {
-                                Toast.makeText(
-                                    this@PostDetailActivity,
-                                    "본인만 삭제할 수 있습니다.",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                Log.d(
-                                    "DELETE COMMENT",
-                                    "본인만 삭제할 수 있습니다."
-                                )
-                            }
-                        }
-                    })
+                        })
                 )
             }
         }
-    }
 
+    }
 }

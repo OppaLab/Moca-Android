@@ -23,7 +23,7 @@ import java.util.*
 class OtherUserActivity : AppCompatActivity() {
 
 
-    private var publisherProfileId: Long = 0
+    private var publisherProfileId: String = ""
     private var currentUser: Long = 0
     private var otherUserProfile: GetProfileDTO? = null
     private var postList: MutableList<PostDTO>? = null
@@ -35,7 +35,7 @@ class OtherUserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_other_user)
 
         val intent = intent
-        publisherProfileId = intent.getLongExtra("publisherId", 0)
+        publisherProfileId = intent.getStringExtra("publisherId")!!
         currentUser = PreferenceManager.getLong(this, "userId")
 
 
@@ -62,7 +62,9 @@ class OtherUserActivity : AppCompatActivity() {
 //        circleimageview_thumbmail = findViewById(R.id.other_user_profile_profile_image)
 
 
-        RetrofitConnection.server.getProfile(myUserId = currentUser,userId = publisherProfileId).enqueue(object :
+
+        Log.d("check publisher", publisherProfileId)
+        RetrofitConnection.server.getProfile(myUserId = currentUser,userId = publisherProfileId.toLong()).enqueue(object :
             Callback<GetProfileDTO> {
             override fun onResponse(call: Call<GetProfileDTO>, response: Response<GetProfileDTO>) {
                 Log.d("retrofit", response.body().toString())
@@ -91,7 +93,7 @@ class OtherUserActivity : AppCompatActivity() {
 
         })
 
-        RetrofitConnection.server.getPosts(userId = publisherProfileId, page = 0, category = "", search = "", sort = "").enqueue(object:
+        RetrofitConnection.server.getPosts(userId = publisherProfileId.toLong(), page = 0, category = "", search = "", sort = "").enqueue(object:
             Callback<GetMyPostDTO> {
             override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                 Log.d("retrofit", response.body().toString())
@@ -116,7 +118,7 @@ class OtherUserActivity : AppCompatActivity() {
             if (other_user_follow_button.tag == "UnFollow") {
                 Log.d("Follow This User", otherUserProfile!!.nickname)
 
-                RetrofitConnection.server.followUser(userId = currentUser, followedUserId = publisherProfileId).enqueue(object: Callback<Long>{
+                RetrofitConnection.server.followUser(userId = currentUser, followedUserId = publisherProfileId.toLong()).enqueue(object: Callback<Long>{
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "Follow 생성 : followed_id = " + response.body())
                         other_user_follow_button.tag = "Followed"
@@ -128,7 +130,7 @@ class OtherUserActivity : AppCompatActivity() {
                     }
                 })
             } else {
-                RetrofitConnection.server.unfollowUser(userId = currentUser, followedUserId = publisherProfileId).enqueue(object : Callback<Long>{
+                RetrofitConnection.server.unfollowUser(userId = currentUser, followedUserId = publisherProfileId.toLong()).enqueue(object : Callback<Long>{
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "Follow 삭제 : unfollowed_id = " + response.body())
                         other_user_follow_button.tag = "UnFollow"
