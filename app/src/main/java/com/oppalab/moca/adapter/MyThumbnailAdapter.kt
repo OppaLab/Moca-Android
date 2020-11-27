@@ -10,14 +10,14 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.PostDetailActivity
 import com.oppalab.moca.R
-import com.oppalab.moca.dto.MyPostDTO
+import com.oppalab.moca.dto.PostDTO
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
 
-class MyThumbnailAdapter(private val mContext: Context, mPost: List<MyPostDTO>):
+class MyThumbnailAdapter(private val mContext: Context, mPost: List<PostDTO>):
     RecyclerView.Adapter<MyThumbnailAdapter.ViewHolder>() {
 
-    private var mPost: List<MyPostDTO>? = null
+    private var mPost: List<PostDTO>? = null
 
     init {
         this.mPost = mPost
@@ -30,7 +30,7 @@ class MyThumbnailAdapter(private val mContext: Context, mPost: List<MyPostDTO>):
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val post: MyPostDTO = mPost!![position]
+        val post: PostDTO = mPost!![position]
         Picasso.get().load(RetrofitConnection.URL+"/image/thumbnail/"+post.thumbnailImageFilePath).into(holder.postThumbnail)
 
         holder.postThumbnail.setOnClickListener {
@@ -41,6 +41,7 @@ class MyThumbnailAdapter(private val mContext: Context, mPost: List<MyPostDTO>):
             intentPostDetail.putExtra("likeCount", post.likeCount.toString())
             intentPostDetail.putExtra("commentCount", post.commentCount.toString())
             intentPostDetail.putExtra("like", post.like)
+            intentPostDetail.putExtra("likeTag", if (post.like) "Liked" else "Like")
             intentPostDetail.putExtra("postId", post.postId.toString())
             intentPostDetail.putExtra("subject", post.postTitle)
             intentPostDetail.putExtra("postUserId",post.userId.toString())

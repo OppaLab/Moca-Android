@@ -18,7 +18,7 @@ import com.oppalab.moca.AccountSettingActivity
 import com.oppalab.moca.R
 import com.oppalab.moca.adapter.MyThumbnailAdapter
 import com.oppalab.moca.dto.GetMyPostDTO
-import com.oppalab.moca.dto.MyPostDTO
+import com.oppalab.moca.dto.PostDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -32,7 +32,7 @@ class ProfileFragment : Fragment() {
     private lateinit var profileId: String
     private lateinit var firebaseUser: FirebaseUser
     private var currentUser: Long = 0L
-    private var postList: MutableList<MyPostDTO>? = null
+    private var postList: MutableList<PostDTO>? = null
     private var myThumbnailAdapter: MyThumbnailAdapter? = null
 
     override fun onCreateView(
@@ -62,7 +62,7 @@ class ProfileFragment : Fragment() {
         val linearLayoutManager: LinearLayoutManager = GridLayoutManager(context, 3)
         recyclerview_mypost_thumbnail.layoutManager = linearLayoutManager
 
-        myThumbnailAdapter = context?.let { MyThumbnailAdapter(it, postList as ArrayList<MyPostDTO>) }
+        myThumbnailAdapter = context?.let { MyThumbnailAdapter(it, postList as ArrayList<PostDTO>) }
         recyclerview_mypost_thumbnail.adapter = myThumbnailAdapter
 
 

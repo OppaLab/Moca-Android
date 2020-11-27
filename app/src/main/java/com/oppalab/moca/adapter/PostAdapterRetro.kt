@@ -30,6 +30,11 @@ class PostAdapterRetro
     private val mPost: List<FeedsAtHome>
 ) : RecyclerView.Adapter<PostAdapterRetro.ViewHolder>() {
 
+    companion object {
+        private const val TYPE_POST = 0
+        private const val TYPE_LOADING = 1
+    }
+
     private var currentUser = PreferenceManager.getLong(mContext, "userId")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -180,7 +185,8 @@ class PostAdapterRetro
             }
 
             intentPostDetail.putExtra("commentCount", post.commentCount.toString())
-            intentPostDetail.putExtra("like", holder.likeButton.tag.toString())
+            intentPostDetail.putExtra("likeTag", holder.likeButton.tag.toString())
+            intentPostDetail.putExtra("like", if (holder.likeButton.tag == "Liked") true else false)
             intentPostDetail.putExtra("postId", post.postId.toString())
             intentPostDetail.putExtra("subject", post.postTitle)
             intentPostDetail.putExtra("postUserId",post.userId.toString())
@@ -208,7 +214,6 @@ class PostAdapterRetro
     override fun getItemCount(): Int {
         return mPost.size
     }
-
 
 
     inner class ViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {

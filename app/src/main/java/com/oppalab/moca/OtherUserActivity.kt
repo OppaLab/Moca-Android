@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.adapter.OtherUserAdapter
 import com.oppalab.moca.dto.GetMyPostDTO
 import com.oppalab.moca.dto.GetProfileDTO
-import com.oppalab.moca.dto.MyPostDTO
+import com.oppalab.moca.dto.PostDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import de.hdodenhof.circleimageview.CircleImageView
@@ -22,10 +22,11 @@ import java.util.*
 
 class OtherUserActivity : AppCompatActivity() {
 
+
     private var publisherProfileId: Long = 0
     private var currentUser: Long = 0
     private var otherUserProfile: GetProfileDTO? = null
-    private var postList: MutableList<MyPostDTO>? = null
+    private var postList: MutableList<PostDTO>? = null
     private var otherUserAdapter: OtherUserAdapter? = null
 
 
@@ -54,7 +55,7 @@ class OtherUserActivity : AppCompatActivity() {
         val linearLayoutManager: LinearLayoutManager = GridLayoutManager(this, 3)
         recyclerview_other_user_profile.layoutManager = linearLayoutManager
 
-        otherUserAdapter = OtherUserAdapter(this, postList as ArrayList<MyPostDTO>)
+        otherUserAdapter = OtherUserAdapter(this, postList as ArrayList<PostDTO>)
         recyclerview_other_user_profile.adapter = otherUserAdapter
 
 //        val circleimageview_thumbmail: CircleImageView
