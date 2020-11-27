@@ -64,6 +64,26 @@ class ReviewActivity : AppCompatActivity() {
                 like = response.body()!!.like
                 commentCount = response.body()!!.commentCount
 
+                if (like) {
+                    review_like_btn.setImageResource(R.drawable.heart_clicked)
+                    review_like_btn.tag = "Liked"
+                } else {
+                    review_like_btn.setImageResource(R.drawable.heart_not_clicked)
+                    review_like_btn.tag = "Like"
+                }
+
+                if (likeCount.toInt() == 0) {
+                    review_like_count.text = ""
+                } else {
+                    review_like_count.text = likeCount.toString() + "명이 공감합니다."
+                }
+
+                if (commentCount.toInt() == 0) {
+                    review_comments_count.text = "댓글이 없어요TT 댓글을 작성해주세요."
+                } else {
+                    review_comments_count.text = commentCount.toString() + "개의 댓글이 있습니다."
+                }
+
             }
 
             override fun onFailure(call: Call<GetReviewDTO>, t: Throwable) {

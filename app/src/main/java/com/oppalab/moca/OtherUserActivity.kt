@@ -26,7 +26,7 @@ class OtherUserActivity : AppCompatActivity() {
     private var publisherProfileId: Long = 0
     private var currentUser: Long = 0
     private var otherUserProfile: GetProfileDTO? = null
-    private var postList: MutableList<MyPostDTO>? = null
+    private var postList: MutableList<PostDTO>? = null
     private var otherUserAdapter: OtherUserAdapter? = null
 
 
@@ -55,7 +55,7 @@ class OtherUserActivity : AppCompatActivity() {
         val linearLayoutManager: LinearLayoutManager = GridLayoutManager(this, 3)
         recyclerview_other_user_profile.layoutManager = linearLayoutManager
 
-        otherUserAdapter = OtherUserAdapter(this, postList as ArrayList<MyPostDTO>)
+        otherUserAdapter = OtherUserAdapter(this, postList as ArrayList<PostDTO>)
         recyclerview_other_user_profile.adapter = otherUserAdapter
 
 //        val circleimageview_thumbmail: CircleImageView

@@ -26,8 +26,9 @@ class PostDetailActivity : AppCompatActivity() {
     private var reviewId = ""
     private var publisherId = ""
     private var content = ""
-    private var likeCount = 0L
     private var like = false
+    private var likeTag = ""
+    private var likeCount = 0L
     private var thumbnailImageFilePath = ""
     private var subject = ""
     private var commentId = ""
@@ -50,8 +51,8 @@ class PostDetailActivity : AppCompatActivity() {
         Log.d("모지", reviewId)
         subject = intent.getStringExtra("subject")!!
         thumbnailImageFilePath = intent.getStringExtra("thumbnailImageFilePath")!!
-        if (intent.getStringExtra("like") == "Liked") like = true
-        else if (intent.getStringExtra("like") == "True") like = true
+        likeTag = intent.getStringExtra("likeTag")!!
+
         likeCount = intent.getStringExtra("likeCount")!!.toLong()
         commentCount = intent.getStringExtra("commentCount")!!.toLong()
         content = intent.getStringExtra("content")!!
@@ -67,7 +68,9 @@ class PostDetailActivity : AppCompatActivity() {
         Picasso.get().load(RetrofitConnection.URL + "/image/thumbnail/" + thumbnailImageFilePath)
             .into(post_thumbnail_detail)
 
-        if (like) {
+        Log.d("좋아요", like.toString())
+
+        if (likeTag == "Liked" || like == true) {
             post_image_like_btn.setImageResource(R.drawable.heart_clicked)
             post_image_like_btn.tag = "Liked"
         } else {

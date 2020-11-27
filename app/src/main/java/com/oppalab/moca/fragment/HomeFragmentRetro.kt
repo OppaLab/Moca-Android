@@ -85,7 +85,7 @@ class HomeFragmentRetro : Fragment() {
                         postAdapterRetro!!.notifyDataSetChanged()
                     }
 
-                    if (response.body()!!.last == true) {
+                    if (response.body()!!.last) {
                         Toast.makeText(context, "마지막 페이지 입니다.", Toast.LENGTH_LONG)
                     }
 
@@ -121,7 +121,7 @@ class HomeFragmentRetro : Fragment() {
                         postAdapterRetro!!.notifyDataSetChanged()
                     }
 
-                    if (response.body()!!.last == true) {
+                    if (response.body()!!.last) {
                         Toast.makeText(context, "마지막 페이지 입니다.", Toast.LENGTH_LONG)
                     }
 

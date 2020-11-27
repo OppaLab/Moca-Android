@@ -41,6 +41,7 @@ class MyThumbnailAdapter(private val mContext: Context, mPost: List<PostDTO>):
             intentPostDetail.putExtra("likeCount", post.likeCount.toString())
             intentPostDetail.putExtra("commentCount", post.commentCount.toString())
             intentPostDetail.putExtra("like", post.like)
+            intentPostDetail.putExtra("likeTag", if (post.like) "Liked" else "Like")
             intentPostDetail.putExtra("postId", post.postId.toString())
             intentPostDetail.putExtra("subject", post.postTitle)
             intentPostDetail.putExtra("postUserId",post.userId.toString())

@@ -185,7 +185,8 @@ class PostAdapterRetro
             }
 
             intentPostDetail.putExtra("commentCount", post.commentCount.toString())
-            intentPostDetail.putExtra("like", holder.likeButton.tag.toString())
+            intentPostDetail.putExtra("likeTag", holder.likeButton.tag.toString())
+            intentPostDetail.putExtra("like", if (holder.likeButton.tag == "Liked") true else false)
             intentPostDetail.putExtra("postId", post.postId.toString())
             intentPostDetail.putExtra("subject", post.postTitle)
             intentPostDetail.putExtra("postUserId",post.userId.toString())
