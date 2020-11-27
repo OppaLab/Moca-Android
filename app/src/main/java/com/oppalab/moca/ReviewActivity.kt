@@ -62,6 +62,7 @@ class ReviewActivity : AppCompatActivity() {
                 review_publisher.setText(response.body()!!.nickname)
                 likeCount = response.body()!!.likeCount
                 like = response.body()!!.like
+                commentCount = response.body()!!.commentCount
 
             }
 

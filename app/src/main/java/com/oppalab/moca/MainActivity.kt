@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         nav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        moveToFragment(HomeFragmentRetro())
+        moveToFragment(ProfileFragment())
     }
 
     private fun moveToFragment(fragment: Fragment) {

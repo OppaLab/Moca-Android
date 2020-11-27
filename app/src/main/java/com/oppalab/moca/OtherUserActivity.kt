@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.adapter.OtherUserAdapter
 import com.oppalab.moca.dto.GetMyPostDTO
 import com.oppalab.moca.dto.GetProfileDTO
-import com.oppalab.moca.dto.MyPostDTO
+import com.oppalab.moca.dto.PostDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import de.hdodenhof.circleimageview.CircleImageView
@@ -21,6 +21,7 @@ import retrofit2.Response
 import java.util.*
 
 class OtherUserActivity : AppCompatActivity() {
+
 
     private var publisherProfileId: Long = 0
     private var currentUser: Long = 0
