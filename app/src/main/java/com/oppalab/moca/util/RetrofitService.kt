@@ -66,7 +66,8 @@ interface RetrofitService {
         @Query("userId") userId: Long,
         @Query("search") search: String,
         @Query("category") category: String,
-        @Query("page") page: Long
+        @Query("page") page: Long,
+        @Query("sort") sort: String
     ): Call<GetMyPostDTO>
 
     @GET("/post")

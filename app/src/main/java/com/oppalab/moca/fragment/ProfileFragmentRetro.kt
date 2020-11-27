@@ -98,7 +98,7 @@ class ProfileFragmentRetro : Fragment() {
 
 
 
-        RetrofitConnection.server.getPosts(userId = currentUser, page = 0, category = "", search = "").enqueue(object:
+        RetrofitConnection.server.getPosts(userId = currentUser, page = 0, category = "", search = "", sort="").enqueue(object:
             Callback<GetMyPostDTO> {
             override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
                 Log.d("retrofit", response.body().toString())
