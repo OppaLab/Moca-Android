@@ -129,11 +129,10 @@ interface RetrofitService {
         @Field("comment") comment : String
     ): Call<Long>
 
-    @FormUrlEncoded
     @DELETE("/comment")
     fun deleteComment(
-        @Field("commentId") commentId: String,
-        @Field ("userId") reviewId: String
+        @Query ("commentId") commentId: Long,
+        @Query ("userId") userId: Long
     ): Call<Long>
 
     @GET("/review")
