@@ -1,6 +1,6 @@
 package com.oppalab.moca.dto
 
-data class MyPostDTO (
+data class PostDTO (
     val likeCount: Long,
     val commentCount: Long,
     val like: Boolean,

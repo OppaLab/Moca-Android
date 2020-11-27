@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,10 +19,9 @@ import com.oppalab.moca.R
 import com.oppalab.moca.adapter.MyThumbnailAdapter
 import com.oppalab.moca.dto.GetMyPostDTO
 import com.oppalab.moca.dto.GetProfileDTO
-import com.oppalab.moca.dto.MyPostDTO
+import com.oppalab.moca.dto.PostDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
-import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
@@ -36,7 +34,7 @@ class ProfileFragmentRetro : Fragment() {
     private lateinit var profileId: String
     private lateinit var firebaseUser: FirebaseUser
     private var currentUser: Long = 0L
-    private var postList: MutableList<MyPostDTO>? = null
+    private var postList: MutableList<PostDTO>? = null
 //    private var myProfile: GetProfileDTO? = null
     private var myThumbnailAdapter: MyThumbnailAdapter? = null
 //    var user_full_name:TextView?=null
@@ -70,7 +68,7 @@ class ProfileFragmentRetro : Fragment() {
         val linearLayoutManager: LinearLayoutManager = GridLayoutManager(context, 3)
         recyclerview_mypost_thumbnail.layoutManager = linearLayoutManager
 
-        myThumbnailAdapter = context?.let { MyThumbnailAdapter(it, postList as ArrayList<MyPostDTO>) }
+        myThumbnailAdapter = context?.let { MyThumbnailAdapter(it, postList as ArrayList<PostDTO>) }
         recyclerview_mypost_thumbnail.adapter = myThumbnailAdapter
 
         var circleimageview_thumbmail: CircleImageView

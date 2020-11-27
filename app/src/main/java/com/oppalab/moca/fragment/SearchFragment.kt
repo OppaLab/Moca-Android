@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.R
 import com.oppalab.moca.adapter.MyThumbnailAdapter
 import com.oppalab.moca.dto.GetMyPostDTO
-import com.oppalab.moca.dto.MyPostDTO
+import com.oppalab.moca.dto.PostDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -25,7 +25,7 @@ import kotlin.collections.ArrayList
 
 class SearchFragment : Fragment() {
     private var currentUser: Long = 0L
-    private var postList: MutableList<MyPostDTO>? = null
+    private var postList: MutableList<PostDTO>? = null
     private var myThumbnailAdapter: MyThumbnailAdapter? = null
 
     override fun onCreateView(
@@ -43,7 +43,7 @@ class SearchFragment : Fragment() {
         val linearLayoutManager: LinearLayoutManager = GridLayoutManager(context, 3)
         recyclerview_search_thumbnails.layoutManager = linearLayoutManager
 
-        myThumbnailAdapter = context?.let { MyThumbnailAdapter(it, postList as ArrayList<MyPostDTO>) }
+        myThumbnailAdapter = context?.let { MyThumbnailAdapter(it, postList as ArrayList<PostDTO>) }
         recyclerview_search_thumbnails.adapter = myThumbnailAdapter
 
         RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = "DEFAULT", category = "").enqueue(object:

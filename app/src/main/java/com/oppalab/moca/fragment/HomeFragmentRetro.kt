@@ -54,9 +54,9 @@ class HomeFragmentRetro : Fragment() {
         //
         RetrofitConnection.server.getFeedsAtHome(
             userId = PreferenceManager.getLong(
-                    requireContext(),
-            "userId"
-        ), page = 0
+                requireContext(),
+                "userId"
+            ), page = 0
         ).enqueue(
             object : Callback<GetFeedsAtHomeDTO> {
                 override fun onResponse(

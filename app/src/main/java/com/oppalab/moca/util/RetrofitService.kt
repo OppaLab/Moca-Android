@@ -69,6 +69,17 @@ interface RetrofitService {
         @Query("page") page: Long
     ): Call<GetMyPostDTO>
 
+    @GET("/post")
+    fun getOnePost(
+        @Query("userId") userId: Long,
+        @Query("postId") postId: Long,
+        @Query("search") search: String,
+        @Query("category") category: String,
+        @Query("page") page: Long
+    ): Call<GetMyPostDTO>
+
+
+
     @Multipart
     @POST("/post")                  /******************SUCCEESS*********************/
     fun createPost(
@@ -140,4 +151,12 @@ interface RetrofitService {
         @Query ("userId") userId: String,
         @Query ("reviewId") reviewId: String
     ): Call<GetReviewDTO>
+
+    //notifications
+    @GET("/activity")
+    fun getNotifications(
+        @Query("userId") userId: Long,
+        @Query("page") page: Long
+    ): Call<GetNotificationsDTO>
+
 }
