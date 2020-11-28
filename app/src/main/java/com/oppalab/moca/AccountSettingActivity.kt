@@ -54,10 +54,6 @@ class AccountSettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_setting)
 
-        var intent = intent
-        categories = intent.getStringExtra("categoriesList")!!
-        nickname = intent.getStringExtra("nickname")!!
-        currentUser = intent.getStringExtra("currentUser")!!.toLong()
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
         storageReference = FirebaseStorage.getInstance().reference.child("Profile Pictures")
 
@@ -89,6 +85,21 @@ class AccountSettingActivity : AppCompatActivity() {
             if (categoryIndex.contains("School")) setting_category_school.setChecked(true)
             if (categoryIndex.contains("Study")) setting_category_study.setChecked(true)
             if (categoryIndex.contains("Sex")) setting_category_sex.setChecked(true)
+
+        delete_account_btn.setOnClickListener {
+            RetrofitConnection.server.signOut(userId = PreferenceManager.getLong(applicationContext, "userId")).enqueue(object: Callback<Long> {
+                override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                    Toast.makeText(applicationContext, "회원탈퇴 완료", Toast.LENGTH_LONG)
+                    val intent = Intent(this@AccountSettingActivity, SignInActivity::class.java)
+                    startActivity(intent)
+                }
+
+                override fun onFailure(call: Call<Long>, t: Throwable) {
+                    Log.d("retrofit", t.message.toString())
+                }
+
+            })
+        }
 
         save_profile_button.setOnClickListener {
             categories = ""
@@ -139,8 +150,6 @@ class AccountSettingActivity : AppCompatActivity() {
                         Log.d("ProfileUpdateFail2", t.message.toString())
                     }
 
-                })
-
                 val intent = Intent(this@AccountSettingActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -166,7 +175,7 @@ class AccountSettingActivity : AppCompatActivity() {
 
                 var uploadTask: StorageTask<*>
                 uploadTask = fileRef.putFile(imageUri!!)
-                uploadTask.continueWith(Continuation <UploadTask    .TaskSnapshot, Task<Uri>>{
+                uploadTask.continueWith(Continuation <UploadTask.TaskSnapshot, Task<Uri>>{
                     if (!it.isSuccessful) {
                         it.exception?.let {
                             throw it
@@ -188,7 +197,7 @@ class AccountSettingActivity : AppCompatActivity() {
 
                         val intent = Intent(this@AccountSettingActivity, MainActivity::class.java)
                         startActivity(intent)
-
+                        finish()
                         progressDialog.dismiss()
                     }
                     else {
@@ -210,10 +219,5 @@ class AccountSettingActivity : AppCompatActivity() {
         }
     }
 
-    private fun moveToFragment(fragment: Fragment) {
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_container, fragment)
-            .commit()
-    }
 
 }
