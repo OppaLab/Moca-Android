@@ -7,6 +7,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
@@ -21,10 +22,15 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.oppalab.moca.model.User
+import com.oppalab.moca.util.PreferenceManager
+import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_account_setting.*
 import kotlinx.android.synthetic.main.fragment_profile.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AccountSettingActivity : AppCompatActivity() {
 
@@ -58,6 +64,21 @@ class AccountSettingActivity : AppCompatActivity() {
                 .start(this@AccountSettingActivity)
         }
 
+        delete_account_btn.setOnClickListener {
+            RetrofitConnection.server.signOut(userId = PreferenceManager.getLong(applicationContext, "userId")).enqueue(object: Callback<Long> {
+                override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                    Toast.makeText(applicationContext, "회원탈퇴 완료", Toast.LENGTH_LONG)
+                    val intent = Intent(this@AccountSettingActivity, SignInActivity::class.java)
+                    startActivity(intent)
+                }
+
+                override fun onFailure(call: Call<Long>, t: Throwable) {
+                    Log.d("retrofit", t.message.toString())
+                }
+
+            })
+        }
+
         save_profile_button.setOnClickListener {
             if (setting_category_family.isChecked) categories += "Family,"
             if (setting_category_friend.isChecked) categories += "Friend,"
@@ -87,10 +108,6 @@ class AccountSettingActivity : AppCompatActivity() {
                     val user = snapshot.getValue<User>(User::class.java)
                     Picasso.get().load(user!!.getImage()).placeholder(R.drawable.profile).into(setting_image_view)
                     setting_user_name.setText(user.getUsername())
-
-
-
-
                 }
             }
 

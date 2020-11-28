@@ -38,7 +38,7 @@ interface RetrofitService {
         @Query("userId") userId: Long
     ): Call<GetProfileDTO>
 
-    @PUT("/profile/{userId})")
+    @PUT("/profile/{userId}")
     fun updateProfile(
         @Path("userId") userId: Long,
         @Query("nickname") nickname: String,
@@ -105,7 +105,6 @@ interface RetrofitService {
         @Part thumbnailImageFile: MultipartBody.Part,
         @Query("numberOfRandomUserPushNotification") numberOfRandomUserPushNotification: Long,
         @Query("isRandomUserPushNotification") isRandomUserPushNotification: Boolean,
-
     ): Call<Long>
 
     @PUT("/post/{postId}")
