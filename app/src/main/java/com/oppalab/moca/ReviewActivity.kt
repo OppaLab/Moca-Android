@@ -1,12 +1,14 @@
 package com.oppalab.moca
 
 import GetCommentsOnPostDTO
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.adapter.CommentsAdapterRetro
@@ -218,6 +220,33 @@ class ReviewActivity : AppCompatActivity() {
                 })
             }
         })
+
+        review_more_vertical.setOnClickListener(View.OnClickListener{
+            review_more_layout.isVisible = true
+        })
+
+        textView_more_delete.setOnClickListener(View.OnClickListener {
+            RetrofitConnection.server.deletePost(postId = postId.toLong(), userId = currentUser).enqueue(
+                object : Callback<Long> {
+                    override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                        Log.d("retrofit", "post 삭제 : post_id = " + response.body())
+                        Toast.makeText(this@ReviewActivity,"게시글이 삭제되었습니다.", Toast.LENGTH_LONG)
+                    }
+                    override fun onFailure(call: Call<Long>, t: Throwable) {
+                        Log.d("retrofit", "post 삭제 실패 :  " + t.message.toString())
+                    }
+                })
+        })
+
+//        textView_more_update.setOnClickListener(View.OnClickListener {
+//            var intent = Intent(applicationContext, AddPostActivity::class.java)
+//
+//            intent.putExtra("image",stream.toByteArray())
+//            intent.putExtra("tag","UPDATE")
+//        })
+
+
+
 
         //Swipe 추가
         val swipe = object: CommentsAdapterRetro.SwipeHelper(this, review_recycler_view_comments, 200) {

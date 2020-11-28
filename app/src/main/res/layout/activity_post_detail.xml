@@ -46,9 +46,47 @@
                     android:textColor="@android:color/black"
                     android:layout_centerVertical="true"/>
 
+                <ImageView
+                    android:id="@+id/post_detail_more_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/more_vert_24px" />
+
+                <LinearLayout
+                    android:id="@+id/review_more_layout"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView_more_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:text="삭제" />
+
+                    <TextView
+                        android:id="@+id/textView_more_update"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:text="수정" />
+
+                </LinearLayout>
+
+
+
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -157,7 +195,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="4dp"
-                    android:src="@drawable/profile"></de.hdodenhof.circleimageview.CircleImageView>
+                    android:src="@drawable/profile"/>
 
                 <EditText
                     android:id="@+id/add_comment"
@@ -169,7 +207,7 @@
                     android:layout_toLeftOf="@+id/post_comment"
                     android:layout_toRightOf="@+id/post_detail_comment_profie_image"
                     android:hint="write your comment..."
-                    android:padding="8dp"></EditText>
+                    android:padding="8dp"/>
 
                 <TextView
                     android:id="@+id/post_comment"

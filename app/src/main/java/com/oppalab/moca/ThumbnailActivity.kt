@@ -97,6 +97,7 @@ class ThumbnailActivity : AppCompatActivity(), BrushFragmentListener, EmojiFragm
                     var stream = ByteArrayOutputStream()
                     saveBitmap!!.compress(Bitmap.CompressFormat.PNG,100,stream)
                     intent.putExtra("image",stream.toByteArray())
+                    intent.putExtra("tag","CREATE")
                     startActivity(intent)
                 }
                 override fun onFailure(e: Exception?) {

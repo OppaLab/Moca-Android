@@ -39,6 +39,7 @@ class AddPostActivity : AppCompatActivity() {
     var myUrl = ""
     private var categories = ""
     lateinit var image: Bitmap
+    var tag = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +48,7 @@ class AddPostActivity : AppCompatActivity() {
 
         var intent: Intent = getIntent();
         var arr = getIntent().getByteArrayExtra("image")!!
+        tag = getIntent().getStringExtra("tag")!!
         image = BitmapFactory.decodeByteArray(arr, 0, arr!!.size)
         var thumbnail: ImageView = findViewById(R.id.thumbnail_image);
         thumbnail.setImageBitmap(image);
@@ -64,12 +66,12 @@ class AddPostActivity : AppCompatActivity() {
             if (post_category_study.isChecked) categories += "Study,"
             if (post_category_sex.isChecked) categories += "Sex,"
             categories.substring(0, categories.length - 1)
-            uploadPost(arr)
+            uploadPost(arr, tag)
         }
 
     }
 
-    private fun uploadPost(arr: ByteArray) {
+    private fun uploadPost(arr: ByteArray, tag:String) {
         val title = post_subject.text.toString()
         val content = post_description.text.toString()
 
@@ -143,38 +145,46 @@ class AddPostActivity : AppCompatActivity() {
                             val body =
                                 MultipartBody.Part.createFormData("thumbnailImageFile", file.name, reqFile)
 
-                            RetrofitConnection.server.createPost(
-                                thumbnailImageFile = body,
-                                postTitle = title,
-                                postBody = content,
-                                postCategories = categories.split(","),
-                                userId = PreferenceManager.getLong(applicationContext,"userId")
-                            ).enqueue(object : Callback<Long> {
-                                override fun onResponse(
-                                    call: Call<Long>,
-                                    response: Response<Long>
-                                ) {
-                                    if (response?.isSuccessful) {
-                                        Log.d("retrofit addpost userId", PreferenceManager.getLong(applicationContext,"userId").toString())
+                            if (tag == "CREATE") {
+                                RetrofitConnection.server.createPost(
+                                    thumbnailImageFile = body,
+                                    postTitle = title,
+                                    postBody = content,
+                                    postCategories = categories.split(","),
+                                    userId = PreferenceManager.getLong(applicationContext, "userId")
+                                ).enqueue(object : Callback<Long> {
+                                    override fun onResponse(
+                                        call: Call<Long>,
+                                        response: Response<Long>
+                                    ) {
+                                        if (response?.isSuccessful) {
+                                            Log.d(
+                                                "retrofit addpost userId",
+                                                PreferenceManager.getLong(
+                                                    applicationContext,
+                                                    "userId"
+                                                ).toString()
+                                            )
+                                            Toast.makeText(
+                                                getApplicationContext(),
+                                                "File Uploaded Successfully...",
+                                                Toast.LENGTH_LONG
+                                            ).show();
+                                        }
+                                    }
+
+                                    override fun onFailure(call: Call<Long>, t: Throwable) {
+                                        Log.d("retrofit result", t.message.toString())
                                         Toast.makeText(
                                             getApplicationContext(),
-                                            "File Uploaded Successfully...",
+                                            "Fail",
                                             Toast.LENGTH_LONG
                                         ).show();
                                     }
-                                }
 
-                                override fun onFailure(call: Call<Long>, t: Throwable) {
-                                    Log.d("retrofit result", t.message.toString())
-                                    Toast.makeText(
-                                        getApplicationContext(),
-                                        "Fail",
-                                        Toast.LENGTH_LONG
-                                    ).show();
-                                }
-
-                            })
-                            ref.child(postId).updateChildren(postMap)
+                                })
+                                ref.child(postId).updateChildren(postMap)
+                            }
 
 
                             Toast.makeText(this, "고민이 등록되었습니다.", Toast.LENGTH_LONG).show()
