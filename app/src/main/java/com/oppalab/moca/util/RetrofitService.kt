@@ -1,6 +1,7 @@
 package com.oppalab.moca.util
 
 import GetCommentsOnPostDTO
+import android.telephony.ClosedSubscriberGroupInfo
 import com.oppalab.moca.dto.*
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -38,12 +39,13 @@ interface RetrofitService {
         @Query("userId") userId: Long
     ): Call<GetProfileDTO>
 
+    @FormUrlEncoded
     @PUT("/profile/{userId}")
     fun updateProfile(
         @Path("userId") userId: Long,
-        @Query("nickname") nickname: String,
-        @Query("userCategories") userCategories: List<String>,
-        @Query("subscribeToPushNotification") subscribeToPushNotification: Boolean
+        @Field("nickname") nickname: String,
+        @Field("userCategories") userCategories: List<String>,
+        @Field("subscribeToPushNotification") subscribeToPushNotification: Boolean
     ): Call<Long>
 
     @DELETE("/signout/{userId}")
@@ -105,6 +107,7 @@ interface RetrofitService {
         @Part thumbnailImageFile: MultipartBody.Part,
         @Query("numberOfRandomUserPushNotification") numberOfRandomUserPushNotification: Long,
         @Query("isRandomUserPushNotification") isRandomUserPushNotification: Boolean,
+
     ): Call<Long>
 
     @PUT("/post/{postId}")

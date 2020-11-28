@@ -39,14 +39,23 @@
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-
+    <LinearLayout
+        android:layout_below="@+id/notification_app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="4dp">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notification_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:layout_below="@+id/notification_app_bar_layout">
-
     </androidx.recyclerview.widget.RecyclerView>
 
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/notification_progress_bar"/>
+    </LinearLayout>
 </RelativeLayout>
