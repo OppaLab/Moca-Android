@@ -6,22 +6,33 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.oppalab.moca.adapter.CommentsAdapterRetro
+import com.oppalab.moca.adapter.PostAdapterRetro
 import com.oppalab.moca.dto.CommentsOnPost
+import com.oppalab.moca.fragment.HomeFragmentRetro
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_post_detail.*
+import kotlinx.android.synthetic.main.activity_review.*
 import kotlinx.android.synthetic.main.thumbnail_item_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PostDetailActivity : AppCompatActivity() {
+
     private var postId = 0L
     private var postUserId = ""
     private var reviewId = ""
@@ -36,12 +47,15 @@ class PostDetailActivity : AppCompatActivity() {
     private var commentCount = 0L
     private var commentAdapter: CommentsAdapterRetro? = null
     private var commentList: MutableList<CommentsOnPost>? = null
+    private var currentUser = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_detail)
+        setSupportActionBar(findViewById(R.id.detail_toolbar))
 
-        val currentUser = PreferenceManager.getLong(applicationContext, "userId")
+
+        currentUser = PreferenceManager.getLong(applicationContext, "userId")
 
         val intent = intent
 
@@ -284,5 +298,45 @@ class PostDetailActivity : AppCompatActivity() {
             }
         }
 
+
+
+
     }
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.appbar_action, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.action_delete -> {
+                Log.d("retrofit", "post 삭제버튼 동작 = ")
+                RetrofitConnection.server.deletePost(postId = postId, userId = currentUser).enqueue(object : Callback<Long>{
+                    override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                        Log.d("retrofit", "post 삭제 : post_id = " + response.body())
+                        Toast.makeText(this@PostDetailActivity,"게시글이 삭제되었습니다.", Toast.LENGTH_LONG)
+                        val intent = Intent(this@PostDetailActivity, MainActivity::class.java)
+                        intent.putExtra("ProfileFragment","ProfileFragment")
+                        startActivity(intent)
+                        finish()
+
+                    }
+                    override fun onFailure(call: Call<Long>, t: Throwable) {
+                        Log.d("retrofit", "post 삭제 실패 :  " + t.message.toString())
+                    }
+                })
+                return true
+            }
+            R.id.action_update -> {
+                Log.d("retrofit", "post 수정버튼 동작 = ")
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+
 }

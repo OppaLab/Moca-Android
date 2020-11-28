@@ -14,7 +14,7 @@
         android:background="@android:color/white">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/comments_toolbar"
+            android:id="@+id/review_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -33,39 +33,13 @@
                     android:textSize="18sp"
                     android:maxLines="1"
                     android:textColor="@android:color/black"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true" />
 
-                <ImageView
-                    android:id="@+id/review_more_vertical"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/review_overflow"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/more_vert_24px" />
-
-                <LinearLayout
-                    android:id="@+id/review_more_layout"
-                    android:layout_alignParentEnd="true"
-                    android:visibility="invisible"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView_more_delete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        android:text="삭제" />
-
-                    <TextView
-                        android:id="@+id/textView_more_update"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        android:text="수정" />
-
-                </LinearLayout>
+                    app:menu="@menu/appbar_action"/>
 
             </RelativeLayout>
 

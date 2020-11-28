@@ -110,8 +110,6 @@ class HomeFragmentRetro : Fragment() {
                     call: Call<GetFeedsAtHomeDTO>,
                     response: Response<GetFeedsAtHomeDTO>
                 ) {
-                    Log.d("curUserId", PreferenceManager.getLong(context!!, "userId").toString())
-                    Log.d("POSTS", response.body().toString())
 
                     postList?.clear()
 

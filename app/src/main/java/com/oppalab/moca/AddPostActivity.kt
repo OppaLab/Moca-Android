@@ -147,11 +147,13 @@ class AddPostActivity : AppCompatActivity() {
 
                             if (tag == "CREATE") {
                                 RetrofitConnection.server.createPost(
-                                    thumbnailImageFile = body,
                                     postTitle = title,
                                     postBody = content,
+                                    userId = PreferenceManager.getLong(applicationContext, "userId"),
                                     postCategories = categories.split(","),
-                                    userId = PreferenceManager.getLong(applicationContext, "userId")
+                                    thumbnailImageFile = body,
+                                    numberOfRandomUserPushNotification = 0L,
+                                    isRandomUserPushNotification = false
                                 ).enqueue(object : Callback<Long> {
                                     override fun onResponse(
                                         call: Call<Long>,
