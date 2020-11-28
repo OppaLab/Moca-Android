@@ -16,7 +16,8 @@ interface RetrofitService {
     fun signUp(
         @Field("nickname") nickname: String,
         @Field("email") email: String,
-        @Field("userCategoryList") userCategoryList: List<String>
+        @Field("userCategoryList") userCategoryList: List<String>,
+        @Field("registrationToken") registrationToken: String
     ): Call<Long>
 
     @FormUrlEncoded
@@ -45,6 +46,19 @@ interface RetrofitService {
         @Query("userCategories") userCategories: List<String>,
         @Query("subscribeToPushNotification") subscribeToPushNotification: Boolean
     ):Call<UpdateProfileDTO>
+
+    @PUT("/profile/{userId})")
+    fun updateProfile(
+        @Path("userId") userId: Long,
+        @Query("nickname") nickname: String,
+        @Query("userCategories") userCategories: List<String>,
+        @Query("subscribeToPushNotification") subscribeToPushNotification: Boolean
+    ): Call<Long>
+
+    @DELETE("/signout/{userId}")
+    fun signOut(
+        @Path("userId") userId: Long
+    ): Call<Long>
 
 
     //follow & follower
@@ -97,7 +111,32 @@ interface RetrofitService {
         @Query("postBody") postBody:String,
         @Query("userId") userId:Long,
         @Query("postCategories") postCategories:List<String>,
+        @Part thumbnailImageFile: MultipartBody.Part,
+        @Query("numberOfRandomUserPushNotification") numberOfRandomUserPushNotification: Long,
+        @Query("isRandomUserPushNotification") isRandomUserPushNotification: Boolean,
+
+    ): Call<Long>
+
+    @PUT("/post/{postId}")
+    fun updatePost(
+        @Path("postId") postId: String,
+        @Query("postTitle") postTitle:String,
+        @Query("postBody") postBody:String,
+        @Query("userId") userId:Long,
+        @Query("postCategories") postCategories:List<String>,
         @Part thumbnailImageFile: MultipartBody.Part
+    ): Call<Long>
+
+    @PUT("/review/{reviewId}")
+    fun updateReview(
+        @Path("reviewId") reviewId: String,
+        @Query("review") review: String
+    ): Call<Long>
+
+    @DELETE("/review")
+    fun deleteReview(
+        @Query("reviewId") reviewId: Long,
+        @Query("userId") userId: Long
     ): Call<Long>
 
     @DELETE("/post")

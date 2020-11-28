@@ -8,4 +8,8 @@ data class GetProfileDTO(
     val numberOfFollowings: Long,
     val isFollowed: Boolean,
     val userCategory: List<String>
+    val isFollowed: Boolean,
+    val subscribeToPushNotification: Boolean,
+    val userCategories: List<String>,
+    val userEntities: List<String>
 )

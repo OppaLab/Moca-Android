@@ -8,9 +8,11 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import androidx.core.view.children
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -21,6 +23,22 @@ import retrofit2.Response
 class SignUpActivity : AppCompatActivity() {
 
     var categories = ""
+    var access_token = ""
+
+    override fun onStart() {
+        super.onStart()
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("token", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            val token = task.result
+            access_token = token!!
+            Log.d("token", token!!)
+            Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
+        })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,6 +142,31 @@ private fun saveUserInfo(
                 ).show();
             }
         }
+        RetrofitConnection.server.signUp(
+            nickname = userName.toLowerCase(),
+            email = email,
+            userCategoryList = userCategory.split(","),
+            registrationToken = access_token
+        ).enqueue(object : Callback<Long> {
+            override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                Log.d("아이디값", response.body().toString())
+                PreferenceManager.setLong(applicationContext, "userId", response.body()!!)
+                Log.d(
+                    "retrofit signup userId",
+                    PreferenceManager.getLong(applicationContext, "userId").toString()
+                )
+                Toast.makeText(
+                    getApplicationContext(),
+                    "SignUp Complete",
+                    Toast.LENGTH_LONG
+                ).show();
+                progressDialog.dismiss()
+
+                val intent = Intent(this@SignUpActivity, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
 
         override fun onFailure(call: Call<Long>, t: Throwable) {
             Log.d("retrofit result", t.message.toString())
@@ -154,4 +197,16 @@ private fun saveUserInfo(
             }
         }
 }
+                    val intent = Intent(this@SignUpActivity, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    startActivity(intent)
+//                    finish()
+                } else {
+                    val message = it.exception!!.toString()
+                    Toast.makeText(this, "Error $message", Toast.LENGTH_LONG).show()
+                    FirebaseAuth.getInstance().signOut()
+                    progressDialog.dismiss()
+                }
+            }
+    }
 }
