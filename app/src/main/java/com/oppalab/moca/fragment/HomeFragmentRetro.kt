@@ -14,9 +14,11 @@ import com.oppalab.moca.R
 import com.oppalab.moca.adapter.PostAdapterRetro
 import com.oppalab.moca.dto.FeedsAtHome
 import com.oppalab.moca.dto.GetFeedsAtHomeDTO
+import com.oppalab.moca.dto.GetProfileDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,6 +34,34 @@ class HomeFragmentRetro : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        RetrofitConnection.server.getProfile(PreferenceManager.getLong(requireContext(),"userId"), PreferenceManager.getLong(requireContext(),"userId"))
+            .enqueue(object: Callback<GetProfileDTO> {
+                override fun onResponse(
+                    call: Call<GetProfileDTO>,
+                    response: Response<GetProfileDTO>
+                ) {
+                    var nickname = response.body()!!.nickname
+
+                    var categories = ""
+                    for (category in response.body()!!.userCategories) {
+                        if (category == "") continue
+                        categories += category
+                        categories += ", "
+                    }
+
+
+
+                    view.home_user_info_name.text = "안녕하세요 " + nickname + "님"
+                    view.home_user_info_category.text = nickname + "님의 고민 카테고리: " + categories.substring(0,categories.length-2)
+                    view.home_user_info_comment.text = nickname + "님의 고민 카테고리와 고민글을 분석해 맞춤 고민을 제공해드립니다."
+                }
+
+                override fun onFailure(call: Call<GetProfileDTO>, t: Throwable) {
+                    Log.d("retrofit", t.message.toString())
+                }
+
+            })
 
         var home_post_recyclerview: RecyclerView? = null
         home_post_recyclerview = view.findViewById(R.id.home_recycler_view)

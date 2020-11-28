@@ -35,7 +35,7 @@ class OtherUserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_other_user)
 
         val intent = intent
-        publisherProfileId = intent.getLongExtra("publisherId",0)!!.toString()
+        publisherProfileId = intent.getStringExtra("publisherId")!!
         currentUser = PreferenceManager.getLong(this, "userId")
 
 
@@ -76,8 +76,8 @@ class OtherUserActivity : AppCompatActivity() {
                 other_user_total_followers.text = otherUserProfile!!.numberOfFollowers.toString()
                 other_user_total_following.text = otherUserProfile!!.numberOfFollowings.toString()
 
-                Log.d("retrofit isFollowed", otherUserProfile!!.isFollowed.toString())
-                if (otherUserProfile!!.isFollowed) {
+                Log.d("retrofit isFollowed", otherUserProfile!!.IsFollowed.toString())
+                if (otherUserProfile!!.IsFollowed) {
                     other_user_follow_button.text = ("UnFollow")
                     other_user_follow_button.tag = "Followed"
                 } else {
@@ -114,7 +114,7 @@ class OtherUserActivity : AppCompatActivity() {
 
 
         other_user_follow_button.setOnClickListener {
-            Log.d("follow", otherUserProfile!!.isFollowed.toString())
+            Log.d("follow", otherUserProfile!!.IsFollowed.toString())
             if (other_user_follow_button.tag == "UnFollow") {
                 Log.d("Follow This User", otherUserProfile!!.nickname)
 

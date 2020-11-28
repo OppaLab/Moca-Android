@@ -46,16 +46,9 @@
                     android:textColor="@android:color/black"
                     android:layout_centerVertical="true"/>
 
-
-
-
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -164,7 +157,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="4dp"
-                    android:src="@drawable/profile"/>
+                    android:src="@drawable/profile"></de.hdodenhof.circleimageview.CircleImageView>
 
                 <EditText
                     android:id="@+id/add_comment"
@@ -176,7 +169,7 @@
                     android:layout_toLeftOf="@+id/post_comment"
                     android:layout_toRightOf="@+id/post_detail_comment_profie_image"
                     android:hint="write your comment..."
-                    android:padding="8dp"/>
+                    android:padding="8dp"></EditText>
 
                 <TextView
                     android:id="@+id/post_comment"
