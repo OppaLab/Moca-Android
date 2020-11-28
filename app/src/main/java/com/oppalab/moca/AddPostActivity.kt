@@ -148,7 +148,9 @@ class AddPostActivity : AppCompatActivity() {
                                 postTitle = title,
                                 postBody = content,
                                 postCategories = categories.split(","),
-                                userId = PreferenceManager.getLong(applicationContext,"userId")
+                                userId = PreferenceManager.getLong(applicationContext,"userId"),
+                                numberOfRandomUserPushNotification = 0,
+                                isRandomUserPushNotification = false
                             ).enqueue(object : Callback<Long> {
                                 override fun onResponse(
                                     call: Call<Long>,
