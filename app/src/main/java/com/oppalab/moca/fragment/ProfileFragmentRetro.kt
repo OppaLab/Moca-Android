@@ -84,7 +84,7 @@ class ProfileFragmentRetro : Fragment() {
         RetrofitConnection.server.getProfile(myUserId = currentUser, userId = currentUser).enqueue(object :
             Callback<GetProfileDTO> {
             override fun onResponse(call: Call<GetProfileDTO>, response: Response<GetProfileDTO>) {
-                Log.d("프로필 내놔", response.body().toString())
+                Log.d("Get Profile", response.body().toString())
                 val profile = response.body()
 //                Picasso.get().load(RetrofitConnection.URL+"image/profile/"+response.body()!!.profileImageFilePath).into(circleimageview_thumbmail)
                 view.profile_fragment_username.text = profile!!.nickname
@@ -92,7 +92,7 @@ class ProfileFragmentRetro : Fragment() {
                 view.total_posts.text = profile!!.numberOfPosts.toString()
                 view.total_followers.text = profile!!.numberOfFollowers.toString()
                 view.total_following.text = profile!!.numberOfFollowings.toString()
-                userCategory = profile.userCategory.toString()
+                userCategory = profile.userCategories.toString()
                 nickname = profile.nickname
             }
 

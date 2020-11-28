@@ -10,6 +10,7 @@ import android.renderscript.Sampler
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -24,6 +25,8 @@ import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.oppalab.moca.dto.GetProfileDTO
 import com.oppalab.moca.dto.UpdateProfileDTO
+import com.oppalab.moca.fragment.ProfileFragment
+import com.oppalab.moca.fragment.ProfileFragmentRetro
 import com.oppalab.moca.model.User
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
@@ -75,19 +78,20 @@ class AccountSettingActivity : AppCompatActivity() {
         }
 
         setting_user_name.setText(nickname)
-        val categoryArray = categories.split(',')
-        Log.d("카테고리 알려줘", categories)
-        for(item in categoryArray) {
-            if (item == "Family,") setting_category_family.setChecked(true)
-            if (item == "Friend,") setting_category_friend.setChecked(true)
-            if (item == "Parent,") setting_category_parent.setChecked(true)
-            if (item == "Couple,") setting_category_couple.setChecked(true)
-            if (item == "Money,") setting_category_money.setChecked(true)
-            if (item == "School,") setting_category_school.setChecked(true)
-            if (item == "Study,") setting_category_study.setChecked(true)
-            if (item == "Sex,") setting_category_sex.setChecked(true)
-        }
+
+        Log.d("GetCategories", categories)
+        val categoryIndex : String = categories
+            if (categoryIndex.contains("Family")) setting_category_family.setChecked(true)
+            if (categoryIndex.contains("Friend")) setting_category_friend.setChecked(true)
+            if (categoryIndex.contains("Parent")) setting_category_parent.setChecked(true)
+            if (categoryIndex.contains("Couple")) setting_category_couple.setChecked(true)
+            if (categoryIndex.contains("Money")) setting_category_money.setChecked(true)
+            if (categoryIndex.contains("School")) setting_category_school.setChecked(true)
+            if (categoryIndex.contains("Study")) setting_category_study.setChecked(true)
+            if (categoryIndex.contains("Sex")) setting_category_sex.setChecked(true)
+
         save_profile_button.setOnClickListener {
+            categories = ""
             if (setting_category_family.isChecked) categories += "Family,"
             if (setting_category_friend.isChecked) categories += "Friend,"
             if (setting_category_parent.isChecked) categories += "Parent,"
@@ -98,6 +102,7 @@ class AccountSettingActivity : AppCompatActivity() {
             if (setting_category_sex.isChecked) categories += "Sex,"
             categories.substring(0, categories.length-1)
 
+            Log.d("ToSaveCategories", categories)
             if (checker == "clicked") {
                 uploadImageAndUpdateInfo()
             } else {
@@ -115,21 +120,26 @@ class AccountSettingActivity : AppCompatActivity() {
             else -> {
                 RetrofitConnection.server.updateProfile(
                     userId = currentUser,
-                    nickname = setting_user_name.toString(),
-                    userCategories = categories.split(","),
-                    subscribeToPushNotification = false
+                    nickname=setting_user_name.text.toString(),
+                    userCategories = categories.split(','),
+                    subscribeToPushNotification = true
                 ).enqueue(object :
-                    Callback<UpdateProfileDTO> {
-                    override fun onResponse(call: Call<UpdateProfileDTO>, response: Response<UpdateProfileDTO>) {
-                        Log.d("프로필 수정", response.body().toString())
+                    Callback<Long> {
+                    override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                        if(response.isSuccessful) {
+                            Log.d("ProfileUpdateSuccess", response.body().toString())
+                            Toast.makeText(applicationContext, "프로필 정보를 수정하였습니다.", Toast.LENGTH_LONG).show()
+                        }
+                        else{
+                            Log.d("ProfileUpdateFail1", response.body().toString())
+                        }
                     }
 
-                    override fun onFailure(call: Call<UpdateProfileDTO>, t: Throwable) {
-                        Log.d("retrofit", t.message.toString())
+                    override fun onFailure(call: Call<Long>, t: Throwable) {
+                        Log.d("ProfileUpdateFail2", t.message.toString())
                     }
 
                 })
-                Toast.makeText(this, "프로필 정보를 수정하였습니다.", Toast.LENGTH_LONG).show()
 
                 val intent = Intent(this@AccountSettingActivity, MainActivity::class.java)
                 startActivity(intent)
@@ -178,7 +188,7 @@ class AccountSettingActivity : AppCompatActivity() {
 
                         val intent = Intent(this@AccountSettingActivity, MainActivity::class.java)
                         startActivity(intent)
-                        finish()
+
                         progressDialog.dismiss()
                     }
                     else {
@@ -200,5 +210,10 @@ class AccountSettingActivity : AppCompatActivity() {
         }
     }
 
+    private fun moveToFragment(fragment: Fragment) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_container, fragment)
+            .commit()
+    }
 
 }

@@ -39,20 +39,13 @@ interface RetrofitService {
         @Query("userId") userId: Long
     ): Call<GetProfileDTO>
 
+    @FormUrlEncoded
     @PUT("/profile/{userId}")
     fun updateProfile(
         @Path("userId") userId: Long,
-        @Query("nickname") nickname: String,
-        @Query("userCategories") userCategories: List<String>,
-        @Query("subscribeToPushNotification") subscribeToPushNotification: Boolean
-    ):Call<UpdateProfileDTO>
-
-    @PUT("/profile/{userId})")
-    fun updateProfile(
-        @Path("userId") userId: Long,
-        @Query("nickname") nickname: String,
-        @Query("userCategories") userCategories: List<String>,
-        @Query("subscribeToPushNotification") subscribeToPushNotification: Boolean
+        @Field("nickname") nickname: String,
+        @Field("userCategories") userCategories: List<String>,
+        @Field("subscribeToPushNotification") subscribeToPushNotification: Boolean
     ): Call<Long>
 
     @DELETE("/signout/{userId}")
