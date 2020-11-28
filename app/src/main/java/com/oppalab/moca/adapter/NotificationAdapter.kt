@@ -166,6 +166,7 @@ class NotificationAdapter (
                 intentPostDetail.putExtra("subject", mPost[0].postTitle)
                 intentPostDetail.putExtra("postUserId",mPost[0].userId.toString())
                 intentPostDetail.putExtra("reviewId",mPost[0].reviewId.toString())
+                intentPostDetail.putExtra("likeTag", if (mPost[0].like) "Liked" else "Like")
 
                 mContext.startActivity(intentPostDetail)
             }
