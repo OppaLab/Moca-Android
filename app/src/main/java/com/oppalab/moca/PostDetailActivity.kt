@@ -6,6 +6,8 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,12 +38,15 @@ class PostDetailActivity : AppCompatActivity() {
     private var commentCount = 0L
     private var commentAdapter: CommentsAdapterRetro? = null
     private var commentList: MutableList<CommentsOnPost>? = null
+    private var currentUser = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_detail)
+        setSupportActionBar(findViewById(R.id.post_toolbar))
 
-        val currentUser = PreferenceManager.getLong(applicationContext, "userId")
+
+        currentUser = PreferenceManager.getLong(applicationContext, "userId")
 
         val intent = intent
 
