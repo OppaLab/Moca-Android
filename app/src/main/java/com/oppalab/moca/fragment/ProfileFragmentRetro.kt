@@ -1,5 +1,6 @@
 package com.oppalab.moca.fragment
 
+import android.accounts.Account
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 import com.oppalab.moca.AccountSettingActivity
+import com.oppalab.moca.PostDetailActivity
 import com.oppalab.moca.R
 import com.oppalab.moca.adapter.MyThumbnailAdapter
 import com.oppalab.moca.dto.GetMyPostDTO
@@ -29,6 +31,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ProfileFragmentRetro : Fragment() {
     private lateinit var profileId: String
@@ -37,6 +40,9 @@ class ProfileFragmentRetro : Fragment() {
     private var postList: MutableList<PostDTO>? = null
 //    private var myProfile: GetProfileDTO? = null
     private var myThumbnailAdapter: MyThumbnailAdapter? = null
+
+    private var nickname : String = ""
+    private var userCategory: String = ""
 //    var user_full_name:TextView?=null
 
     override fun onCreateView(
@@ -78,7 +84,7 @@ class ProfileFragmentRetro : Fragment() {
         RetrofitConnection.server.getProfile(myUserId = currentUser, userId = currentUser).enqueue(object :
             Callback<GetProfileDTO> {
             override fun onResponse(call: Call<GetProfileDTO>, response: Response<GetProfileDTO>) {
-                Log.d("retrofit", response.body().toString())
+                Log.d("프로필 내놔", response.body().toString())
                 val profile = response.body()
 //                Picasso.get().load(RetrofitConnection.URL+"image/profile/"+response.body()!!.profileImageFilePath).into(circleimageview_thumbmail)
                 view.profile_fragment_username.text = profile!!.nickname
@@ -86,6 +92,8 @@ class ProfileFragmentRetro : Fragment() {
                 view.total_posts.text = profile!!.numberOfPosts.toString()
                 view.total_followers.text = profile!!.numberOfFollowers.toString()
                 view.total_following.text = profile!!.numberOfFollowings.toString()
+                userCategory = profile.userCategory.toString()
+                nickname = profile.nickname
             }
 
             override fun onFailure(call: Call<GetProfileDTO>, t: Throwable) {
@@ -116,7 +124,11 @@ class ProfileFragmentRetro : Fragment() {
         })
 
         view.edit_account_setting_button.setOnClickListener {
-            startActivity(Intent(context, AccountSettingActivity::class.java))
+            val intentAccountSetting = Intent(this.context, AccountSettingActivity::class.java)
+            intentAccountSetting.putExtra("categoriesList", userCategory)
+            intentAccountSetting.putExtra("nickname", nickname)
+            intentAccountSetting.putExtra("currentUser", PreferenceManager.getLong(requireContext(),"userId").toString())
+            startActivity(intentAccountSetting)
         }
 
         return view

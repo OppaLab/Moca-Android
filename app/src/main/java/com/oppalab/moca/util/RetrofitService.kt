@@ -1,6 +1,7 @@
 package com.oppalab.moca.util
 
 import GetCommentsOnPostDTO
+import android.telephony.ClosedSubscriberGroupInfo
 import com.oppalab.moca.dto.*
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -36,6 +37,14 @@ interface RetrofitService {
         @Query("myUserId") myUserId: Long,
         @Query("userId") userId: Long
     ): Call<GetProfileDTO>
+
+    @PUT("/profile/{userId}")
+    fun updateProfile(
+        @Path("userId") userId: Long,
+        @Query("nickname") nickname: String,
+        @Query("userCategories") userCategories: List<String>,
+        @Query("subscribeToPushNotification") subscribeToPushNotification: Boolean
+    ):Call<UpdateProfileDTO>
 
 
     //follow & follower

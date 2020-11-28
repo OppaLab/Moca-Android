@@ -6,5 +6,6 @@ data class GetProfileDTO(
     val numberOfPosts: Long,
     val numberOfFollowers: Long,
     val numberOfFollowings: Long,
-    val isFollowed: Boolean
+    val isFollowed: Boolean,
+    val userCategory: List<String>
 )
