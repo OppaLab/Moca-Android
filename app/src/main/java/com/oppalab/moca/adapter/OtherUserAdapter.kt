@@ -43,6 +43,9 @@ class OtherUserAdapter(private val mContext: Context, mPost: List<PostDTO>):
             intentPostDetail.putExtra("like", post.like)
             intentPostDetail.putExtra("postId", post.postId.toString())
             intentPostDetail.putExtra("subject", post.postTitle)
+            intentPostDetail.putExtra("postUserId", post.userId.toString())
+            intentPostDetail.putExtra("reviewId",post.reviewId.toString())
+            intentPostDetail.putExtra("likeTag", if (post.like) "Liked" else "Like")
 
             mContext.startActivity(intentPostDetail)
         }

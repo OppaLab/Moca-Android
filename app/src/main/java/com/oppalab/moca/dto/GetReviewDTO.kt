@@ -1,6 +1,7 @@
 package com.oppalab.moca.dto
 
 data class GetReviewDTO (
+    val reviewId: Long,
     val likeCount: Long,
     val commentCount: Long,
     val like: Boolean,
