@@ -42,20 +42,18 @@ import retrofit2.Response
 
 class AccountSettingActivity : AppCompatActivity() {
 
-    private lateinit var firebaseUser: FirebaseUser
     private var categories :String = ""
     private var nickname :String = ""
-    private var checker = ""
-    private var myUrl = ""
-    private var storageReference: StorageReference? = null
-    private var imageUri: Uri? = null
     private var currentUser : Long = 0L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_setting)
 
-        firebaseUser = FirebaseAuth.getInstance().currentUser!!
-        storageReference = FirebaseStorage.getInstance().reference.child("Profile Pictures")
+        var intent = intent
+        categories = intent.getStringExtra("categoriesList")!!
+        nickname = intent.getStringExtra("nickname")!!
+        currentUser = intent.getStringExtra("currentUser")!!.toLong()
 
         setting_logout_btn.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
@@ -65,13 +63,6 @@ class AccountSettingActivity : AppCompatActivity() {
             finish()
         }
 
-        change_image_text_btn.setOnClickListener {
-            checker = "clicked"
-
-            CropImage.activity()
-                .setAspectRatio(1, 1)
-                .start(this@AccountSettingActivity)
-        }
 
         setting_user_name.setText(nickname)
 
@@ -114,16 +105,12 @@ class AccountSettingActivity : AppCompatActivity() {
             categories.substring(0, categories.length-1)
 
             Log.d("ToSaveCategories", categories)
-            if (checker == "clicked") {
-                uploadImageAndUpdateInfo()
-            } else {
-                updateUserInfoOnly()
-            }
+            updateUserInfo()
         }
 
     }
 
-    private fun updateUserInfoOnly() {
+    private fun updateUserInfo() {
         when {
             TextUtils.isEmpty(setting_user_name.text.toString()) -> Toast.makeText(this, "수정할 닉네임을 입력해주세요.", Toast.LENGTH_LONG).show()
             categories == "" -> Toast.makeText(this, "카테고리를 골라주세요.", Toast.LENGTH_LONG).show()
@@ -137,87 +124,27 @@ class AccountSettingActivity : AppCompatActivity() {
                 ).enqueue(object :
                     Callback<Long> {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
-                        if(response.isSuccessful) {
+                        if (response.isSuccessful) {
                             Log.d("ProfileUpdateSuccess", response.body().toString())
-                            Toast.makeText(applicationContext, "프로필 정보를 수정하였습니다.", Toast.LENGTH_LONG).show()
-                        }
-                        else{
+                            Toast.makeText(
+                                applicationContext,
+                                "프로필 정보를 수정하였습니다.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
                             Log.d("ProfileUpdateFail1", response.body().toString())
                         }
                     }
 
+
                     override fun onFailure(call: Call<Long>, t: Throwable) {
                         Log.d("ProfileUpdateFail2", t.message.toString())
                     }
-
+                })
                 val intent = Intent(this@AccountSettingActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
-
             }
         }
     }
-
-    private fun uploadImageAndUpdateInfo() {
-
-        when {
-            imageUri == null -> Toast.makeText(this, "이미지를 골라주세요.", Toast.LENGTH_LONG).show()
-            TextUtils.isEmpty(setting_user_name.text.toString()) -> Toast.makeText(this, "수정할 닉네임을 입력해주세요.", Toast.LENGTH_LONG).show()
-            categories == "" -> Toast.makeText(this, "카테고리를 골라주세요.", Toast.LENGTH_LONG).show()
-
-            else -> {
-                val progressDialog = ProgressDialog(this)
-                progressDialog.setTitle("프로필 변경")
-                progressDialog.setMessage("프로필 업로드 중입니다.")
-                progressDialog.show()
-
-                val fileRef = storageReference!!.child(firebaseUser!!.uid + "jpg")
-
-                var uploadTask: StorageTask<*>
-                uploadTask = fileRef.putFile(imageUri!!)
-                uploadTask.continueWith(Continuation <UploadTask.TaskSnapshot, Task<Uri>>{
-                    if (!it.isSuccessful) {
-                        it.exception?.let {
-                            throw it
-                            progressDialog.dismiss()
-                        }
-                    }
-                    return@Continuation fileRef.downloadUrl
-                }).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val downloadUrl = it.result
-                        myUrl = downloadUrl.toString()
-
-                        val ref = FirebaseDatabase.getInstance().reference.child("Users")
-                        val userMap = HashMap<String, Any>()
-                        userMap["username"] = setting_user_name.text.toString().toLowerCase()
-                        userMap["category"] = categories.toLowerCase()
-                        userMap["image"]
-                        ref.child(firebaseUser.uid).updateChildren(userMap)
-
-                        val intent = Intent(this@AccountSettingActivity, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                        progressDialog.dismiss()
-                    }
-                    else {
-                        progressDialog.dismiss()
-                    }
-                }
-            }
-        }
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            val result = CropImage.getActivityResult(data)
-            imageUri = result.uri
-            profile_profile_image.setImageURI(imageUri)
-        }
-    }
-
-
 }
