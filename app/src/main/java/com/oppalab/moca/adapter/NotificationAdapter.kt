@@ -167,6 +167,13 @@ class NotificationAdapter (
                 intentPostDetail.putExtra("postUserId",mPost[0].userId.toString())
                 intentPostDetail.putExtra("reviewId",mPost[0].reviewId.toString())
                 intentPostDetail.putExtra("likeTag", if (mPost[0].like) "Liked" else "Like")
+                var categoryString = ""
+                for (category in mPost[0].categories) {
+                    if (category == "") continue
+                    categoryString += category
+                    categoryString += ", "
+                }
+                intentPostDetail.putExtra("categories",categoryString.substring(0, categoryString.length-2))
 
                 mContext.startActivity(intentPostDetail)
             }
@@ -188,7 +195,7 @@ class NotificationAdapter (
 
     private fun moveToProfile(userId: Long) {
         val intentProfile = Intent(mContext, OtherUserActivity::class.java)
-        intentProfile.putExtra("publisherId",userId)
+        intentProfile.putExtra("publisherId",userId.toString())
         mContext.startActivity(intentProfile)
     }
 }

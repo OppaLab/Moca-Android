@@ -46,6 +46,15 @@
                     android:textColor="@android:color/black"
                     android:layout_centerVertical="true"/>
 
+                <TextView
+                    android:id="@+id/post_detail_cateogory"
+                    android:layout_below="@+id/post_detail_publisher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:text="카테고리"/>
+
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>

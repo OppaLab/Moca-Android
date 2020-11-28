@@ -36,6 +36,7 @@ class PostDetailActivity : AppCompatActivity() {
     private var commentCount = 0L
     private var commentAdapter: CommentsAdapterRetro? = null
     private var commentList: MutableList<CommentsOnPost>? = null
+    private var categories = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +58,7 @@ class PostDetailActivity : AppCompatActivity() {
         likeCount = intent.getStringExtra("likeCount")!!.toLong()
         commentCount = intent.getStringExtra("commentCount")!!.toLong()
         content = intent.getStringExtra("content")!!
+        categories = intent.getStringExtra("categories")!!
 
         var comment_linearLayoutManager = LinearLayoutManager(this)
         comment_linearLayoutManager.reverseLayout = true
@@ -78,6 +80,9 @@ class PostDetailActivity : AppCompatActivity() {
             post_image_like_btn.setImageResource(R.drawable.heart_not_clicked)
             post_image_like_btn.tag = "Like"
         }
+
+
+        post_detail_cateogory.text = categories
 
         post_detail_subject.text = intent.getStringExtra("subject")
         post_detail_publisher.text = publisherId

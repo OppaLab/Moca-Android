@@ -60,6 +60,14 @@ class PostAdapterRetro
             holder.title.setText(post.postTitle)
         }
 
+        var post_categories = ""
+        for (category in post.categories) {
+            if (category == "") continue
+            post_categories += category
+            post_categories += ", "
+        }
+        holder.category.text = post_categories.substring(0, post_categories.length - 2)
+
         //내용
         if (post.postBody.equals("")) {
             holder.description.visibility = View.GONE
@@ -191,6 +199,13 @@ class PostAdapterRetro
             intentPostDetail.putExtra("subject", post.postTitle)
             intentPostDetail.putExtra("postUserId",post.userId.toString())
             intentPostDetail.putExtra("reviewId",post.reviewId.toString())
+            var categoryString = ""
+            for (category in post.categories) {
+                if (category == "") continue
+                categoryString += category
+                categoryString += ", "
+            }
+            intentPostDetail.putExtra("categories",categoryString.substring(0, categoryString.length-2))
 
             mContext.startActivity(intentPostDetail)
         }
@@ -228,6 +243,7 @@ class PostAdapterRetro
         var comments: TextView
         var description: TextView
         var publisher: TextView
+        var category: TextView
 
         init {
             profileImage = itemView.findViewById(R.id.user_profile_image_search)
@@ -241,6 +257,7 @@ class PostAdapterRetro
             comments = itemView.findViewById(R.id.comments)
             description = itemView.findViewById(R.id.description)
             publisher = itemView.findViewById(R.id.publisher)
+            category = itemView.findViewById(R.id.category_post_card)
         }
     }
 }
