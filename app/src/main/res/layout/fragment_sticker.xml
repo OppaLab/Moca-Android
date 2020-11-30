@@ -20,7 +20,7 @@
             android:id="@+id/add_sticker_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Sticker" />
+            android:text="스티커 추가하기" />
     </LinearLayout>
 
 </FrameLayout>

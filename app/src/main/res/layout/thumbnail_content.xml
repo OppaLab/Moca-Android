@@ -35,6 +35,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/thumbnail_background_btn"
+                android:layout_marginRight="6dp"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:padding="16dp"
@@ -53,7 +54,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Back"
+                        android:text="배경화"
                         android:textColor="@android:color/white"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -96,6 +97,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:padding="16dp"
+                android:layout_marginRight="6dp"
                 app:cardBackgroundColor="#8a8a8a">
 
                 <LinearLayout
@@ -111,7 +113,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Emoji"
+                        android:text="이모티콘"
                         android:textColor="@android:color/white"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -125,6 +127,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:padding="16dp"
+                android:layout_marginRight="6dp"
                 app:cardBackgroundColor="#8a8a8a">
 
                 <LinearLayout
@@ -140,7 +143,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Text"
+                        android:text="글"
                         android:textColor="@android:color/white"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -154,6 +157,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:padding="16dp"
+                android:layout_marginRight="6dp"
                 app:cardBackgroundColor="#8a8a8a">
 
                 <LinearLayout
@@ -169,7 +173,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sticker"
+                        android:text="감정"
                         android:textColor="@android:color/white"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -183,6 +187,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:padding="16dp"
+                android:layout_marginRight="6dp"
                 app:cardBackgroundColor="#8a8a8a">
 
                 <LinearLayout
@@ -198,7 +203,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sticker"
+                        android:text="사람"
                         android:textColor="@android:color/white"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -212,6 +217,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:padding="16dp"
+                android:layout_marginRight="6dp"
                 app:cardBackgroundColor="#8a8a8a">
 
                 <LinearLayout
@@ -227,7 +233,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sticker"
+                        android:text="장소"
                         android:textColor="@android:color/white"
                         android:textSize="18dp"
                         android:textStyle="bold" />

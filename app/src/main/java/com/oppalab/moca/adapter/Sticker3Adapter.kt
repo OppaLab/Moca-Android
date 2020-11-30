@@ -24,34 +24,16 @@ class Sticker3Adapter(
     private fun getStickerList(): List<Int> {
         val result = ArrayList<Int>()
 
-        result.add(R.drawable.parents)
-        result.add(R.drawable.money)
-        result.add(R.drawable.friend)
-        result.add(R.drawable.lover)
-        result.add(R.drawable.studying)
-        result.add(R.drawable.social_distancing)
-        result.add(R.drawable.sick)
-        result.add(R.drawable.isolation)
-        result.add(R.drawable.employment)
-        result.add(R.drawable.learning)
+        result.add(R.drawable.home_general)
+        result.add(R.drawable.love_house)
+        result.add(R.drawable.enterprise)
+        result.add(R.drawable.double_bed)
+        result.add(R.drawable.archive)
+        result.add(R.drawable.park)
+        result.add(R.drawable.hospital)
+        result.add(R.drawable.classroom)
         result.add(R.drawable.school)
-        result.add(R.drawable.isolation)
-        result.add(R.drawable.high_five)
-        result.add(R.drawable.family)
-        result.add(R.drawable.family_icon_3)
-        result.add(R.drawable.family_icon_4)
-        result.add(R.drawable.family_icon_7)
-        result.add(R.drawable.family_icon_9)
-        result.add(R.drawable.condom)
-        result.add(R.drawable.couple1)
-        result.add(R.drawable.debt)
-        result.add(R.drawable.gender_symbols)
-        result.add(R.drawable.marry)
-        result.add(R.drawable.physical_abuse)
-        result.add(R.drawable.std)
-
-
-
+        result.add(R.drawable.theater)
 
         return result
     }

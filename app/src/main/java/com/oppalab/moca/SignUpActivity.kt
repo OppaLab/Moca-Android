@@ -53,7 +53,7 @@ class SignUpActivity : AppCompatActivity() {
             if (category_school.isChecked) categories += "학교,"
             if (category_study.isChecked) categories += "학업,"
             if (category_sex.isChecked) categories += ","
-            categories.substring(2, categories.length - 1)
+            categories.substring(0, categories.length - 1)
             CreatAccount()
         }
 
@@ -66,7 +66,7 @@ class SignUpActivity : AppCompatActivity() {
         val email = signup_email.text.toString()
         val password = signup_password.text.toString()
         val userName = signup_user_name.text.toString()
-        val userCategory: String = categories.substring(2, categories.length - 1)
+        val userCategory: String = categories.substring(0, categories.length - 1)
 
         when {
             TextUtils.isEmpty(email) -> Toast.makeText(this, "이메일 입력이 필요합니다.", Toast.LENGTH_LONG)

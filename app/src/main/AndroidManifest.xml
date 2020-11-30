@@ -34,13 +34,13 @@
         <activity android:name=".CommentsActivityRetro" />
         <activity android:name=".AddPostActivity" />
         <activity android:name=".SignUpActivity">
+        </activity>
+        <activity android:name=".PostDetailActivity" />
+        <activity android:name=".SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".PostDetailActivity" />
-        <activity android:name=".SignInActivity">
         </activity>
         <activity android:name=".AccountSettingActivity" />
         <activity

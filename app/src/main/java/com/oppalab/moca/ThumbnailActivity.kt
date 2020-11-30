@@ -49,7 +49,7 @@ class ThumbnailActivity : AppCompatActivity(), BackgroundFragmentListener, Brush
             .setDefaultEmojiTypeface(Typeface.createFromAsset(assets, "noto_color_emoji.ttf"))
             .build()
 
-//        loadImage()
+        loadImage()
         backgroundFragment = BackgroundFragment.getInstance()
         brushFragment = BrushFragment.getInstance()
         emojiFragment = EmojiFragment.getInstance()
@@ -132,7 +132,7 @@ class ThumbnailActivity : AppCompatActivity(), BackgroundFragmentListener, Brush
 
     private fun loadImage() {
 
-        originalImage = getDrawable(R.drawable.moca)?.toBitmap(300, 300)
+        originalImage = getDrawable(R.drawable.transparent)?.toBitmap(300, 300)
         finalImage = originalImage!!.copy(Bitmap.Config.ARGB_8888, true)
         thumbnail_preview.source.setImageBitmap(originalImage)
     }
