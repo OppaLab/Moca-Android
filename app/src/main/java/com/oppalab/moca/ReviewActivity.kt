@@ -1,10 +1,13 @@
 package com.oppalab.moca
 
 import GetCommentsOnPostDTO
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +39,8 @@ class ReviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_review)
+        setSupportActionBar(findViewById(R.id.review_toolbar))
+
 
         val intent = intent
         currentUser = PreferenceManager.getLong(applicationContext, "userId")
@@ -271,4 +276,38 @@ class ReviewActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.appbar_action, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.action_delete -> {
+                Log.d("retrofit", "post 삭제버튼 동작 = ")
+                RetrofitConnection.server.deleteReview(userId = currentUser, reviewId = reviewId.toLong()).enqueue(object : Callback<Long>{
+                    override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                        Log.d("retrofit", "review 삭제 : review_id = " + response.body())
+                        Toast.makeText(this@ReviewActivity,"게시글이 삭제되었습니다.", Toast.LENGTH_LONG)
+                        val intent = Intent(this@ReviewActivity, PostDetailActivity::class.java)
+//                        intent.putExtra("ProfileFragment","ProfileFragment")
+                        startActivity(intent)
+                        finish()
+
+                    }
+                    override fun onFailure(call: Call<Long>, t: Throwable) {
+                        Log.d("retrofit", "review 삭제 실패 :  " + t.message.toString())
+                    }
+                })
+                return true
+            }
+            R.id.action_update -> {
+                Log.d("retrofit", "review 수정버튼 동작 = ")
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
