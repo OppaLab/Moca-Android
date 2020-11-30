@@ -42,7 +42,23 @@ class NotificationAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var notification = mNotification[position]
+        val notification = mNotification[position]
+
+        val createdAt = notification.createdAt
+        var createdAtToText = ""
+        if (createdAt <= 60){
+            createdAtToText = createdAt.toString() + "초 전"
+        } else if (createdAt <= 60*60){
+            createdAtToText = (createdAt/60).toString() + "분 전"
+        } else if (createdAt <= 60*60*24){
+            createdAtToText = (createdAt/(60*60)).toString() + "시간 전"
+        } else if (createdAt <= 60*60*24*7){
+            createdAtToText = (createdAt/(60*60*7)).toString() + "일 전"
+        } else if (createdAt <= 60*60*24*7*7){
+            createdAtToText = (createdAt/(60*60*7*7)).toString() + "주 전"
+        }
+
+
 
         //썸네일을 넣을것인지 않넣을것인지 안정해서 일단 없앰
         holder.postThumbnail.visibility= View.GONE
@@ -50,7 +66,8 @@ class NotificationAdapter (
         if(notification.activity == "post")
         {
             holder.username.text= notification.nickname
-            holder.text.text="새로운 고민글을 작성했어요."
+            holder.text.text="새로운 고민글을 작성했어요. "
+            holder.textTime.text = createdAtToText
 
             holder.text.setOnClickListener {
                 moveToPost(notification.userId, notification.postId)
@@ -59,7 +76,9 @@ class NotificationAdapter (
         else if(notification.activity == "review")
         {
             holder.username.text= notification.nickname
-            holder.text.text="관심있었던 고민글에 후기글이 등록됬어요."
+            holder.text.text="관심있었던 고민글에 후기글이 등록됐어요. "
+            holder.textTime.text = createdAtToText
+
             holder.text.setOnClickListener {
                 moveToReview(notification.userId.toString(), notification.reviewId.toString(), notification.postId)
             }
@@ -69,7 +88,8 @@ class NotificationAdapter (
             holder.username.text= notification.nickname
             if(notification.reviewId == 0L)
             {
-                holder.text.text="당신 고민글에 공감했어요."
+                holder.text.text="고민글에 공감했어요. "
+                holder.textTime.text = createdAtToText
                 holder.text.setOnClickListener {
 
                     moveToPost(currentUser, notification.postId)
@@ -77,7 +97,8 @@ class NotificationAdapter (
             }
             else
             {
-                holder.text.text="당신 후기에 공감했어요."
+                holder.text.text="후기에 공감했어요. "
+                holder.textTime.text = createdAtToText
                 holder.text.setOnClickListener {
                     moveToReview(currentUser.toString(), notification.reviewId.toString(), notification.postId)
                 }
@@ -86,8 +107,8 @@ class NotificationAdapter (
         else if(notification.activity == "follow")
         {
             holder.username.text= notification.nickname
-            holder.text.text="당신을 팔로우합니다."
-
+            holder.text.text="당신을 팔로우합니다. "
+            holder.textTime.text = createdAtToText
             holder.text.setOnClickListener{
                 moveToProfile(notification.userId)
             }
@@ -98,14 +119,16 @@ class NotificationAdapter (
             if(notification.reviewId == 0L)
             {
                 Log.d("notificationcomment", currentUser.toString()+notification.postId.toString())
-                holder.text.text="당신 고민글에 댓글이 등록됬어요."
+                holder.text.text="고민글에 댓글이 등록됐어요. "
+                holder.textTime.text = createdAtToText
                 holder.text.setOnClickListener {
                     moveToPost(currentUser, notification.postId)
                 }
             }
             else
             {
-                holder.text.text="당신 후기에 댓글이 등록됬어요."
+                holder.text.text="후기에 댓글이 등록됐어요. "
+                holder.textTime.text = createdAtToText
                 holder.text.setOnClickListener {
                     moveToReview(currentUser.toString(), notification.reviewId.toString(), notification.postId)
                 }
@@ -114,7 +137,8 @@ class NotificationAdapter (
         else
         {
             holder.username.text= notification.nickname
-            holder.text.text="어떤 유저가 고민을 푸시했습니다."
+            holder.text.text="어떤 유저가 고민을 푸시했습니다. "
+            holder.textTime.text = createdAtToText
             /*
             * holder.text.setOnClickListener {
                 moveToPost(notification.userId, notification.postId)
@@ -135,12 +159,14 @@ class NotificationAdapter (
         var profileImage: CircleImageView
         var username: TextView
         var text: TextView
+        var textTime: TextView
 
         init{
             postThumbnail = itemView.findViewById(R.id.notification_post_thumnail)
             profileImage = itemView.findViewById(R.id.notification_profile_image)
             username = itemView.findViewById(R.id.username_notification)
             text = itemView.findViewById(R.id.content_notification)
+            textTime = itemView.findViewById(R.id.time_notification)
         }
     }
 
