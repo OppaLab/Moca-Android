@@ -7,13 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.R
-import kotlinx.android.synthetic.main.sticker_item.view.*
 
-class StickerAdapter(
+class Sticker1Adapter(
     internal var context: Context,
     internal var listener: StickerAdapterClickListener
 ) :
-    RecyclerView.Adapter<StickerAdapter.StickerViewHolder>() {
+    RecyclerView.Adapter<Sticker1Adapter.StickerViewHolder>() {
 
     internal var stickerList: List<Int>
     internal var row_selected = -1

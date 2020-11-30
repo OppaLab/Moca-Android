@@ -10,23 +10,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.oppalab.moca.R
 import com.oppalab.moca.`interface`.AddStickerFragmentListener
-import com.oppalab.moca.adapter.StickerAdapter
+import com.oppalab.moca.adapter.Sticker1Adapter
 
-class StickerFragment : BottomSheetDialogFragment(), StickerAdapter.StickerAdapterClickListener {
+class Sticker1Fragment : BottomSheetDialogFragment(), Sticker1Adapter.StickerAdapterClickListener {
 
     internal lateinit var recycler_sticker: RecyclerView
     internal lateinit var add_sticker_btn: Button
     internal var listener: AddStickerFragmentListener?=null
-    internal lateinit var adapter: StickerAdapter
+    internal lateinit var a1Adapter: Sticker1Adapter
 
     internal var sticker_selected = -1
 
     companion object {
-        internal var instance:StickerFragment?=null
+        internal var instance:Sticker1Fragment?=null
 
-        fun getInstance():StickerFragment {
+        fun getInstance():Sticker1Fragment {
             if (instance == null) {
-                instance = StickerFragment()
+                instance = Sticker1Fragment()
             }
             return instance!!
         }
@@ -46,7 +46,7 @@ class StickerFragment : BottomSheetDialogFragment(), StickerAdapter.StickerAdapt
         recycler_sticker = itemView.findViewById(R.id.recycler_stickers)
         recycler_sticker.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL, false)
         recycler_sticker.setHasFixedSize(true)
-        recycler_sticker.adapter = StickerAdapter(requireContext(), this)
+        recycler_sticker.adapter = Sticker1Adapter(requireContext(), this)
 
         add_sticker_btn = itemView.findViewById(R.id.add_sticker_btn)
         add_sticker_btn.setOnClickListener {

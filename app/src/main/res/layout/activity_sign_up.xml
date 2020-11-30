@@ -13,6 +13,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="40dp"
         android:layout_marginRight="10dp"
+        android:background="@android:color/white"
         app:cardCornerRadius="18dp">
 
         <RelativeLayout
@@ -124,7 +125,7 @@
                     android:id="@+id/category_parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="부모"
+                    android:text="부모님"
                     android:textColor="#8A8A8A"
                     android:textSize="18dp" />
 
@@ -132,7 +133,7 @@
                     android:id="@+id/category_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="돈"
+                    android:text="금전"
                     android:textColor="#8A8A8A"
                     android:textSize="18dp" />
 
@@ -148,7 +149,7 @@
                     android:id="@+id/category_study"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="공부"
+                    android:text="학업"
                     android:textColor="#8A8A8A"
                     android:textSize="18dp" />
 
