@@ -149,7 +149,7 @@ class SearchFragment : Fragment() {
         }
 
         view.search_category_couple_btn.setOnClickListener {
-            curCategory = "Couple"
+            curCategory = "연인"
             search = ""
             RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort=sort).enqueue(object:
                 Callback<GetMyPostDTO> {
@@ -170,7 +170,7 @@ class SearchFragment : Fragment() {
             })
         }
         view.search_category_family_btn.setOnClickListener {
-            curCategory = "Family"
+            curCategory = "가족"
             search = ""
             RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
@@ -191,7 +191,7 @@ class SearchFragment : Fragment() {
             })
         }
         view.search_category_friend_btn.setOnClickListener {
-            curCategory = "Friend"
+            curCategory = "친구"
             search = ""
             RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
@@ -212,7 +212,7 @@ class SearchFragment : Fragment() {
             })
         }
         view.search_category_money_btn.setOnClickListener {
-            curCategory = "Money"
+            curCategory = "금전"
             search = ""
             RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
@@ -233,7 +233,7 @@ class SearchFragment : Fragment() {
             })
         }
         view.search_category_parent_btn.setOnClickListener {
-            curCategory = "Parent"
+            curCategory = "부모님"
             search = ""
             RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
@@ -254,7 +254,7 @@ class SearchFragment : Fragment() {
             })
         }
         view.search_category_school_btn.setOnClickListener {
-            curCategory = "School"
+            curCategory = "학교"
             search = ""
             RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
@@ -275,7 +275,7 @@ class SearchFragment : Fragment() {
             })
         }
         view.search_category_sex_btn.setOnClickListener {
-            curCategory = "Sex"
+            curCategory = "성"
             search = ""
             RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
@@ -296,7 +296,7 @@ class SearchFragment : Fragment() {
             })
         }
         view.search_category_study_btn.setOnClickListener {
-            curCategory = "Study"
+            curCategory = "학업"
             search = ""
             RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
                 Callback<GetMyPostDTO> {
