@@ -55,14 +55,14 @@ class AddPostActivity : AppCompatActivity() {
 
         save_new_post_btn.isClickable = true
         save_new_post_btn.setOnClickListener {
-            if (post_category_family.isChecked) categories += "Family,"
-            if (post_category_friend.isChecked) categories += "Friend,"
-            if (post_category_parent.isChecked) categories += "Parent,"
-            if (post_category_couple.isChecked) categories += "Couple,"
-            if (post_category_money.isChecked) categories += "Money,"
-            if (post_category_school.isChecked) categories += "School,"
-            if (post_category_study.isChecked) categories += "Study,"
-            if (post_category_sex.isChecked) categories += "Sex,"
+            if (post_category_family.isChecked) categories += "가족,"
+            if (post_category_friend.isChecked) categories += "친구,"
+            if (post_category_parent.isChecked) categories += "부모님,"
+            if (post_category_couple.isChecked) categories += "연인,"
+            if (post_category_money.isChecked) categories += "금전,"
+            if (post_category_school.isChecked) categories += "학교,"
+            if (post_category_study.isChecked) categories += "학업,"
+            if (post_category_sex.isChecked) categories += "성,"
             uploadPost(arr)
         }
 
