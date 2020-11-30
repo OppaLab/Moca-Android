@@ -27,6 +27,7 @@ class ColorAdapter(
     private fun genColorList(): List<Int>? {
         var colorList = ArrayList<Int>()
 
+        colorList.add(Color.parseColor("#ffffff"))
         colorList.add(Color.parseColor("#131722"))
         colorList.add(Color.parseColor("#ff545e"))
         colorList.add(Color.parseColor("#57bb82"))
