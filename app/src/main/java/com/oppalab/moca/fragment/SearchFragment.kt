@@ -46,6 +46,7 @@ class SearchFragment : Fragment() {
         recyclerview_search_thumbnails.setHasFixedSize(true)
         postList = ArrayList()
         val linearLayoutManager: LinearLayoutManager = GridLayoutManager(context, 3)
+        linearLayoutManager.reverseLayout = true
         recyclerview_search_thumbnails.layoutManager = linearLayoutManager
 
         myThumbnailAdapter = context?.let { MyThumbnailAdapter(it, postList as ArrayList<PostDTO>) }
