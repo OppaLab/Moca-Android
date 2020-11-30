@@ -63,6 +63,7 @@ class AddPostActivity : AppCompatActivity() {
             if (post_category_school.isChecked) categories += "학교,"
             if (post_category_study.isChecked) categories += "학업,"
             if (post_category_sex.isChecked) categories += "성,"
+            if (post_category_appearence.isChecked) categories += "외모,"
             uploadPost(arr)
         }
 

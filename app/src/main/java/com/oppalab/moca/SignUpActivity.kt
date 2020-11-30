@@ -53,6 +53,7 @@ class SignUpActivity : AppCompatActivity() {
             if (category_school.isChecked) categories += "학교,"
             if (category_study.isChecked) categories += "학업,"
             if (category_sex.isChecked) categories += "성,"
+            if (category_appearence.isChecked) categories += "외모,"
             categories.substring(0, categories.length - 1)
             CreatAccount()
         }
