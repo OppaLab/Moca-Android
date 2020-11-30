@@ -58,6 +58,7 @@ class ThumbnailActivity : AppCompatActivity(), BackgroundFragmentListener, Brush
         addSticker1Fragment = Sticker1Fragment.getInstance()
         addSticker2Fragment = Sticker2Fragment.getInstance()
         addSticker3Fragment = Sticker3Fragment.getInstance()
+        addSticker4Fragment = Sticker4Fragment.getInstance()
 
         thumbnail_background_btn.setOnClickListener {
             if (backgroundFragment != null) {
