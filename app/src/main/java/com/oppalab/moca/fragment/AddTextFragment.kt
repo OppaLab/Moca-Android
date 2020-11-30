@@ -17,11 +17,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.oppalab.moca.R
 import com.oppalab.moca.`interface`.AddTextFragmentListener
 import com.oppalab.moca.`interface`.BrushFragmentListener
-import com.oppalab.moca.adapter.ColorAdapter
 import com.oppalab.moca.adapter.FontAdapter
+import com.oppalab.moca.adapter.TextColorAdapter
 import java.lang.StringBuilder
 
-class AddTextFragment : BottomSheetDialogFragment(), ColorAdapter.ColorAdapterClickListener,
+class AddTextFragment : BottomSheetDialogFragment(), TextColorAdapter.ColorAdapterClickListener,
     FontAdapter.FontAdapterClickListener {
 
     var colorSelcted:Int = Color.parseColor("#000000") //default
@@ -38,7 +38,7 @@ class AddTextFragment : BottomSheetDialogFragment(), ColorAdapter.ColorAdapterCl
     var recycler_color:RecyclerView?=null
     var recycler_font:RecyclerView?=null
     var btn_done:Button?=null
-    var colorAdapter:ColorAdapter?=null
+    var colorAdapter:TextColorAdapter?=null
     var fontAdapter:FontAdapter?=null
 
     companion object {
@@ -70,7 +70,7 @@ class AddTextFragment : BottomSheetDialogFragment(), ColorAdapter.ColorAdapterCl
         recycler_font!!.layoutManager = LinearLayoutManager(activity,
             LinearLayoutManager.HORIZONTAL,false)
 
-        colorAdapter = ColorAdapter(requireContext(), this@AddTextFragment)
+        colorAdapter = TextColorAdapter(requireContext(), this@AddTextFragment)
         recycler_color!!.adapter = colorAdapter
 
         fontAdapter = FontAdapter(requireContext(), this@AddTextFragment)
