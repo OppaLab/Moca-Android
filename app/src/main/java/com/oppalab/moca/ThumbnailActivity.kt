@@ -28,6 +28,7 @@ class ThumbnailActivity : AppCompatActivity(), BackgroundFragmentListener, Brush
     internal lateinit var addSticker1Fragment: Sticker1Fragment
     internal lateinit var addSticker2Fragment: Sticker2Fragment
     internal lateinit var addSticker3Fragment: Sticker3Fragment
+    internal lateinit var addSticker4Fragment: Sticker4Fragment
     internal lateinit var backgroundFragment: BackgroundFragment
 
     lateinit var photoEditor:PhotoEditor
@@ -57,6 +58,7 @@ class ThumbnailActivity : AppCompatActivity(), BackgroundFragmentListener, Brush
         addSticker1Fragment = Sticker1Fragment.getInstance()
         addSticker2Fragment = Sticker2Fragment.getInstance()
         addSticker3Fragment = Sticker3Fragment.getInstance()
+        addSticker4Fragment = Sticker4Fragment.getInstance()
 
         thumbnail_background_btn.setOnClickListener {
             if (backgroundFragment != null) {
@@ -107,6 +109,12 @@ class ThumbnailActivity : AppCompatActivity(), BackgroundFragmentListener, Brush
             if (addSticker3Fragment != null) {
                 addSticker3Fragment.setListener(this@ThumbnailActivity)
                 addSticker3Fragment.show(supportFragmentManager, addSticker3Fragment.tag)
+            }
+        }
+        thumbnail_sticker4_btn.setOnClickListener {
+            if (addSticker4Fragment != null) {
+                addSticker4Fragment.setListener(this@ThumbnailActivity)
+                addSticker4Fragment.show(supportFragmentManager, addSticker4Fragment.tag)
             }
         }
 

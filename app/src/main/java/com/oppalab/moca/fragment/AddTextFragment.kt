@@ -76,6 +76,8 @@ class AddTextFragment : BottomSheetDialogFragment(), TextColorAdapter.ColorAdapt
         fontAdapter = FontAdapter(requireContext(), this@AddTextFragment)
         recycler_font!!.adapter = fontAdapter
 
+        edt_add_text!!.text.clear()
+
         //event
         btn_done!!.setOnClickListener {
             listener!!.onAddTextListener(typeFace, edt_add_text!!.text.toString(),colorSelcted)

@@ -8,11 +8,11 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.R
 
-class Sticker2Adapter(
+class Sticker4Adapter(
     internal var context: Context,
     internal var listener: StickerAdapterClickListener
 ) :
-    RecyclerView.Adapter<Sticker2Adapter.StickerViewHolder>() {
+    RecyclerView.Adapter<Sticker4Adapter.StickerViewHolder>() {
 
     internal var stickerList: List<Int>
     internal var row_selected = -1
@@ -24,25 +24,21 @@ class Sticker2Adapter(
     private fun getStickerList(): List<Int> {
         val result = ArrayList<Int>()
 
-        result.add(R.drawable.businessman)
-        result.add(R.drawable.couple)
-        result.add(R.drawable.twin)
-        result.add(R.drawable.father)
-        result.add(R.drawable.labor_man)
-        result.add(R.drawable.lgbtman)
-        result.add(R.drawable.lgbtwoman)
-        result.add(R.drawable.motherhood)
-        result.add(R.drawable.woman)
-        result.add(R.drawable.working_woman)
-        result.add(R.drawable.grandparents)
-        result.add(R.drawable.designer)
-
-
-
-
-
-
-
+        result.add(R.drawable.barbell)
+        result.add(R.drawable.beer)
+        result.add(R.drawable.cigarrete)
+        result.add(R.drawable.diet)
+        result.add(R.drawable.drug)
+        result.add(R.drawable.drugs)
+        result.add(R.drawable.gambling)
+        result.add(R.drawable.lifting)
+        result.add(R.drawable.liquor)
+        result.add(R.drawable.money)
+        result.add(R.drawable.scalpel)
+        result.add(R.drawable.fast_food)
+        result.add(R.drawable.stock_market)
+        result.add(R.drawable.strong)
+        result.add(R.drawable.syringe)
 
         return result
     }
