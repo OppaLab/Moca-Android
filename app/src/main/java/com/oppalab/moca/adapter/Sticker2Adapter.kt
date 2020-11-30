@@ -26,6 +26,7 @@ class Sticker2Adapter(
 
         result.add(R.drawable.businessman)
         result.add(R.drawable.couple)
+        result.add(R.drawable.twin)
         result.add(R.drawable.father)
         result.add(R.drawable.labor_man)
         result.add(R.drawable.lgbtman)
@@ -33,6 +34,10 @@ class Sticker2Adapter(
         result.add(R.drawable.motherhood)
         result.add(R.drawable.woman)
         result.add(R.drawable.working_woman)
+        result.add(R.drawable.grandparents)
+        result.add(R.drawable.designer)
+
+
 
 
 
