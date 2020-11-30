@@ -24,10 +24,16 @@ class Sticker3Adapter(
     private fun getStickerList(): List<Int> {
         val result = ArrayList<Int>()
 
-
-
-
-
+        result.add(R.drawable.home_general)
+        result.add(R.drawable.love_house)
+        result.add(R.drawable.enterprise)
+        result.add(R.drawable.double_bed)
+        result.add(R.drawable.archive)
+        result.add(R.drawable.park)
+        result.add(R.drawable.hospital)
+        result.add(R.drawable.classroom)
+        result.add(R.drawable.school)
+        result.add(R.drawable.theater)
 
         return result
     }
