@@ -46,6 +46,8 @@ class MyThumbnailAdapter(private val mContext: Context, mPost: List<PostDTO>):
             intentPostDetail.putExtra("subject", post.postTitle)
             intentPostDetail.putExtra("postUserId",post.userId.toString())
             intentPostDetail.putExtra("reviewId",post.reviewId.toString())
+            intentPostDetail.putExtra("createdAt", post.createdAt.toString())
+
             var categoryString = ""
             for (category in post.categories) {
                 if (category == "") continue
