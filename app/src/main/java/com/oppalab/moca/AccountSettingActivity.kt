@@ -68,14 +68,14 @@ class AccountSettingActivity : AppCompatActivity() {
 
         Log.d("GetCategories", categories)
         val categoryIndex : String = categories
-            if (categoryIndex.contains("Family")) setting_category_family.setChecked(true)
-            if (categoryIndex.contains("Friend")) setting_category_friend.setChecked(true)
-            if (categoryIndex.contains("Parent")) setting_category_parent.setChecked(true)
-            if (categoryIndex.contains("Couple")) setting_category_couple.setChecked(true)
-            if (categoryIndex.contains("Money")) setting_category_money.setChecked(true)
-            if (categoryIndex.contains("School")) setting_category_school.setChecked(true)
-            if (categoryIndex.contains("Study")) setting_category_study.setChecked(true)
-            if (categoryIndex.contains("Sex")) setting_category_sex.setChecked(true)
+            if (categoryIndex.contains("가족")) setting_category_family.setChecked(true)
+            if (categoryIndex.contains("친구")) setting_category_friend.setChecked(true)
+            if (categoryIndex.contains("부모님")) setting_category_parent.setChecked(true)
+            if (categoryIndex.contains("연인")) setting_category_couple.setChecked(true)
+            if (categoryIndex.contains("돈")) setting_category_money.setChecked(true)
+            if (categoryIndex.contains("학교")) setting_category_school.setChecked(true)
+            if (categoryIndex.contains("학업")) setting_category_study.setChecked(true)
+            if (categoryIndex.contains("성")) setting_category_sex.setChecked(true)
 
         delete_account_btn.setOnClickListener {
             RetrofitConnection.server.signOut(userId = PreferenceManager.getLong(applicationContext, "userId")).enqueue(object: Callback<Long> {

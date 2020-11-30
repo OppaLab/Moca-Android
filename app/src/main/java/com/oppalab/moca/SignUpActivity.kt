@@ -45,14 +45,14 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
         signup_btn.setOnClickListener {
-            if (category_family.isChecked) categories += "Family,"
-            if (category_friend.isChecked) categories += "Friend,"
-            if (category_parent.isChecked) categories += "Parent,"
-            if (category_couple.isChecked) categories += "Couple,"
-            if (category_money.isChecked) categories += "Money,"
-            if (category_school.isChecked) categories += "School,"
-            if (category_study.isChecked) categories += "Study,"
-            if (category_sex.isChecked) categories += "Sex,"
+            if (category_family.isChecked) categories += "가족,"
+            if (category_friend.isChecked) categories += "친구,"
+            if (category_parent.isChecked) categories += "부모님,"
+            if (category_couple.isChecked) categories += "연인,"
+            if (category_money.isChecked) categories += "금전,"
+            if (category_school.isChecked) categories += "학교,"
+            if (category_study.isChecked) categories += "학업,"
+            if (category_sex.isChecked) categories += "성,"
             categories.substring(0, categories.length - 1)
             CreatAccount()
         }

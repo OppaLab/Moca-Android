@@ -7,7 +7,6 @@ import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import com.oppalab.moca.`interface`.*
@@ -26,7 +25,9 @@ class ThumbnailActivity : AppCompatActivity(), BackgroundFragmentListener, Brush
     internal lateinit var brushFragment: BrushFragment
     internal lateinit var emojiFragment: EmojiFragment
     internal lateinit var addTextFragment: AddTextFragment
-    internal lateinit var addStickerFragment: StickerFragment
+    internal lateinit var addSticker1Fragment: Sticker1Fragment
+    internal lateinit var addSticker2Fragment: Sticker2Fragment
+    internal lateinit var addSticker3Fragment: Sticker3Fragment
     internal lateinit var backgroundFragment: BackgroundFragment
 
     lateinit var photoEditor:PhotoEditor
@@ -53,7 +54,9 @@ class ThumbnailActivity : AppCompatActivity(), BackgroundFragmentListener, Brush
         brushFragment = BrushFragment.getInstance()
         emojiFragment = EmojiFragment.getInstance()
         addTextFragment = AddTextFragment.getInstance()
-        addStickerFragment = StickerFragment.getInstance()
+        addSticker1Fragment = Sticker1Fragment.getInstance()
+        addSticker2Fragment = Sticker2Fragment.getInstance()
+        addSticker3Fragment = Sticker3Fragment.getInstance()
 
         thumbnail_background_btn.setOnClickListener {
             if (backgroundFragment != null) {
@@ -88,10 +91,22 @@ class ThumbnailActivity : AppCompatActivity(), BackgroundFragmentListener, Brush
             }
         }
 
-        thumbnail_sticker_btn.setOnClickListener {
-            if (addStickerFragment != null) {
-                addStickerFragment.setListener(this@ThumbnailActivity)
-                addStickerFragment.show(supportFragmentManager, addStickerFragment.tag)
+        thumbnail_sticker1_btn.setOnClickListener {
+            if (addSticker1Fragment != null) {
+                addSticker1Fragment.setListener(this@ThumbnailActivity)
+                addSticker1Fragment.show(supportFragmentManager, addSticker1Fragment.tag)
+            }
+        }
+        thumbnail_sticker2_btn.setOnClickListener {
+            if (addSticker2Fragment != null) {
+                addSticker2Fragment.setListener(this@ThumbnailActivity)
+                addSticker2Fragment.show(supportFragmentManager, addSticker2Fragment.tag)
+            }
+        }
+        thumbnail_sticker3_btn.setOnClickListener {
+            if (addSticker3Fragment != null) {
+                addSticker3Fragment.setListener(this@ThumbnailActivity)
+                addSticker3Fragment.show(supportFragmentManager, addSticker3Fragment.tag)
             }
         }
 

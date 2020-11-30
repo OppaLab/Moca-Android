@@ -85,7 +85,7 @@
                     android:layout_marginTop="10dp"
                     android:hint="고민글의 제목을 작성해주세요."
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:maxLines="3"/>
             </LinearLayout>
 

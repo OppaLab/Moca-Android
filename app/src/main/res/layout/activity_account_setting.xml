@@ -104,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:text="Family"
+            android:text="가족"
             android:textColor="#8A8A8A"
             android:textSize="18dp" />
 
@@ -113,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:text="Friend"
+            android:text="친구"
             android:textColor="#8A8A8A"
             android:textSize="18dp" />
 
@@ -121,7 +121,7 @@
             android:id="@+id/setting_category_couple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Couple"
+            android:text="연인"
             android:textColor="#8A8A8A"
             android:textSize="18dp" />
 
@@ -129,7 +129,7 @@
             android:id="@+id/setting_category_parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Parent"
+            android:text="부모님"
             android:textColor="#8A8A8A"
             android:textSize="18dp" />
 
@@ -137,7 +137,7 @@
             android:id="@+id/setting_category_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Money"
+            android:text="금전"
             android:textColor="#8A8A8A"
             android:textSize="18dp" />
 
@@ -145,7 +145,7 @@
             android:id="@+id/setting_category_school"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="School"
+            android:text="학교"
             android:textColor="#8A8A8A"
             android:textSize="18dp" />
 
@@ -153,7 +153,7 @@
             android:id="@+id/setting_category_study"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Study"
+            android:text="학업"
             android:textColor="#8A8A8A"
             android:textSize="18dp" />
 
@@ -161,7 +161,7 @@
             android:id="@+id/setting_category_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sex"
+            android:text="성"
             android:textColor="#8A8A8A"
             android:textSize="18dp" />
     </GridLayout>
