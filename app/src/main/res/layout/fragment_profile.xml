@@ -187,7 +187,7 @@
                 android:padding="12dp">
 
                 <TextView
-                    android:id="@+id/profile_full_name"
+                    android:id="@+id/profile_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Full Name"
@@ -196,14 +196,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/profile_bio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bio"
-                    android:textColor="@android:color/black"
-                    android:textSize="13dp"/>
-
-                <TextView
+                    android:id="@+id/profile_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Category"
@@ -212,10 +205,10 @@
                     android:textSize="13dp"/>
 
                 <TextView
-                    android:id="@+id/profile_category"
+                    android:id="@+id/profile_entity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Category List"
+                    android:text="아직 게시글이 존재하지 않습니다."
                     android:textColor="@android:color/black"
                     android:textSize="13dp"
                     android:textStyle="bold" />
@@ -237,14 +230,14 @@
                         android:layout_weight="1"
                         style="?android:attr/buttonBarButtonStyle"/>
 
-                    <ImageButton
-                        android:id="@+id/images_save_btn"
-                        android:layout_width="1dp"
-                        android:layout_height="49dp"
-                        android:src="@drawable/save_large_icon"
-                        android:scaleType="fitCenter"
-                        android:layout_weight="1"
-                        style="?android:attr/buttonBarButtonStyle"/>
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/images_save_btn"-->
+<!--                        android:layout_width="1dp"-->
+<!--                        android:layout_height="49dp"-->
+<!--                        android:src="@drawable/save_large_icon"-->
+<!--                        android:scaleType="fitCenter"-->
+<!--                        android:layout_weight="1"-->
+<!--                        style="?android:attr/buttonBarButtonStyle"/>-->
 
                 </LinearLayout>
                 <androidx.recyclerview.widget.RecyclerView

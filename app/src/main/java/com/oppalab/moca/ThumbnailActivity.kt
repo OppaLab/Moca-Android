@@ -9,14 +9,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
-import com.oppalab.moca.`interface`.AddStickerFragmentListener
-import com.oppalab.moca.`interface`.AddTextFragmentListener
-import com.oppalab.moca.`interface`.BrushFragmentListener
-import com.oppalab.moca.`interface`.EmojiFragmentListener
-import com.oppalab.moca.fragment.AddTextFragment
-import com.oppalab.moca.fragment.BrushFragment
-import com.oppalab.moca.fragment.EmojiFragment
-import com.oppalab.moca.fragment.StickerFragment
+import androidx.core.graphics.drawable.toDrawable
+import com.oppalab.moca.`interface`.*
+import com.oppalab.moca.fragment.*
 import ja.burhanrashid52.photoeditor.OnSaveBitmap
 import ja.burhanrashid52.photoeditor.PhotoEditor
 import kotlinx.android.synthetic.main.activity_thumbnail.*
@@ -24,7 +19,7 @@ import kotlinx.android.synthetic.main.thumbnail_content.*
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
 
-class ThumbnailActivity : AppCompatActivity(), BrushFragmentListener, EmojiFragmentListener,
+class ThumbnailActivity : AppCompatActivity(), BackgroundFragmentListener, BrushFragmentListener, EmojiFragmentListener,
     AddTextFragmentListener, AddStickerFragmentListener {
     internal var originalImage:Bitmap? = null
     internal lateinit var finalImage: Bitmap
@@ -32,6 +27,7 @@ class ThumbnailActivity : AppCompatActivity(), BrushFragmentListener, EmojiFragm
     internal lateinit var emojiFragment: EmojiFragment
     internal lateinit var addTextFragment: AddTextFragment
     internal lateinit var addStickerFragment: StickerFragment
+    internal lateinit var backgroundFragment: BackgroundFragment
 
     lateinit var photoEditor:PhotoEditor
 
@@ -52,21 +48,31 @@ class ThumbnailActivity : AppCompatActivity(), BrushFragmentListener, EmojiFragm
             .setDefaultEmojiTypeface(Typeface.createFromAsset(assets, "noto_color_emoji.ttf"))
             .build()
 
-        loadImage()
+//        loadImage()
+        backgroundFragment = BackgroundFragment.getInstance()
         brushFragment = BrushFragment.getInstance()
         emojiFragment = EmojiFragment.getInstance()
         addTextFragment = AddTextFragment.getInstance()
         addStickerFragment = StickerFragment.getInstance()
 
-        thumbnail_brush_btn.setOnClickListener {
-            if (brushFragment != null) {
+        thumbnail_background_btn.setOnClickListener {
+            if (backgroundFragment != null) {
 
-                photoEditor.setBrushDrawingMode(true)
+                backgroundFragment.setListener(this@ThumbnailActivity)
+                backgroundFragment.show(supportFragmentManager, backgroundFragment.tag)
 
-                brushFragment.setListener(this@ThumbnailActivity)
-                brushFragment.show(supportFragmentManager, brushFragment.tag)
             }
         }
+
+//        thumbnail_brush_btn.setOnClickListener {
+//            if (brushFragment != null) {
+//
+//                photoEditor.setBrushDrawingMode(true)
+//
+//                brushFragment.setListener(this@ThumbnailActivity)
+//                brushFragment.show(supportFragmentManager, brushFragment.tag)
+//            }
+//        }
 
         thumbnail_emoji_btn.setOnClickListener {
             if (emojiFragment != null) {
@@ -147,6 +153,10 @@ class ThumbnailActivity : AppCompatActivity(), BrushFragmentListener, EmojiFragm
     override fun onStickerSelected(sticker: Int) {
         val bitmap = BitmapFactory.decodeResource(resources, sticker)
         photoEditor.addImage(bitmap)
+    }
+
+    override fun onBackgroundColorChangedListener(color: Int) {
+        thumbnail_preview.background = color.toDrawable()
     }
 
 

@@ -62,34 +62,34 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/thumbnail_brush_btn"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:padding="16dp"
-                app:cardBackgroundColor="#8a8a8a">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/thumbnail_brush_btn"-->
+<!--                android:layout_width="80dp"-->
+<!--                android:layout_height="80dp"-->
+<!--                android:padding="16dp"-->
+<!--                app:cardBackgroundColor="#8a8a8a">-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_horizontal|center_vertical">-->
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center_horizontal" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Brush"
-                        android:textColor="@android:color/white"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Brush"-->
+<!--                        android:textColor="@android:color/white"-->
+<!--                        android:textSize="18dp"-->
+<!--                        android:textStyle="bold" />-->
+<!--                </LinearLayout>-->
 
 
-            </androidx.cardview.widget.CardView>
+<!--            </androidx.cardview.widget.CardView>-->
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/thumbnail_emoji_btn"

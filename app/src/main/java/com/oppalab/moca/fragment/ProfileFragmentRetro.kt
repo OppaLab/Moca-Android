@@ -43,6 +43,7 @@ class ProfileFragmentRetro : Fragment() {
 
     private var nickname : String = ""
     private var userCategory: String = ""
+    private var userEntity: String = ""
 //    var user_full_name:TextView?=null
 
     override fun onCreateView(
@@ -88,12 +89,23 @@ class ProfileFragmentRetro : Fragment() {
                 val profile = response.body()
 //                Picasso.get().load(RetrofitConnection.URL+"image/profile/"+response.body()!!.profileImageFilePath).into(circleimageview_thumbmail)
                 view.profile_fragment_username.text = profile!!.nickname
-                view.profile_full_name.text = profile!!.nickname
+                view.profile_nickname.text = profile!!.nickname
                 view.total_posts.text = profile!!.numberOfPosts.toString()
                 view.total_followers.text = profile!!.numberOfFollowers.toString()
                 view.total_following.text = profile!!.numberOfFollowings.toString()
-                userCategory = profile.userCategories.toString()
                 nickname = profile.nickname
+                for (category in profile.userCategories) {
+                    if (category == "") continue
+                    userCategory += category
+                    userCategory += ", "
+                }
+                for (entity in profile.userEntities) {
+                    if (entity == "") continue
+                    userEntity += entity
+                    userEntity += ", "
+                }
+                if (profile.userCategories.size > 0) view.profile_category.text = userCategory.substring(0, userCategory.length-2)
+                if (profile.userEntities.size > 0) view.profile_entity.text = userEntity.substring(0, userEntity.length-2)
             }
 
             override fun onFailure(call: Call<GetProfileDTO>, t: Throwable) {

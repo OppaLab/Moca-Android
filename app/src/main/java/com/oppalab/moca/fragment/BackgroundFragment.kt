@@ -19,10 +19,10 @@ import kotlinx.android.synthetic.main.thumbnail_content.*
 
 class BackgroundFragment : BottomSheetDialogFragment(), ColorAdapter.ColorAdapterClickListener {
     companion object {
-        internal var instance: BrushFragment? = null
-        fun getInstance():BrushFragment {
+        internal var instance: BackgroundFragment? = null
+        fun getInstance():BackgroundFragment {
             if (instance == null) {
-                instance = BrushFragment()
+                instance = BackgroundFragment()
             }
             return instance!!
         }
@@ -38,11 +38,9 @@ class BackgroundFragment : BottomSheetDialogFragment(), ColorAdapter.ColorAdapte
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val itemView = inflater.inflate(R.layout.fragment_brush, container, false)
+        val itemView = inflater.inflate(R.layout.fragment_background, container, false)
 
-        background_recycler = itemView.findViewById(R.id.brush_color_recyclerview)
-
-        set_background_btn = itemView.findViewById(R.id.set_background_btn)
+        background_recycler = itemView.findViewById(R.id.recycler_backgrounds)
 
         background_recycler!!.setHasFixedSize(true)
         background_recycler!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
@@ -50,10 +48,6 @@ class BackgroundFragment : BottomSheetDialogFragment(), ColorAdapter.ColorAdapte
         colorAdpater = ColorAdapter(requireContext(), this@BackgroundFragment)
         background_recycler!!.adapter = colorAdpater
 
-
-        set_background_btn!!.setOnClickListener {
-//            thumbnail_preview.
-        }
         return itemView
     }
 

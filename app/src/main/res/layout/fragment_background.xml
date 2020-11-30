@@ -16,13 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <ToggleButton
-            android:id="@+id/set_background_btn"
-            android:textOff="Setting"
-            android:textAllCaps="false"
-            android:textOn="Eraser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 </FrameLayout>
