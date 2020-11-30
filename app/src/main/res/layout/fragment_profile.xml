@@ -91,7 +91,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_weight="1">
 
                             <TextView
                                 android:id="@+id/total_posts"
@@ -99,7 +100,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textColor="@android:color/black"
-                                android:textSize="12dp"
+                                android:textSize="14dp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -107,7 +108,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="게시글"
                                 android:textColor="@android:color/black"
-                                android:textSize="12dp"
+                                android:textSize="14dp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -117,7 +118,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_weight="1">
 
                             <TextView
                                 android:id="@+id/total_followers"
@@ -125,7 +127,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textColor="@android:color/black"
-                                android:textSize="12dp"
+                                android:textSize="14dp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -133,7 +135,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="팔로워"
                                 android:textColor="@android:color/black"
-                                android:textSize="12dp"
+                                android:textSize="14dp"
                                 android:textStyle="bold" />
 
 
@@ -144,7 +146,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="7dp"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_weight="1">
 
                             <TextView
                                 android:id="@+id/total_following"
@@ -152,7 +155,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textColor="@android:color/black"
-                                android:textSize="12dp"
+                                android:textSize="14dp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -160,7 +163,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="팔로잉"
                                 android:textColor="@android:color/black"
-                                android:textSize="12dp"
+                                android:textSize="14dp"
                                 android:textStyle="bold" />
 
 
@@ -169,6 +172,7 @@
                     </LinearLayout>
 
                     <Button
+                        android:layout_margin="10dp"
                         android:id="@+id/edit_account_setting_button"
                         android:layout_width="170dp"
                         android:layout_height="32dp"
@@ -185,25 +189,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:padding="12dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:id="@+id/profile_nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Full Name"
+                    android:text="닉네임"
                     android:textColor="@android:color/black"
-                    android:textSize="13dp"
+                    android:textSize="18dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/profile_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Category"
+                    android:text="카테고리"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
-                    android:textSize="13dp"/>
+                    android:textSize="16dp"
+                    android:layout_marginTop="8dp"/>
 
                 <TextView
                     android:id="@+id/profile_entity"
@@ -211,8 +218,9 @@
                     android:layout_height="wrap_content"
                     android:text="아직 게시글이 존재하지 않습니다."
                     android:textColor="@android:color/black"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
