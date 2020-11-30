@@ -75,7 +75,7 @@ class AccountSettingActivity : AppCompatActivity() {
             if (categoryIndex.contains("돈")) setting_category_money.setChecked(true)
             if (categoryIndex.contains("학교")) setting_category_school.setChecked(true)
             if (categoryIndex.contains("학업")) setting_category_study.setChecked(true)
-            if (categoryIndex.contains("")) setting_category_sex.setChecked(true)
+            if (categoryIndex.contains("성")) setting_category_sex.setChecked(true)
 
         delete_account_btn.setOnClickListener {
             RetrofitConnection.server.signOut(userId = PreferenceManager.getLong(applicationContext, "userId")).enqueue(object: Callback<Long> {
@@ -111,10 +111,10 @@ class AccountSettingActivity : AppCompatActivity() {
     }
 
     private fun updateUserInfo() {
+        categories = categories.substring(2, categories.length - 1)
         when {
             TextUtils.isEmpty(setting_user_name.text.toString()) -> Toast.makeText(this, "수정할 닉네임을 입력해주세요.", Toast.LENGTH_LONG).show()
             categories == "" -> Toast.makeText(this, "카테고리를 골라주세요.", Toast.LENGTH_LONG).show()
-
             else -> {
                 RetrofitConnection.server.updateProfile(
                     userId = currentUser,
