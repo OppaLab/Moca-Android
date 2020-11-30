@@ -118,7 +118,7 @@ class AddPostActivity : AppCompatActivity() {
                             postMap["content"] = content
                             postMap["publisher"] = FirebaseAuth.getInstance().currentUser!!.uid
                             postMap["thumbnail"] = myUrl
-                            postMap["category"] = categories.substring(2, categories.length - 1)
+                            postMap["category"] = categories.substring(0, categories.length - 1)
 
 
                             val file = File(applicationContext.cacheDir, postId)

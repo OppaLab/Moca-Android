@@ -111,7 +111,7 @@ class AccountSettingActivity : AppCompatActivity() {
     }
 
     private fun updateUserInfo() {
-        categories = categories.substring(2, categories.length - 1)
+        categories = categories.substring(0, categories.length - 1)
         when {
             TextUtils.isEmpty(setting_user_name.text.toString()) -> Toast.makeText(this, "수정할 닉네임을 입력해주세요.", Toast.LENGTH_LONG).show()
             categories == "" -> Toast.makeText(this, "카테고리를 골라주세요.", Toast.LENGTH_LONG).show()
