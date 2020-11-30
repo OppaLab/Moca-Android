@@ -63,7 +63,6 @@ class AddPostActivity : AppCompatActivity() {
             if (post_category_school.isChecked) categories += "School,"
             if (post_category_study.isChecked) categories += "Study,"
             if (post_category_sex.isChecked) categories += "Sex,"
-            categories.substring(0, categories.length - 1)
             uploadPost(arr)
         }
 
@@ -119,7 +118,7 @@ class AddPostActivity : AppCompatActivity() {
                             postMap["content"] = content
                             postMap["publisher"] = FirebaseAuth.getInstance().currentUser!!.uid
                             postMap["thumbnail"] = myUrl
-                            postMap["category"] = categories.toLowerCase()
+                            postMap["category"] = categories.substring(2, categories.length - 1)
 
 
                             val file = File(applicationContext.cacheDir, postId)
