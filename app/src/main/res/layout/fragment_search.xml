@@ -16,9 +16,10 @@
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="6dp"
             android:background="@drawable/button_black_background">
 
             <RelativeLayout
@@ -27,8 +28,9 @@
 
                 <ImageButton
                     android:id="@+id/search_fragment_icon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:scaleType="centerInside"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:src="@drawable/search"
                     android:layout_centerVertical="true"
                     android:background="@android:color/white"/>
@@ -54,89 +56,99 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/search_app_bar_layout"
         android:orientation="horizontal"
+        android:layout_marginLeft="3dp"
         android:layout_marginTop="6dp">
+
         <Button
             android:id="@+id/search_category_family_btn"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:background="@drawable/buttons_background"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/button_background_moca"
             android:textStyle="bold"
             android:text="가족"
             android:textAllCaps="false"
-            android:textSize="20dp"/>
+            android:textSize="16dp"/>
 
         <Button
             android:id="@+id/search_category_parent_btn"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:background="@drawable/buttons_background"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/button_background_moca"
             android:textStyle="bold"
             android:text="부모님"
             android:textAllCaps="false"
-            android:textSize="20dp"/>
+            android:textSize="16dp"/>
         <Button
             android:id="@+id/search_category_couple_btn"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:background="@drawable/buttons_background"
+            android:background="@drawable/button_background_moca"
             android:textStyle="bold"
+            android:layout_marginRight="3dp"
             android:text="연인"
             android:textAllCaps="false"
-            android:textSize="20dp"/>
+            android:textSize="16dp"/>
         <Button
             android:id="@+id/search_category_money_btn"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:background="@drawable/buttons_background"
+            android:background="@drawable/button_background_moca"
             android:textStyle="bold"
             android:text="금전"
             android:textAllCaps="false"
-            android:textSize="20dp"/>
+            android:textSize="16dp"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/search_btn_layout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/search_btn_layout1"
+        android:layout_marginLeft="3dp"
         android:orientation="horizontal"
         android:layout_marginTop="3dp">
         <Button
             android:id="@+id/search_category_friend_btn"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:background="@drawable/buttons_background"
+            android:background="@drawable/button_background_moca"
             android:textStyle="bold"
             android:text="친구"
+            android:layout_marginRight="3dp"
             android:textAllCaps="false"
-            android:textSize="20dp"/>
+            android:textSize="16dp"/>
 
         <Button
             android:id="@+id/search_category_school_btn"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:background="@drawable/buttons_background"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/button_background_moca"
             android:textStyle="bold"
             android:text="학교"
             android:textAllCaps="false"
-            android:textSize="20dp"/>
+            android:textSize="16dp"/>
         <Button
             android:id="@+id/search_category_study_btn"
             android:layout_width="wrap_content"
+            android:layout_marginRight="3dp"
             android:layout_height="30dp"
-            android:background="@drawable/buttons_background"
+            android:background="@drawable/button_background_moca"
             android:textStyle="bold"
             android:text="학업"
             android:textAllCaps="false"
-            android:textSize="20dp"/>
+            android:textSize="16dp"/>
         <Button
             android:id="@+id/search_category_sex_btn"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:background="@drawable/buttons_background"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/button_background_moca"
             android:textStyle="bold"
             android:text="성"
             android:textAllCaps="false"
-            android:textSize="20dp"/>
+            android:textSize="16dp"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/search_sort_layout"

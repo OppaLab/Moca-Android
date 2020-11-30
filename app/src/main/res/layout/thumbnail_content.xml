@@ -9,7 +9,7 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ThumbnailActivity"
-    android:backgroundTint="@color/colorMocaBuff"
+    android:backgroundTint="#FEE9D7"
     tools:showIn="@layout/activity_thumbnail">
 
     <ja.burhanrashid52.photoeditor.PhotoEditorView

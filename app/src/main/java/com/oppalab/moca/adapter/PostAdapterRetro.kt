@@ -172,37 +172,6 @@ class PostAdapterRetro
             mContext.startActivity(intentUserProfile)
         }
 
-        holder.commentButton.setOnClickListener {
-            val intentPostDetail = Intent(mContext, PostDetailActivity::class.java)
-            intentPostDetail.putExtra("publisherId", post.nickname)
-            intentPostDetail.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
-            intentPostDetail.putExtra("content", post.postBody)
-            if (holder.likeButton.tag == "Liked") {
-                intentPostDetail.putExtra("likeCount", (curLikeCount).toString())
-            } else {
-                intentPostDetail.putExtra("likeCount", curLikeCount.toString())
-            }
-
-            intentPostDetail.putExtra("commentCount", post.commentCount.toString())
-            intentPostDetail.putExtra("likeTag", holder.likeButton.tag.toString())
-            intentPostDetail.putExtra("like", if (holder.likeButton.tag == "Liked") true else false)
-            intentPostDetail.putExtra("postId", post.postId.toString())
-            intentPostDetail.putExtra("subject", post.postTitle)
-            intentPostDetail.putExtra("postUserId",post.userId.toString())
-            intentPostDetail.putExtra("reviewId",post.reviewId.toString())
-            intentPostDetail.putExtra("createdAt", post.createdAt.toString())
-
-            var categoryString = ""
-            for (category in post.categories) {
-                if (category == "") continue
-                categoryString += category
-                categoryString += ", "
-            }
-            intentPostDetail.putExtra("categories",categoryString.substring(0, categoryString.length-2))
-
-            mContext.startActivity(intentPostDetail)
-        }
-
 
         holder.thumbnail.setOnClickListener {
             val intentPostDetail = Intent(mContext, PostDetailActivity::class.java)
@@ -259,7 +228,6 @@ class PostAdapterRetro
         var profileImage: CircleImageView
         var thumbnail: ImageView
         var likeButton: ImageView
-        var commentButton: ImageView
         var review: ImageView
         var nickName: TextView
         var likes: TextView
@@ -273,7 +241,6 @@ class PostAdapterRetro
             profileImage = itemView.findViewById(R.id.user_profile_image_search)
             thumbnail = itemView.findViewById(R.id.post_image_home)
             likeButton = itemView.findViewById(R.id.post_image_like_btn)
-            commentButton = itemView.findViewById(R.id.post_image_comment_btn)
             review = itemView.findViewById(R.id.post_review_btn)
             nickName = itemView.findViewById(R.id.nickname_post_card)
             title = itemView.findViewById(R.id.title_post_card)
