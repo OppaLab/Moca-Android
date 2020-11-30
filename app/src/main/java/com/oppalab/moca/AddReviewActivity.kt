@@ -17,6 +17,7 @@ class AddReviewActivity : AppCompatActivity() {
 
     private var postId= 0L
     private var userId= 0L
+    private var reviewId= 0L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_review)
@@ -55,13 +56,13 @@ class AddReviewActivity : AppCompatActivity() {
                         call: Call<Long>,
                         response: Response<Long>
                     ) {
-                        if (response?.isSuccessful) {
-                            Toast.makeText(
-                                getApplicationContext(),
-                                "Review Uploaded Successfully...",
-                                Toast.LENGTH_LONG
-                            ).show();
-                        }
+                        val intentReview = Intent(this@AddReviewActivity, ReviewActivity::class.java)
+                        Log.d("ReviewResponseBody",response.body().toString())
+                        intentReview.putExtra("userId",userId.toString())
+                        intentReview.putExtra("postId",postId.toString())
+                        intentReview.putExtra("reviewId",response.body()!!.toString())
+                        AddReviewActivity().finish()
+                        startActivity(intentReview)
                     }
                     override fun onFailure(call: Call<Long>, t: Throwable) {
                         Log.d("retrofit result", t.message.toString())
@@ -72,17 +73,8 @@ class AddReviewActivity : AppCompatActivity() {
                         ).show();
                     }
                 })
-
                 Toast.makeText(this, "후기가 등록되었습니다.", Toast.LENGTH_LONG).show()
-
-
-                val intentReview = Intent(this@AddReviewActivity, ReviewActivity::class.java)
-                intentReview.putExtra("userId",userId.toString())
-                intentReview.putExtra("postId",postId.toString())
-                intentReview.putExtra("reviewId",PreferenceManager.getLong(this,"reviewId").toString())
-                startActivity(intentReview)
                 finish()
-
                 progressDialog.dismiss()
             }
         }

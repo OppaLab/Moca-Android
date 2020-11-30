@@ -32,6 +32,7 @@ class ReviewActivity : AppCompatActivity() {
     private var commentCount = 0L
     private var commentAdapter: CommentsAdapterRetro? = null
     private var commentList: MutableList<CommentsOnPost>? = null
+    private var review = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,7 @@ class ReviewActivity : AppCompatActivity() {
         postId = intent.getStringExtra("postId")!!
         userId = intent.getStringExtra("userId")!!
         reviewId = intent.getStringExtra("reviewId")!!
+        Log.d("ReviewActivityReviewId",reviewId)
 
         var comment_linearLayoutManager = LinearLayoutManager(this)
         comment_linearLayoutManager.reverseLayout = true
@@ -58,8 +60,6 @@ class ReviewActivity : AppCompatActivity() {
                 call: Call<GetReviewDTO>,
                 response: Response<GetReviewDTO>
             ) {
-                Log.d("retrofit", response.body().toString())
-
                 review_text.setText(response.body()!!.review)
                 review_publisher.setText(response.body()!!.nickname)
                 likeCount = response.body()!!.likeCount

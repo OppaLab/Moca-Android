@@ -221,10 +221,7 @@ class PostDetailActivity : AppCompatActivity() {
         }
 
         add_detail_review_btn.setOnClickListener {
-            val intentAddReview = Intent(this, AddReviewActivity::class.java)
-            intentAddReview.putExtra("postId",postId.toString())
-            intentAddReview.putExtra("userId",currentUser.toString())
-            startActivity(intentAddReview)
+            addReview(currentUser)
         }
         post_detail_review_btn.setOnClickListener{
             if(reviewId == "0")
@@ -236,6 +233,7 @@ class PostDetailActivity : AppCompatActivity() {
                 intentReview.putExtra("userId",postUserId)
                 intentReview.putExtra("reviewId", reviewId)
                 intentReview.putExtra("postId",postId.toString())
+                finish()
                 startActivity(intentReview)
             }
         }
@@ -289,5 +287,13 @@ class PostDetailActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun addReview(userId: Long){
+        val intentAddReview = Intent(this, AddReviewActivity::class.java)
+        intentAddReview.putExtra("postId",postId.toString())
+        intentAddReview.putExtra("userId",userId.toString())
+        startActivity(intentAddReview)
+        finish()
     }
 }

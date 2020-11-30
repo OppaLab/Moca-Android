@@ -3,12 +3,15 @@ package com.oppalab.moca
 import android.content.Intent
 import androidx.fragment.app.Fragment
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.oppalab.moca.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -43,8 +46,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         nav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-
         moveToFragment(HomeFragmentRetro())
+
+
     }
 
     private fun moveToFragment(fragment: Fragment) {

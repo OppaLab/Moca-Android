@@ -107,7 +107,6 @@ class AccountSettingActivity : AppCompatActivity() {
             Log.d("ToSaveCategories", categories)
             updateUserInfo()
         }
-
     }
 
     private fun updateUserInfo() {
@@ -131,6 +130,7 @@ class AccountSettingActivity : AppCompatActivity() {
                                 "프로필 정보를 수정하였습니다.",
                                 Toast.LENGTH_LONG
                             ).show()
+
                         } else {
                             Log.d("ProfileUpdateFail1", response.body().toString())
                         }
@@ -141,7 +141,7 @@ class AccountSettingActivity : AppCompatActivity() {
                         Log.d("ProfileUpdateFail2", t.message.toString())
                     }
                 })
-                val intent = Intent(this@AccountSettingActivity, MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }

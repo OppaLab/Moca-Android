@@ -108,7 +108,7 @@
             android:layout_margin="5dp"
             android:hint="고민글의 내용을 작성해주세요."
             android:layout_width="match_parent"
-            android:layout_height="150dp"/>
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
