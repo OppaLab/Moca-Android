@@ -97,14 +97,12 @@
                             android:maxLines="3"/>
                     </LinearLayout>
 
-
                 </LinearLayout>
-
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
                     android:textSize="20dp"
@@ -114,6 +112,7 @@
                 <EditText
                     android:id="@+id/post_description"
                     android:layout_margin="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:hint="고민글의 내용을 작성해주세요."
                     android:layout_width="match_parent"
