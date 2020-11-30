@@ -30,11 +30,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:maxLines="1"
                     android:text="username"
                     android:textColor="@android:color/black"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <ImageView
                     android:id="@+id/options_view"
@@ -192,15 +191,6 @@
                 android:padding="12dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
-
-                <TextView
-                    android:id="@+id/profile_nickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="닉네임"
-                    android:textColor="@android:color/black"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/profile_category"

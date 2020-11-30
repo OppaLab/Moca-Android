@@ -89,7 +89,6 @@ class ProfileFragmentRetro : Fragment() {
                 val profile = response.body()
 //                Picasso.get().load(RetrofitConnection.URL+"image/profile/"+response.body()!!.profileImageFilePath).into(circleimageview_thumbmail)
                 view.profile_fragment_username.text = profile!!.nickname
-                view.profile_nickname.text = profile!!.nickname
                 view.total_posts.text = profile!!.numberOfPosts.toString()
                 view.total_followers.text = profile!!.numberOfFollowers.toString()
                 view.total_following.text = profile!!.numberOfFollowings.toString()
