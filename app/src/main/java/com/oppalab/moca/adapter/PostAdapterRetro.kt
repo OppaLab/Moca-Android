@@ -19,6 +19,7 @@ import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_post_detail.*
 import kotlinx.android.synthetic.main.posts_layout.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -60,6 +61,19 @@ class PostAdapterRetro
             holder.title.setText(post.postTitle)
         }
 
+        val createdAt = post.createdAt
+        if (createdAt <= 60){
+            holder.createdAt.text = createdAt.toString() + "초 전에 작성된 글입니다."
+        } else if (createdAt <= 60*60){
+            holder.createdAt.text = (createdAt/60).toString() + "분 전에 작성된 글입니다."
+        } else if (createdAt <= 60*60*24){
+            holder.createdAt.text = (createdAt/(60*60)).toString() + "시간 전에 작성된 글입니다."
+        } else if (createdAt <= 60*60*24*7){
+            holder.createdAt.text = (createdAt/(60*60*7)).toString() + "일 전에 작성된 글입니다."
+        } else if (createdAt <= 60*60*24*7*7){
+            holder.createdAt.text = (createdAt/(60*60*7*7)).toString() + "주 전에 작성된 글입니다."
+        }
+
         var post_categories = ""
         for (category in post.categories) {
             if (category == "") continue
@@ -95,11 +109,6 @@ class PostAdapterRetro
             holder.likes.text = curLikeCount.toString() + "명이 공감"
         }
 
-        if (curCommentCount == 0L) {
-            holder.comments.text = ""
-        } else {
-            holder.comments.text = "view all " + curCommentCount + " comments"
-        }
 
         holder.likeButton.setOnClickListener {
             if (holder.likeButton.tag == "Like") {
@@ -164,22 +173,36 @@ class PostAdapterRetro
         }
 
         holder.commentButton.setOnClickListener {
-            val intentComment = Intent(mContext, CommentsActivityRetro::class.java)
-            intentComment.putExtra("postId", post.postId.toString())
-            intentComment.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
-            intentComment.putExtra("publisherId", post.nickname)
+            val intentPostDetail = Intent(mContext, PostDetailActivity::class.java)
+            intentPostDetail.putExtra("publisherId", post.nickname)
+            intentPostDetail.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
+            intentPostDetail.putExtra("content", post.postBody)
+            if (holder.likeButton.tag == "Liked") {
+                intentPostDetail.putExtra("likeCount", (curLikeCount).toString())
+            } else {
+                intentPostDetail.putExtra("likeCount", curLikeCount.toString())
+            }
 
-            mContext.startActivity(intentComment)
+            intentPostDetail.putExtra("commentCount", post.commentCount.toString())
+            intentPostDetail.putExtra("likeTag", holder.likeButton.tag.toString())
+            intentPostDetail.putExtra("like", if (holder.likeButton.tag == "Liked") true else false)
+            intentPostDetail.putExtra("postId", post.postId.toString())
+            intentPostDetail.putExtra("subject", post.postTitle)
+            intentPostDetail.putExtra("postUserId",post.userId.toString())
+            intentPostDetail.putExtra("reviewId",post.reviewId.toString())
+            intentPostDetail.putExtra("createdAt", post.createdAt.toString())
+
+            var categoryString = ""
+            for (category in post.categories) {
+                if (category == "") continue
+                categoryString += category
+                categoryString += ", "
+            }
+            intentPostDetail.putExtra("categories",categoryString.substring(0, categoryString.length-2))
+
+            mContext.startActivity(intentPostDetail)
         }
 
-        holder.comments.setOnClickListener {
-            val intentComment = Intent(mContext, CommentsActivityRetro::class.java)
-            intentComment.putExtra("postId", post.postId.toString())
-            intentComment.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
-            intentComment.putExtra("publisherId", post.nickname)
-
-            mContext.startActivity(intentComment)
-        }
 
         holder.thumbnail.setOnClickListener {
             val intentPostDetail = Intent(mContext, PostDetailActivity::class.java)
@@ -199,6 +222,7 @@ class PostAdapterRetro
             intentPostDetail.putExtra("subject", post.postTitle)
             intentPostDetail.putExtra("postUserId",post.userId.toString())
             intentPostDetail.putExtra("reviewId",post.reviewId.toString())
+            intentPostDetail.putExtra("createdAt", post.createdAt.toString())
             var categoryString = ""
             for (category in post.categories) {
                 if (category == "") continue
@@ -240,10 +264,10 @@ class PostAdapterRetro
         var nickName: TextView
         var likes: TextView
         var title: TextView
-        var comments: TextView
         var description: TextView
         var publisher: TextView
         var category: TextView
+        var createdAt : TextView
 
         init {
             profileImage = itemView.findViewById(R.id.user_profile_image_search)
@@ -254,10 +278,10 @@ class PostAdapterRetro
             nickName = itemView.findViewById(R.id.nickname_post_card)
             title = itemView.findViewById(R.id.title_post_card)
             likes = itemView.findViewById(R.id.likes)
-            comments = itemView.findViewById(R.id.comments)
             description = itemView.findViewById(R.id.description)
             publisher = itemView.findViewById(R.id.publisher)
             category = itemView.findViewById(R.id.category_post_card)
+            createdAt = itemView.findViewById(R.id.time_post_card)
         }
     }
 }

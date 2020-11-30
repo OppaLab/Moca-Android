@@ -28,16 +28,37 @@
                 android:padding="5dp"
                 android:src="@drawable/profile" />
 
-            <TextView
-                android:id="@+id/nickname_post_card"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="14dp"
-                android:text="닉네임"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/nickname_post_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="닉네임"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/time_post_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:maxLines="1"
+                    android:text="작성시간"
+                    android:textColor="@color/colorMocaRed"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -49,7 +70,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="14dp"
             android:text="제목"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorBlack"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -57,9 +78,10 @@
             android:id="@+id/category_post_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:textSize="16sp"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorBlack"
             android:text="카테고리"/>
 
         <ImageView
@@ -107,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorBlack"
             android:textSize="15dp"
             android:textStyle="bold" />
 
@@ -116,7 +138,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorBlack"
             android:textSize="15dp"
             android:textStyle="bold" />
 
@@ -128,27 +150,10 @@
             app:readMoreMaxLine="4"
             app:readMoreText="...더보기"
             android:layout_marginStart="10dp"
-            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="16dp"
+            android:lineSpacingExtra="5dp"
+            android:textColor="@color/colorBlack"
             android:textSize="15dp"/>
-
-<!--        <TextView-->
-<!--            android:id="@+id/description"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="10dp"-->
-<!--            android:textColor="@color/colorPrimary"-->
-<!--            android:textSize="15dp" />-->
-
-        <TextView
-            android:id="@+id/comments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:text=""
-            android:textColor="@color/colorPrimary"
-            android:textSize="16dp" />
 
     </LinearLayout>
 

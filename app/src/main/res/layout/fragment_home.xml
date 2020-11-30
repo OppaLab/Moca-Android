@@ -39,42 +39,35 @@
         android:layout_below="@+id/home_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="12dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
             <TextView
                 android:id="@+id/home_user_info_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="6dp"
-                android:text="안녕하세요 Moca님"/>
+                android:layout_marginTop="3dp"
+                android:text="안녕하세요 Moca님"
+                android:textColor="@color/colorBlack"/>
 
             <TextView
                 android:id="@+id/home_user_info_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
                 android:layout_below="@+id/home_user_info_name"
-                android:text="안녕하세요 Moca님"/>
-
-            <TextView
-                android:id="@+id/home_user_info_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="6dp"
-                android:layout_below="@+id/home_user_info_category"
-                android:text="안녕하세요 Moca님"/>
+                android:text="안녕하세요 Moca님"
+                android:textColor="@color/colorBlack"/>
 
         </RelativeLayout>
 

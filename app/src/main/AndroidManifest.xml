@@ -31,7 +31,6 @@
         <activity android:name=".OtherUserActivity" />
         <activity android:name=".ThumbnailActivity" />
         <activity android:name=".CommentsActivity" />
-        <activity android:name=".CommentsActivityRetro" />
         <activity android:name=".AddPostActivity" />
         <activity android:name=".SignUpActivity">
         </activity>

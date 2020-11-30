@@ -27,16 +27,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="닉네임"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"/>
 
         <TextView
             android:id="@+id/comment_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="댓글내용"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"/>
     </LinearLayout>
 
 
