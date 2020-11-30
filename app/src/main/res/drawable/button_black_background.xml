@@ -8,7 +8,7 @@
 
 
     <stroke android:width="4dp"
-        android:color="#8A8A8A"
+        android:color="@color/colorMocaMain"
         ></stroke>
 
 
