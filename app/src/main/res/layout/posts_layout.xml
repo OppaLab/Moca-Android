@@ -106,8 +106,8 @@
 
             <ImageView
                 android:id="@+id/post_image_comment_btn"
-                android:layout_width="40dp"
-                android:layout_height="34dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="3dp"
                 android:layout_toEndOf="@+id/post_image_like_btn"
@@ -117,10 +117,11 @@
                 android:id="@+id/post_review_btn"
                 android:layout_width="40dp"
                 android:layout_height="39dp"
+                android:scaleType="centerInside"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="0dp"
                 android:layout_marginRight="3dp"
-                android:src="@drawable/review" />
+                android:src="@drawable/note" />
 
         </RelativeLayout>
 
