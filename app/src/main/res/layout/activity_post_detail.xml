@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PostDetailActivity">
+    tools:context=".PostDetailActivity"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout_detail"
@@ -34,26 +36,44 @@
                     android:textSize="18sp"
                     android:maxLines="1"
                     android:textStyle="bold"
-                    android:textColor="@android:color/black"/>
+                    android:textColor="@color/colorBlack"/>
+
                 <TextView
                     android:id="@+id/post_detail_publisher"
                     android:layout_below="@+id/post_detail_subject"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="작성자"
-                    android:textSize="18sp"
+                    android:textSize="12sp"
+                    android:layout_marginTop="6dp"
                     android:maxLines="1"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/colorBlack"
                     android:layout_centerVertical="true"/>
+
 
                 <TextView
                     android:id="@+id/post_detail_cateogory"
                     android:layout_below="@+id/post_detail_publisher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"
-                    android:text="카테고리"/>
+                    android:layout_marginTop="6dp"
+                    android:textSize="12sp"
+                    android:text="카테고리"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/post_detail_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/post_detail_cateogory"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:maxLines="1"
+                    android:text="작성시간"
+                    android:textColor="@color/colorMocaRed"
+                    android:textSize="12sp" />
+
 
             </RelativeLayout>
 
@@ -130,10 +150,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/post_text"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:text=""
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorMocaRed"
+                android:layout_marginLeft="10dp"
                 android:textSize="16dp" />
 
             <TextView
@@ -141,7 +162,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/post_detail_menu"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorBlack"
+                android:lineSpacingExtra="5dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/post_detail_recycler_view_comments"
@@ -166,7 +188,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="4dp"
-                    android:src="@drawable/profile"></de.hdodenhof.circleimageview.CircleImageView>
+                    android:src="@drawable/profile"/>
 
                 <EditText
                     android:id="@+id/add_comment"
@@ -177,8 +199,8 @@
                     android:layout_marginEnd="10dp"
                     android:layout_toLeftOf="@+id/post_comment"
                     android:layout_toRightOf="@+id/post_detail_comment_profie_image"
-                    android:hint="write your comment..."
-                    android:padding="8dp"></EditText>
+                    android:hint="당신의 생각을 남겨주세요"
+                    android:padding="8dp"/>
 
                 <TextView
                     android:id="@+id/post_comment"

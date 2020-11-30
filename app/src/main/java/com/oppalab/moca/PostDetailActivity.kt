@@ -40,6 +40,7 @@ class PostDetailActivity : AppCompatActivity() {
     private var commentList: MutableList<CommentsOnPost>? = null
     private var categories = ""
     private var currentUser = 0L
+    private var createdAt = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +65,7 @@ class PostDetailActivity : AppCompatActivity() {
         commentCount = intent.getStringExtra("commentCount")!!.toLong()
         content = intent.getStringExtra("content")!!
         categories = intent.getStringExtra("categories")!!
+        createdAt = intent.getStringExtra("createdAt")!!.toLong()
 
         var comment_linearLayoutManager = LinearLayoutManager(this)
         comment_linearLayoutManager.reverseLayout = true
@@ -90,7 +92,20 @@ class PostDetailActivity : AppCompatActivity() {
         post_detail_cateogory.text = categories
 
         post_detail_subject.text = intent.getStringExtra("subject")
-        post_detail_publisher.text = publisherId
+        post_detail_publisher.text = "\"" + publisherId + "\"님이 작성해주신 글이에요."
+        if (createdAt <= 60){
+            post_detail_time.text = createdAt.toString() + "초 전에 작성된 글입니다."
+        } else if (createdAt <= 60*60){
+            post_detail_time.text = (createdAt/60).toString() + "분 전에 작성된 글입니다."
+        } else if (createdAt <= 60*60*24){
+            post_detail_time.text = (createdAt/(60*60)).toString() + "시간 전에 작성된 글입니다."
+        } else if (createdAt <= 60*60*24*7){
+            post_detail_time.text = (createdAt/(60*60*7)).toString() + "일 전에 작성된 글입니다."
+        } else if (createdAt <= 60*60*24*7*7){
+            post_detail_time.text = (createdAt/(60*60*7*7)).toString() + "주 전에 작성된 글입니다."
+        }
+
+
         post_text.text = content
         if (likeCount.toInt() == 0) {
             post_detail_like_count.text = ""
