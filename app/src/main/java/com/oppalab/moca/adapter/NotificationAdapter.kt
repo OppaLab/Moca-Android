@@ -167,6 +167,7 @@ class NotificationAdapter (
                 intentPostDetail.putExtra("postUserId",mPost[0].userId.toString())
                 intentPostDetail.putExtra("reviewId",mPost[0].reviewId.toString())
                 intentPostDetail.putExtra("likeTag", if (mPost[0].like) "Liked" else "Like")
+                intentPostDetail.putExtra("createdAt", mPost[0].createdAt.toString())
                 var categoryString = ""
                 for (category in mPost[0].categories) {
                     if (category == "") continue
