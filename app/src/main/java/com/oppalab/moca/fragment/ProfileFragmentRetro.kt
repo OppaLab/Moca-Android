@@ -127,7 +127,6 @@ class ProfileFragmentRetro : Fragment() {
                 for (post in response.body()!!.content) {
                     postList!!.add(post)
                 }
-                Collections.reverse(postList)
                 myThumbnailAdapter!!.notifyDataSetChanged()
             }
 

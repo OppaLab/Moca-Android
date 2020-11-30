@@ -232,7 +232,7 @@ class PostAdapterRetro
         var nickName: TextView
         var likes: TextView
         var title: TextView
-        var description: TextView
+        var description:TextView
         var publisher: TextView
         var category: TextView
         var createdAt : TextView
