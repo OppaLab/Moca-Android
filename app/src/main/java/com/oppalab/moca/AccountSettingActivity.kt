@@ -72,7 +72,7 @@ class AccountSettingActivity : AppCompatActivity() {
             if (categoryIndex.contains("친구")) setting_category_friend.setChecked(true)
             if (categoryIndex.contains("부모님")) setting_category_parent.setChecked(true)
             if (categoryIndex.contains("연인")) setting_category_couple.setChecked(true)
-            if (categoryIndex.contains("돈")) setting_category_money.setChecked(true)
+            if (categoryIndex.contains("금전")) setting_category_money.setChecked(true)
             if (categoryIndex.contains("학교")) setting_category_school.setChecked(true)
             if (categoryIndex.contains("학업")) setting_category_study.setChecked(true)
             if (categoryIndex.contains("성")) setting_category_sex.setChecked(true)
