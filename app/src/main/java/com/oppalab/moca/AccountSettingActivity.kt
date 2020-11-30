@@ -76,6 +76,7 @@ class AccountSettingActivity : AppCompatActivity() {
             if (categoryIndex.contains("학교")) setting_category_school.setChecked(true)
             if (categoryIndex.contains("학업")) setting_category_study.setChecked(true)
             if (categoryIndex.contains("성")) setting_category_sex.setChecked(true)
+            if (categoryIndex.contains("외모")) setting_category_appearence.setChecked(true)
 
         delete_account_btn.setOnClickListener {
             RetrofitConnection.server.signOut(userId = PreferenceManager.getLong(applicationContext, "userId")).enqueue(object: Callback<Long> {
@@ -102,6 +103,7 @@ class AccountSettingActivity : AppCompatActivity() {
             if (setting_category_school.isChecked) categories += "학교,"
             if (setting_category_study.isChecked) categories += "학업,"
             if (setting_category_sex.isChecked) categories += "성,"
+            if (setting_category_appearence.isChecked) categories += "외모,"
             categories.substring(2, categories.length-1)
 
             Log.d("ToSaveCategories", categories)
