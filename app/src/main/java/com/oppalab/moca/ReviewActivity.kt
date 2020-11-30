@@ -17,6 +17,7 @@ import com.oppalab.moca.dto.CommentsOnPost
 import com.oppalab.moca.dto.GetReviewDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_add_review.*
 import kotlinx.android.synthetic.main.activity_post_detail.*
 import kotlinx.android.synthetic.main.activity_review.*
@@ -35,6 +36,8 @@ class ReviewActivity : AppCompatActivity() {
     private var commentCount = 0L
     private var commentAdapter: CommentsAdapterRetro? = null
     private var commentList: MutableList<CommentsOnPost>? = null
+    private var postTitle = ""
+    private var thumbNailImageFilePath = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +50,14 @@ class ReviewActivity : AppCompatActivity() {
         postId = intent.getStringExtra("postId")!!
         userId = intent.getStringExtra("userId")!!
         reviewId = intent.getStringExtra("reviewId")!!
+        postTitle = intent.getStringExtra("postTitle")!!
+        thumbNailImageFilePath = intent.getStringExtra("thumbNailImageFilePath")!!
+
+        review_detail_subject.text = postTitle
+
+        Picasso.get().load(RetrofitConnection.URL + "/image/thumbnail/" + thumbNailImageFilePath)
+            .into(review_thumbnail_detail)
+
 
         var comment_linearLayoutManager = LinearLayoutManager(this)
         comment_linearLayoutManager.reverseLayout = true

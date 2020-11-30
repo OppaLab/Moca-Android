@@ -244,6 +244,8 @@ class PostDetailActivity : AppCompatActivity() {
             val intentAddReview = Intent(this, AddReviewActivity::class.java)
             intentAddReview.putExtra("postId",postId.toString())
             intentAddReview.putExtra("userId",currentUser.toString())
+            intentAddReview.putExtra("postTitle",subject)
+            intentAddReview.putExtra("thumbNailImageFilePath",thumbnailImageFilePath)
             startActivity(intentAddReview)
         }
         post_detail_review_btn.setOnClickListener{
@@ -256,6 +258,8 @@ class PostDetailActivity : AppCompatActivity() {
                 intentReview.putExtra("userId",postUserId)
                 intentReview.putExtra("reviewId", reviewId)
                 intentReview.putExtra("postId",postId.toString())
+                intentReview.putExtra("postTitle",subject)
+                intentReview.putExtra("thumbNailImageFilePath",thumbnailImageFilePath)
                 startActivity(intentReview)
             }
         }
