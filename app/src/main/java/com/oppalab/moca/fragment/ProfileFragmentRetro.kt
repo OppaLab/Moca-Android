@@ -104,7 +104,9 @@ class ProfileFragmentRetro : Fragment() {
                     userEntity += ", "
                 }
                 if (profile.userCategories.size > 0) view.profile_category.text = userCategory.substring(0, userCategory.length-2)
-                if (profile.userEntities.size > 0) view.profile_entity.text = userEntity.substring(0, userEntity.length-2)
+                if (profile.userEntities.size > 0){
+                    view.profile_entity.text = "#"+userEntity.substring(0, userEntity.length-2).replace(", ", " #")
+                }
             }
 
             override fun onFailure(call: Call<GetProfileDTO>, t: Throwable) {
