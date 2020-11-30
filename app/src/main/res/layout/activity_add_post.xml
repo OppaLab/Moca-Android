@@ -26,11 +26,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/close_add_post_btn"
-                    android:layout_width="20dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentStart="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="고민글 작성"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
 
                 <ImageView
                     android:id="@+id/save_new_post_btn"
@@ -45,179 +47,188 @@
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <LinearLayout
-        android:id="@+id/add_post_linear"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/add_post_app_bar_layout">
-        <LinearLayout
+        android:layout_below="@+id/add_post_app_bar_layout">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="5dp">
-            <ImageView
-                android:id="@+id/thumbnail_image"
-                android:src="@drawable/add_image_icon"
-                android:layout_width="200dp"
-                android:layout_height="150dp"
-                android:scaleType="centerCrop"/>
+            android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/add_post_linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
+                <!--        android:layout_below="@id/add_post_app_bar_layout">-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="5dp">
+                    <ImageView
+                        android:id="@+id/thumbnail_image"
+                        android:src="@drawable/add_image_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"
+                        android:scaleType="centerCrop"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:text="고민 제목"/>
+
+                        <EditText
+                            android:id="@+id/post_subject"
+                            android:layout_margin="5dp"
+                            android:layout_marginTop="10dp"
+                            android:hint="고민글의 제목을 작성해주세요."
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="3"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    android:text="고민명"/>
+                    android:text="고민내용"/>
 
                 <EditText
-                    android:id="@+id/post_subject"
+                    android:id="@+id/post_description"
                     android:layout_margin="5dp"
                     android:layout_marginTop="10dp"
-                    android:hint="고민글의 제목을 작성해주세요."
+                    android:hint="고민글의 내용을 작성해주세요."
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="3"/>
+                    android:maxLines="10"/>
+
             </LinearLayout>
-
-
-        </LinearLayout>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:text="고민내용"/>
-
-        <EditText
-            android:id="@+id/post_description"
-            android:layout_margin="5dp"
-            android:hint="고민글의 내용을 작성해주세요."
-            android:layout_width="match_parent"
-            android:layout_height="150dp"/>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/add_post_linear"
-        android:layout_marginTop="30dp">
-
-        <TextView
-            android:id="@+id/post_user_category_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="6dp"
-            android:text="고민 카테고리"
-            android:textSize="18dp"
-            android:textColor="#8a8a8a"/>
-
-        <GridLayout
-            android:id="@+id/post_user_category"
-            android:layout_below="@id/post_user_category_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="fill_horizontal"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="6dp"
-            android:columnCount="3"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/post_category_family"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:text="가족"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
+                android:orientation="vertical"
+                android:layout_below="@id/add_post_linear"
+                android:layout_marginTop="30dp">
 
-            <CheckBox
-                android:id="@+id/post_category_friend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:text="친구"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
+                <TextView
+                    android:id="@+id/post_user_category_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="6dp"
+                    android:text="고민 카테고리"
+                    android:textSize="18dp"
+                    android:textColor="#8a8a8a"/>
 
-            <CheckBox
-                android:id="@+id/post_category_couple"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="연인"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
+                <GridLayout
+                    android:id="@+id/post_user_category"
+                    android:layout_below="@id/post_user_category_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="10dp"
+                    android:columnCount="3"
+                    android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/post_category_parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="부모님"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
+                    <CheckBox
+                        android:id="@+id/post_category_family"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="가족"
+                        android:textColor="#8A8A8A"
+                        android:textSize="18dp" />
 
-            <CheckBox
-                android:id="@+id/post_category_money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="금전"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
+                    <CheckBox
+                        android:id="@+id/post_category_friend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="친구"
+                        android:textColor="#8A8A8A"
+                        android:textSize="18dp" />
 
-            <CheckBox
-                android:id="@+id/post_category_school"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="학교"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
+                    <CheckBox
+                        android:id="@+id/post_category_couple"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="연인"
+                        android:textColor="#8A8A8A"
+                        android:textSize="18dp" />
 
-            <CheckBox
-                android:id="@+id/post_category_study"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="학업"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
+                    <CheckBox
+                        android:id="@+id/post_category_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="부모님"
+                        android:textColor="#8A8A8A"
+                        android:textSize="18dp" />
 
-            <CheckBox
-                android:id="@+id/post_category_sex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="성"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
+                    <CheckBox
+                        android:id="@+id/post_category_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="금전"
+                        android:textColor="#8A8A8A"
+                        android:textSize="18dp" />
 
-            <CheckBox
-                android:id="@+id/post_category_appearence"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="외모"
-                android:textColor="#8A8A8A"
-                android:textSize="18dp" />
-        </GridLayout>
-    </LinearLayout>
+                    <CheckBox
+                        android:id="@+id/post_category_school"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="학교"
+                        android:textColor="#8A8A8A"
+                        android:textSize="18dp" />
+
+                    <CheckBox
+                        android:id="@+id/post_category_study"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="학업"
+                        android:textColor="#8A8A8A"
+                        android:textSize="18dp" />
+
+                    <CheckBox
+                        android:id="@+id/post_category_sex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="성"
+                        android:textColor="#8A8A8A"
+                        android:textSize="18dp" />
+
+                    <CheckBox
+                        android:id="@+id/post_category_appearence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="외모"
+                        android:textColor="#8A8A8A"
+                        android:textSize="18dp" />
+                </GridLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 
 
 </RelativeLayout>
