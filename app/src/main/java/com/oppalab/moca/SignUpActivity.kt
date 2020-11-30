@@ -52,8 +52,8 @@ class SignUpActivity : AppCompatActivity() {
             if (category_money.isChecked) categories += "금전,"
             if (category_school.isChecked) categories += "학교,"
             if (category_study.isChecked) categories += "학업,"
-            if (category_sex.isChecked) categories += "성,"
-            categories.substring(0, categories.length - 1)
+            if (category_sex.isChecked) categories += ","
+            categories.substring(2, categories.length - 1)
             CreatAccount()
         }
 

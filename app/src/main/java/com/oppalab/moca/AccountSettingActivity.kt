@@ -75,7 +75,7 @@ class AccountSettingActivity : AppCompatActivity() {
             if (categoryIndex.contains("돈")) setting_category_money.setChecked(true)
             if (categoryIndex.contains("학교")) setting_category_school.setChecked(true)
             if (categoryIndex.contains("학업")) setting_category_study.setChecked(true)
-            if (categoryIndex.contains("성")) setting_category_sex.setChecked(true)
+            if (categoryIndex.contains("")) setting_category_sex.setChecked(true)
 
         delete_account_btn.setOnClickListener {
             RetrofitConnection.server.signOut(userId = PreferenceManager.getLong(applicationContext, "userId")).enqueue(object: Callback<Long> {
@@ -94,15 +94,15 @@ class AccountSettingActivity : AppCompatActivity() {
 
         save_profile_button.setOnClickListener {
             categories = ""
-            if (setting_category_family.isChecked) categories += "Family,"
-            if (setting_category_friend.isChecked) categories += "Friend,"
-            if (setting_category_parent.isChecked) categories += "Parent,"
-            if (setting_category_couple.isChecked) categories += "Couple,"
-            if (setting_category_money.isChecked) categories += "Money,"
-            if (setting_category_school.isChecked) categories += "School,"
-            if (setting_category_study.isChecked) categories += "Study,"
-            if (setting_category_sex.isChecked) categories += "Sex,"
-            categories.substring(0, categories.length-1)
+            if (setting_category_family.isChecked) categories += "가족,"
+            if (setting_category_friend.isChecked) categories += "친구,"
+            if (setting_category_parent.isChecked) categories += "부모님,"
+            if (setting_category_couple.isChecked) categories += "연인,"
+            if (setting_category_money.isChecked) categories += "금전,"
+            if (setting_category_school.isChecked) categories += "학교,"
+            if (setting_category_study.isChecked) categories += "학업,"
+            if (setting_category_sex.isChecked) categories += "성,"
+            categories.substring(2, categories.length-1)
 
             Log.d("ToSaveCategories", categories)
             updateUserInfo()
