@@ -375,6 +375,14 @@ class PostDetailActivity : AppCompatActivity() {
                 {
                     add_detail_review_btn.visibility = View.GONE
                 }
+
+                if (likeTag == "Liked" || like == true) {
+                    post_image_like_btn.setImageResource(R.drawable.heart_clicked)
+                    post_image_like_btn.tag = "Liked"
+                } else {
+                    post_image_like_btn.setImageResource(R.drawable.heart_not_clicked)
+                    post_image_like_btn.tag = "Like"
+                }
             }
 
             override fun onFailure(call: Call<GetMyPostDTO>, t: Throwable) {

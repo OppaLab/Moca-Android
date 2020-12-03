@@ -104,7 +104,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Posts"
+                                android:text="고민글"
                                 android:textColor="@android:color/black"
                                 android:textSize="12dp"
                                 android:textStyle="bold" />
@@ -128,9 +128,11 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Followers"
+                                android:text="팔로워"
                                 android:textColor="@android:color/black"
                                 android:textSize="12dp"
                                 android:textStyle="bold" />
@@ -157,7 +159,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Following"
+                                android:text="팔로잉"
                                 android:textColor="@android:color/black"
                                 android:textSize="12dp"
                                 android:textStyle="bold" />
@@ -174,7 +176,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="2dp"
                         android:background="@drawable/buttons_background"
-                        android:text="Follow"
+                        android:text="팔로우"
                         android:textAllCaps="false" />
                 </LinearLayout>
             </LinearLayout>
