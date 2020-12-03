@@ -40,13 +40,19 @@ class OtherUserAdapter(private val mContext: Context, mPost: List<PostDTO>):
             intentPostDetail.putExtra("content", post.postBody)
             intentPostDetail.putExtra("likeCount", post.likeCount.toString())
             intentPostDetail.putExtra("commentCount", post.commentCount.toString())
-            intentPostDetail.putExtra("like", post.like)
             intentPostDetail.putExtra("postId", post.postId.toString())
             intentPostDetail.putExtra("subject", post.postTitle)
             intentPostDetail.putExtra("postUserId", post.userId.toString())
             intentPostDetail.putExtra("reviewId",post.reviewId.toString())
+            intentPostDetail.putExtra("like", post.like)
             intentPostDetail.putExtra("likeTag", if (post.like) "Liked" else "Like")
-            intentPostDetail.putExtra("categories",post.categories.toString())
+            var categoryString = ""
+            for (category in post.categories) {
+                if (category == "") continue
+                categoryString += category
+                categoryString += ", "
+            }
+            intentPostDetail.putExtra("categories",categoryString.substring(0, categoryString.length-2))
             intentPostDetail.putExtra("createdAt",post.createdAt.toString())
             mContext.startActivity(intentPostDetail)
         }

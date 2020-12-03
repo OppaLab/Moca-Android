@@ -55,7 +55,86 @@ class PostDetailActivity : AppCompatActivity() {
         val intent = intent
 
         postId = intent.getStringExtra("postId")!!.toLong()
-        postUserId = intent.getStringExtra("postUserId")!!
+        categories = intent.getStringExtra("categories")!!
+        likeTag = intent.getStringExtra("likeTag")!!
+
+        RetrofitConnection.server.getOnePost(
+            userId = currentUser,
+            postId = postId,search = "", category = "", page = 0).enqueue(object:
+            Callback<GetMyPostDTO> {
+            override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
+                var mPost = response.body()!!.content[0]
+
+                postUserId = mPost.userId.toString()
+                publisherId = mPost.nickname
+                reviewId = mPost!!.reviewId.toString()
+                subject = mPost.postTitle
+                thumbnailImageFilePath = mPost.thumbnailImageFilePath
+
+                likeCount = mPost.likeCount
+                commentCount = mPost.commentCount
+                content = mPost.postBody
+                createdAt = mPost.createdAt
+
+                Picasso.get().load(RetrofitConnection.URL + "/image/thumbnail/" + thumbnailImageFilePath)
+                    .into(post_thumbnail_detail)
+
+                Log.d("태크씨발", like.toString() +"||||||||||" +likeTag)
+
+                if (likeTag == "Liked" || like == true) {
+                    post_image_like_btn.setImageResource(R.drawable.heart_clicked)
+                    post_image_like_btn.tag = "Liked"
+                } else {
+                    post_image_like_btn.setImageResource(R.drawable.heart_not_clicked)
+                    post_image_like_btn.tag = "Like"
+                }
+
+
+                post_detail_cateogory.text = categories
+
+                post_detail_subject.text = intent.getStringExtra("subject")
+                post_detail_publisher.text = "\"" + publisherId + "\"님이 작성해주신 글이에요."
+                if (createdAt <= 60){
+                    post_detail_time.text = createdAt.toString() + "초 전에 작성된 글입니다."
+                } else if (createdAt <= 60*60){
+                    post_detail_time.text = (createdAt/60).toString() + "분 전에 작성된 글입니다."
+                } else if (createdAt <= 60*60*24){
+                    post_detail_time.text = (createdAt/(60*60)).toString() + "시간 전에 작성된 글입니다."
+                } else if (createdAt <= 60*60*24*7){
+                    post_detail_time.text = (createdAt/(60*60*7)).toString() + "일 전에 작성된 글입니다."
+                } else if (createdAt <= 60*60*24*7*7){
+                    post_detail_time.text = (createdAt/(60*60*7*7)).toString() + "주 전에 작성된 글입니다."
+                }
+
+
+                post_text.text = content
+                if (likeCount.toInt() == 0) {
+                    post_detail_like_count.text = ""
+                } else {
+                    post_detail_like_count.text = likeCount.toString() + "명이 공감합니다."
+                }
+
+                if (commentCount.toInt() == 0) {
+                    post_detail_comments_count.text = "댓글이 없어요TT 댓글을 작성해주세요."
+                } else {
+                    post_detail_comments_count.text = commentCount.toString() + "개의 댓글이 있습니다."
+                }
+
+
+                post_detail_publisher.setOnClickListener {
+                    val intentUserProfile = Intent(this@PostDetailActivity, OtherUserActivity::class.java)
+                    intentUserProfile.putExtra("publisherId", postUserId.toString())
+                    startActivity(intentUserProfile)
+                    finish()
+                }
+            }
+
+            override fun onFailure(call: Call<GetMyPostDTO>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+
+       /* postUserId = intent.getStringExtra("postUserId")!!
         publisherId = intent.getStringExtra("publisherId")!!
         reviewId = intent.getStringExtra("reviewId")!!
         Log.d("모지", reviewId)
@@ -68,7 +147,7 @@ class PostDetailActivity : AppCompatActivity() {
         content = intent.getStringExtra("content")!!
         categories = intent.getStringExtra("categories")!!
         createdAt = intent.getStringExtra("createdAt")!!.toLong()
-
+*/
         var comment_linearLayoutManager = LinearLayoutManager(this)
         comment_linearLayoutManager.reverseLayout = true
         post_detail_recycler_view_comments.layoutManager = comment_linearLayoutManager
@@ -77,56 +156,7 @@ class PostDetailActivity : AppCompatActivity() {
         commentAdapter = CommentsAdapterRetro(this, commentList)
         post_detail_recycler_view_comments.adapter = commentAdapter
 
-        Picasso.get().load(RetrofitConnection.URL + "/image/thumbnail/" + thumbnailImageFilePath)
-            .into(post_thumbnail_detail)
 
-        Log.d("좋아요", like.toString())
-
-        if (likeTag == "Liked" || like == true) {
-            post_image_like_btn.setImageResource(R.drawable.heart_clicked)
-            post_image_like_btn.tag = "Liked"
-        } else {
-            post_image_like_btn.setImageResource(R.drawable.heart_not_clicked)
-            post_image_like_btn.tag = "Like"
-        }
-
-
-        post_detail_cateogory.text = categories
-
-        post_detail_subject.text = intent.getStringExtra("subject")
-        post_detail_publisher.text = "\"" + publisherId + "\"님이 작성해주신 글이에요."
-        if (createdAt <= 60){
-            post_detail_time.text = createdAt.toString() + "초 전에 작성된 글입니다."
-        } else if (createdAt <= 60*60){
-            post_detail_time.text = (createdAt/60).toString() + "분 전에 작성된 글입니다."
-        } else if (createdAt <= 60*60*24){
-            post_detail_time.text = (createdAt/(60*60)).toString() + "시간 전에 작성된 글입니다."
-        } else if (createdAt <= 60*60*24*7){
-            post_detail_time.text = (createdAt/(60*60*7)).toString() + "일 전에 작성된 글입니다."
-        } else if (createdAt <= 60*60*24*7*7){
-            post_detail_time.text = (createdAt/(60*60*7*7)).toString() + "주 전에 작성된 글입니다."
-        }
-
-
-        post_text.text = content
-        if (likeCount.toInt() == 0) {
-            post_detail_like_count.text = ""
-        } else {
-            post_detail_like_count.text = likeCount.toString() + "명이 공감합니다."
-        }
-
-        if (commentCount.toInt() == 0) {
-            post_detail_comments_count.text = "댓글이 없어요TT 댓글을 작성해주세요."
-        } else {
-            post_detail_comments_count.text = commentCount.toString() + "개의 댓글이 있습니다."
-        }
-
-        post_detail_publisher.setOnClickListener {
-            val intentUserProfile = Intent(this, OtherUserActivity::class.java)
-            intentUserProfile.putExtra("publisherId", postUserId.toString())
-            startActivity(intentUserProfile)
-            finish()
-        }
 
         post_image_like_btn.setOnClickListener {
             if (post_image_like_btn.tag == "Like") {
@@ -159,7 +189,7 @@ class PostDetailActivity : AppCompatActivity() {
                 ).enqueue(object : Callback<Long> {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "Like 삭제 : like_id = " + response.body())
-                        post_image_like_btn.setImageResource(R.drawable.heart_clicked)
+                        post_image_like_btn.setImageResource(R.drawable.heart_not_clicked)
                         post_image_like_btn.tag = "Like"
                         likeCount += -1
 
@@ -225,6 +255,7 @@ class PostDetailActivity : AppCompatActivity() {
                             post_detail_comments_count.text = commentCount.toString() + "개의 댓글이 있습니다."
                         }
                         add_comment!!.text.clear()
+                        intent.putExtra("likeTag", post_image_like_btn.tag.toString())
                         finish()
                         startActivity(intent)
                     }
@@ -375,21 +406,11 @@ class PostDetailActivity : AppCompatActivity() {
                 {
                     add_detail_review_btn.visibility = View.GONE
                 }
-
-                if (likeTag == "Liked" || like == true) {
-                    post_image_like_btn.setImageResource(R.drawable.heart_clicked)
-                    post_image_like_btn.tag = "Liked"
-                } else {
-                    post_image_like_btn.setImageResource(R.drawable.heart_not_clicked)
-                    post_image_like_btn.tag = "Like"
-                }
             }
 
             override fun onFailure(call: Call<GetMyPostDTO>, t: Throwable) {
                 Log.d("moveToPost", t.message.toString())
             }
         })
-
-
     }
 }
