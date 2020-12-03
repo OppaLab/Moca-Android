@@ -159,7 +159,7 @@ class PostDetailActivity : AppCompatActivity() {
                 ).enqueue(object : Callback<Long> {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "Like 삭제 : like_id = " + response.body())
-                        post_image_like_btn.setImageResource(R.drawable.heart_not_clicked)
+                        post_image_like_btn.setImageResource(R.drawable.heart_clicked)
                         post_image_like_btn.tag = "Like"
                         likeCount += -1
 
