@@ -68,6 +68,7 @@ class ReviewActivity : AppCompatActivity() {
         review_recycler_view_comments.adapter = commentAdapter
 
 
+        Log.d("리뷰", reviewId+"|||"+ userId)
         RetrofitConnection.server.getReview(userId = userId, reviewId = reviewId).enqueue(object:
             Callback<GetReviewDTO> {
             override fun onResponse(
@@ -76,8 +77,8 @@ class ReviewActivity : AppCompatActivity() {
             ) {
                 Log.d("retrofit", response.body().toString())
 
-                review_text.setText(response.body()!!.review)
-                review_publisher.setText(response.body()!!.nickname)
+                review_text.text = response.body()!!.review
+                review_publisher.text = response.body()!!.nickname
                 likeCount = response.body()!!.likeCount
                 like = response.body()!!.like
                 commentCount = response.body()!!.commentCount

@@ -53,7 +53,7 @@ class HomeFragmentRetro : Fragment() {
 
 
                     view.home_user_info_name.text = "안녕하세요 " + nickname + "님"
-                    view.home_user_info_category.text = nickname + "님의 고민 카테고리는 " + categories.substring(0,categories.length-2) + " 입니다."
+                    view.home_user_info_category.text = nickname + "님의 고민 카테고리 \n" + categories.substring(0,categories.length-2)
                 }
 
                 override fun onFailure(call: Call<GetProfileDTO>, t: Throwable) {
@@ -88,6 +88,34 @@ class HomeFragmentRetro : Fragment() {
         retrievePosts1()
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        postList = ArrayList()
+        postAdapterRetro = context?.let { PostAdapterRetro(it, postList as ArrayList<FeedsAtHome>) }
+
+        var home_post_recyclerview: RecyclerView? = null
+        home_post_recyclerview = requireView().findViewById(R.id.home_recycler_view)
+        val linearLayoutManager = LinearLayoutManager(context)
+        home_post_recyclerview.layoutManager = linearLayoutManager
+        home_post_recyclerview.adapter = postAdapterRetro
+        home_post_recyclerview.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                val itemTotalCount = recyclerView.adapter!!.itemCount -1
+                if (lastVisibleItemPosition == itemTotalCount) {
+                    curPage += 1
+                    home_progress_bar.visibility = View.VISIBLE
+                    retrievePostsMore()
+                }
+            }
+        })
+
+        retrievePosts1()
+
     }
 
     private fun retrievePostsMore() {
@@ -161,4 +189,6 @@ class HomeFragmentRetro : Fragment() {
                 }
             })
     }
+
+
 }

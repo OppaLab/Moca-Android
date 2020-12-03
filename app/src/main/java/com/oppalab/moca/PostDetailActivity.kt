@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.adapter.CommentsAdapterRetro
 import com.oppalab.moca.dto.CommentsOnPost
+import com.oppalab.moca.dto.GetMyPostDTO
+import com.oppalab.moca.dto.PostDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
@@ -235,9 +237,14 @@ class PostDetailActivity : AppCompatActivity() {
             }
         })
 
+        Log.d("돌아와3", currentUser.toString() + "||||"  + postUserId +"|||||"+ reviewId )
         if(currentUser.toString() == postUserId && reviewId == "0")
         {
             add_detail_review_btn.visibility = View.VISIBLE
+        }
+        else
+        {
+            add_detail_review_btn.visibility = View.GONE
         }
 
         add_detail_review_btn.setOnClickListener {
@@ -350,4 +357,31 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+
+        RetrofitConnection.server.getOnePost(userId = currentUser, postId = postId ,search = "", category = "", page = 0).enqueue(object:
+            Callback<GetMyPostDTO> {
+            override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
+                Log.d("돌아와1", response.body().toString())
+
+                val mPost : MutableList<PostDTO> = ArrayList()
+                mPost.add(response.body()!!.content[0])
+                if(PreferenceManager.getLong(applicationContext,"userId") == mPost[0].userId && mPost[0].reviewId.toString() == "0")
+                {
+                    add_detail_review_btn.visibility = View.VISIBLE
+                }
+                else
+                {
+                    add_detail_review_btn.visibility = View.GONE
+                }
+            }
+
+            override fun onFailure(call: Call<GetMyPostDTO>, t: Throwable) {
+                Log.d("moveToPost", t.message.toString())
+            }
+        })
+
+
+    }
 }

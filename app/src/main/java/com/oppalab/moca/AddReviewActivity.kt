@@ -74,6 +74,15 @@ class AddReviewActivity : AppCompatActivity() {
                                 "Review Uploaded Successfully...",
                                 Toast.LENGTH_LONG
                             ).show();
+
+                            val intentReview = Intent(this@AddReviewActivity, ReviewActivity::class.java)
+                            intentReview.putExtra("userId",userId.toString())
+                            intentReview.putExtra("postId",postId.toString())
+                            intentReview.putExtra("reviewId",response.body().toString())
+                            intentReview.putExtra("postTitle", postTitle)
+                            intentReview.putExtra("thumbNailImageFilePath", thumbNailImageFilePath)
+                            startActivity(intentReview)
+                            finish()
                         }
                     }
                     override fun onFailure(call: Call<Long>, t: Throwable) {
@@ -89,12 +98,6 @@ class AddReviewActivity : AppCompatActivity() {
                 Toast.makeText(this, "후기가 등록되었습니다.", Toast.LENGTH_LONG).show()
 
 
-                val intentReview = Intent(this@AddReviewActivity, ReviewActivity::class.java)
-                intentReview.putExtra("userId",userId.toString())
-                intentReview.putExtra("postId",postId.toString())
-                intentReview.putExtra("reviewId",PreferenceManager.getLong(this,"reviewId").toString())
-                startActivity(intentReview)
-                finish()
 
                 progressDialog.dismiss()
             }
