@@ -36,7 +36,7 @@ class SignUpActivity : AppCompatActivity() {
             val token = task.result
             access_token = token!!
             Log.d("token", token!!)
-            Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
         })
     }
 

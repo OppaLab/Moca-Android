@@ -46,7 +46,8 @@ class SearchFragment : Fragment() {
         recyclerview_search_thumbnails.setHasFixedSize(true)
         postList = ArrayList()
         val linearLayoutManager: LinearLayoutManager = GridLayoutManager(context, 3)
-        linearLayoutManager.reverseLayout = true
+//        linearLayoutManager.reverseLayout = true
+
         recyclerview_search_thumbnails.layoutManager = linearLayoutManager
 
         myThumbnailAdapter = context?.let { MyThumbnailAdapter(it, postList as ArrayList<PostDTO>) }
@@ -69,7 +70,7 @@ class SearchFragment : Fragment() {
                                 for (post in response.body()!!.content) {
                                     postList!!.add(post)
                                 }
-                                Collections.reverse(postList)
+//                                Collections.reverse(postList)
                                 myThumbnailAdapter!!.notifyDataSetChanged()
                             }
 
@@ -91,7 +92,7 @@ class SearchFragment : Fragment() {
                                 for (post in response.body()!!.content) {
                                     postList!!.add(post)
                                 }
-                                Collections.reverse(postList)
+//                                Collections.reverse(postList)
                                 myThumbnailAdapter!!.notifyDataSetChanged()
                             }
 
@@ -118,7 +119,7 @@ class SearchFragment : Fragment() {
                 for (post in response.body()!!.content) {
                     postList!!.add(post)
                 }
-                Collections.reverse(postList)
+//                Collections.reverse(postList)
                 myThumbnailAdapter!!.notifyDataSetChanged()
             }
 
@@ -138,7 +139,7 @@ class SearchFragment : Fragment() {
                     for (post in response.body()!!.content) {
                         postList!!.add(post)
                     }
-                    Collections.reverse(postList)
+//                    Collections.reverse(postList)
                     myThumbnailAdapter!!.notifyDataSetChanged()
                 }
 
@@ -160,7 +161,7 @@ class SearchFragment : Fragment() {
                     for (post in response.body()!!.content) {
                         postList!!.add(post)
                     }
-                    Collections.reverse(postList)
+//                    Collections.reverse(postList)
                     myThumbnailAdapter!!.notifyDataSetChanged()
                 }
 
@@ -181,7 +182,7 @@ class SearchFragment : Fragment() {
                     for (post in response.body()!!.content) {
                         postList!!.add(post)
                     }
-                    Collections.reverse(postList)
+//                    Collections.reverse(postList)
                     myThumbnailAdapter!!.notifyDataSetChanged()
                 }
 
@@ -202,7 +203,7 @@ class SearchFragment : Fragment() {
                     for (post in response.body()!!.content) {
                         postList!!.add(post)
                     }
-                    Collections.reverse(postList)
+//                    Collections.reverse(postList)
                     myThumbnailAdapter!!.notifyDataSetChanged()
                 }
 
@@ -223,7 +224,7 @@ class SearchFragment : Fragment() {
                     for (post in response.body()!!.content) {
                         postList!!.add(post)
                     }
-                    Collections.reverse(postList)
+//                    Collections.reverse(postList)
                     myThumbnailAdapter!!.notifyDataSetChanged()
                 }
 
@@ -244,7 +245,7 @@ class SearchFragment : Fragment() {
                     for (post in response.body()!!.content) {
                         postList!!.add(post)
                     }
-                    Collections.reverse(postList)
+//                    Collections.reverse(postList)
                     myThumbnailAdapter!!.notifyDataSetChanged()
                 }
 
@@ -265,7 +266,7 @@ class SearchFragment : Fragment() {
                     for (post in response.body()!!.content) {
                         postList!!.add(post)
                     }
-                    Collections.reverse(postList)
+//                    Collections.reverse(postList)
                     myThumbnailAdapter!!.notifyDataSetChanged()
                 }
 
@@ -286,7 +287,7 @@ class SearchFragment : Fragment() {
                     for (post in response.body()!!.content) {
                         postList!!.add(post)
                     }
-                    Collections.reverse(postList)
+//                    Collections.reverse(postList)
                     myThumbnailAdapter!!.notifyDataSetChanged()
                 }
 
@@ -307,7 +308,7 @@ class SearchFragment : Fragment() {
                     for (post in response.body()!!.content) {
                         postList!!.add(post)
                     }
-                    Collections.reverse(postList)
+//                    Collections.reverse(postList)
                     myThumbnailAdapter!!.notifyDataSetChanged()
                 }
 
