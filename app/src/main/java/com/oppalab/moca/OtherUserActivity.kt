@@ -15,6 +15,7 @@ import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_other_user.*
+import kotlinx.android.synthetic.main.fragment_profile.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,10 +29,8 @@ class OtherUserActivity : AppCompatActivity() {
     private var otherUserProfile: GetProfileDTO? = null
     private var postList: MutableList<PostDTO>? = null
     private var otherUserAdapter: OtherUserAdapter? = null
-    private var otherUserCategory: String = ""
-    private var otherUserEntity: String = ""
-
-
+    private var userCategory: String = ""
+    private var userEntity: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +73,6 @@ class OtherUserActivity : AppCompatActivity() {
                 otherUserProfile = response.body()
 //                Picasso.get().load(RetrofitConnection.URL+"image/profile/"+response.body()!!.profileImageFilePath).into(circleimageview_thumbmail)
                 other_user_profile_fragment_username.text = otherUserProfile!!.nickname
-                other_user_profile_full_name.text = otherUserProfile!!.nickname
                 other_user_total_posts.text = otherUserProfile!!.numberOfPosts.toString()
                 other_user_total_followers.text = otherUserProfile!!.numberOfFollowers.toString()
                 other_user_total_following.text = otherUserProfile!!.numberOfFollowings.toString()
@@ -86,6 +84,21 @@ class OtherUserActivity : AppCompatActivity() {
                 } else {
                     other_user_follow_button.text = ("Follow")
                     other_user_follow_button.tag = "UnFollow"
+                }
+
+                for (category in otherUserProfile!!.userCategories) {
+                    if (category == "") continue
+                    userCategory += category
+                    userCategory += ", "
+                }
+                for (entity in otherUserProfile!!.userEntities) {
+                    if (entity == "") continue
+                    userEntity += entity
+                    userEntity += ", "
+                }
+                if (otherUserProfile!!.userCategories.size > 0) other_user_profile_category.text = userCategory.substring(0, userCategory.length-2)
+                if (otherUserProfile!!.userEntities.size > 0){
+                    other_user_profile_entity.text = "#"+userEntity.substring(0, userEntity.length-2).replace(", ", " #")
                 }
 
             }
