@@ -303,7 +303,6 @@ class ReviewActivity : AppCompatActivity() {
                         Log.d("retrofit", "review 삭제 : review_id = " + response.body())
                         Toast.makeText(this@ReviewActivity,"게시글이 삭제되었습니다.", Toast.LENGTH_LONG)
                         val intent = Intent(this@ReviewActivity, PostDetailActivity::class.java)
-//                        intent.putExtra("ProfileFragment","ProfileFragment")
                         startActivity(intent)
                         finish()
 

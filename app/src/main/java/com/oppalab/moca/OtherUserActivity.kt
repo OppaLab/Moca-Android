@@ -28,6 +28,9 @@ class OtherUserActivity : AppCompatActivity() {
     private var otherUserProfile: GetProfileDTO? = null
     private var postList: MutableList<PostDTO>? = null
     private var otherUserAdapter: OtherUserAdapter? = null
+    private var otherUserCategory: String = ""
+    private var otherUserEntity: String = ""
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
