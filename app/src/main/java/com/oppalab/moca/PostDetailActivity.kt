@@ -141,7 +141,6 @@ class PostDetailActivity : AppCompatActivity() {
             }
         })
 
-<<<<<<< HEAD
        /* postUserId = intent.getStringExtra("postUserId")!!
         publisherId = intent.getStringExtra("publisherId")!!
         reviewId = intent.getStringExtra("reviewId")!!
@@ -157,8 +156,6 @@ class PostDetailActivity : AppCompatActivity() {
         createdAt = intent.getStringExtra("createdAt")!!.toLong()
        */
 
-=======
->>>>>>> 1180964e903f731744a91116fe79ff9f4f9495eb
         var comment_linearLayoutManager = LinearLayoutManager(this)
         comment_linearLayoutManager.reverseLayout = true
         post_detail_recycler_view_comments.layoutManager = comment_linearLayoutManager
@@ -392,10 +389,7 @@ class PostDetailActivity : AppCompatActivity() {
                         intent.putExtra("ProfileFragment","ProfileFragment")
                         startActivity(intent)
                         finish()
-<<<<<<< HEAD
-=======
 
->>>>>>> 8c2b6a8f73c77fd6ba5b66089fa29b8cc1af8948
                     }
                     override fun onFailure(call: Call<Long>, t: Throwable) {
                         Log.d("retrofit", "post 삭제 실패 :  " + t.message.toString())

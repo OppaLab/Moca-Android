@@ -121,22 +121,23 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/add_post_categoryselect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_below="@id/add_post_linear"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="15dp">
 
                 <TextView
                     android:id="@+id/post_user_category_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="24dp"
                     android:layout_marginTop="6dp"
                     android:text="고민 카테고리"
-                    android:textSize="18dp"
-                    android:textColor="#8a8a8a"/>
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
 
                 <GridLayout
                     android:id="@+id/post_user_category"
@@ -144,7 +145,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill_horizontal"
-                    android:layout_marginLeft="24dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="24dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="10dp"
@@ -226,6 +227,75 @@
                         android:textSize="18dp" />
                 </GridLayout>
             </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/add_post_random_push_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/add_post_categoryselect">
+                <TextView
+                    android:id="@+id/random_push_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="랜덤푸쉬 설정"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"/>
+
+                <Switch
+                    android:id="@+id/switch1"
+                    android:scrollbarSize="100dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/random_push_text"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginLeft="150dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/random_push_number_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/add_post_random_push_select">
+                <TextView
+                    android:id="@+id/random_push_number_subject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="랜덤푸쉬 인원"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"/>
+
+                <ImageView
+                    android:id="@+id/minus_button"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/minus"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="155dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="26dp"
+                    android:textStyle="bold"
+                    android:text="0"
+                    android:layout_marginLeft="180dp"/>
+
+                <ImageView
+                    android:id="@+id/plus_button"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/plus"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="200dp"/>
+
+            </RelativeLayout>
+
         </RelativeLayout>
     </ScrollView>
 
