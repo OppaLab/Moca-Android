@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.adapter.CommentsAdapterRetro
 import com.oppalab.moca.dto.CommentsOnPost
+import com.oppalab.moca.dto.GetMyPostDTO
 import com.oppalab.moca.dto.GetReviewDTO
+import com.oppalab.moca.dto.PostDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
@@ -33,13 +35,12 @@ class ReviewActivity : AppCompatActivity() {
     private var reviewId = ""
     private var likeCount = 0L
     private var like = false
+    private var likeTag = ""
     private var commentCount = 0L
     private var commentAdapter: CommentsAdapterRetro? = null
     private var commentList: MutableList<CommentsOnPost>? = null
     private var postTitle = ""
     private var thumbNailImageFilePath = ""
-    private var category = ""
-    private var reviewUserId = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +55,9 @@ class ReviewActivity : AppCompatActivity() {
         reviewId = intent.getStringExtra("reviewId")!!
         postTitle = intent.getStringExtra("postTitle")!!
         thumbNailImageFilePath = intent.getStringExtra("thumbNailImageFilePath")!!
-//        category = intent.getStringExtra("category")!!
+        likeTag = intent.getStringExtra("likeTag")!!
 
+        Log.d("태그씨발:","["+likeTag+"]")
 
         review_detail_subject.text = postTitle
 
@@ -72,7 +74,6 @@ class ReviewActivity : AppCompatActivity() {
         review_recycler_view_comments.adapter = commentAdapter
 
 
-        Log.d("리뷰", reviewId+"|||"+ userId)
         RetrofitConnection.server.getReview(userId = userId, reviewId = reviewId).enqueue(object:
             Callback<GetReviewDTO> {
             override fun onResponse(
@@ -87,7 +88,9 @@ class ReviewActivity : AppCompatActivity() {
                 like = response.body()!!.like
                 commentCount = response.body()!!.commentCount
 
-                if (like) {
+                likeTag = if (like) "Liked" else "Like"
+                Log.d("태그씨발2:","["+likeTag+"]")
+                if (likeTag == "Liked" || like) {
                     review_like_btn.setImageResource(R.drawable.heart_clicked)
                     review_like_btn.tag = "Liked"
                 } else {
@@ -115,34 +118,14 @@ class ReviewActivity : AppCompatActivity() {
 
         })
 
-        if (like) {
-            review_like_btn.setImageResource(R.drawable.heart_clicked)
-            review_like_btn.tag = "Liked"
-        } else {
-            review_like_btn.setImageResource(R.drawable.heart_not_clicked)
-            review_like_btn.tag = "Like"
-        }
-
-        if (likeCount.toInt() == 0) {
-            review_like_count.text = ""
-        } else {
-            review_like_count.text = likeCount.toString() + "명이 공감합니다."
-        }
-
-        if (commentCount.toInt() == 0) {
-            review_comments_count.text = "댓글이 없어요TT 댓글을 작성해주세요."
-        } else {
-            review_comments_count.text = commentCount.toString() + "개의 댓글이 있습니다."
-        }
-
         review_like_btn.setOnClickListener {
             if (review_like_btn.tag == "Like") {
-                Log.d("Likes ReviewId", postId.toString())
+                Log.d("Likes ReviewId", reviewId)
 
                 RetrofitConnection.server.likePost(
                     postId = "",
                     userId = currentUser,
-                    reviewId = reviewId.toString()
+                    reviewId = reviewId
                 ).enqueue(object : Callback<Long> {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "Like 생성 : like_id = " + response.body())
@@ -162,7 +145,7 @@ class ReviewActivity : AppCompatActivity() {
                 RetrofitConnection.server.unlikePost(
                     postId = "",
                     userId = currentUser,
-                    reviewId = reviewId.toString()
+                    reviewId = reviewId
                 ).enqueue(object : Callback<Long> {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "Like 삭제 : like_id = " + response.body())
@@ -203,6 +186,8 @@ class ReviewActivity : AppCompatActivity() {
                 }
 
                 commentAdapter!!.notifyDataSetChanged()
+                review_comments_count.text = response.body()!!.content.size.toString() + "개의 댓글이 있습니다."
+
             }
 
             override fun onFailure(call: Call<GetCommentsOnPostDTO>, t: Throwable) {
@@ -227,7 +212,13 @@ class ReviewActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "댓글 생성")
                         commentCount++
+                        if (commentCount.toInt() == 0) {
+                            review_comments_count.text = "댓글이 없어요TT 댓글을 작성해주세요."
+                        } else {
+                            review_comments_count.text = commentCount.toString() + "개의 댓글이 있습니다."
+                        }
                         write_comment_review!!.text.clear()
+                        intent.putExtra("likeTag", review_like_btn.tag.toString())
                         finish()
                         startActivity(intent)
                     }
@@ -328,6 +319,15 @@ class ReviewActivity : AppCompatActivity() {
             }
             R.id.action_update -> {
                 Log.d("retrofit", "review 수정버튼 동작 = ")
+                val updateReviewIntent = Intent (this, AddReviewActivity::class.java)
+                updateReviewIntent.putExtra("reviewId",reviewId)
+                updateReviewIntent.putExtra("postId",postId)
+                updateReviewIntent.putExtra("flag", true)
+                updateReviewIntent.putExtra("userId", currentUser.toString())
+                updateReviewIntent.putExtra("thumbNailImageFilePath", thumbNailImageFilePath)
+                updateReviewIntent.putExtra("postTitle",postTitle)
+                startActivity(updateReviewIntent)
+                finish()
                 return true
             }
             R.id.action_report -> {
@@ -339,4 +339,18 @@ class ReviewActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        RetrofitConnection.server.getReview(userId = userId, reviewId = reviewId).enqueue(object:
+            Callback<GetReviewDTO> {
+            override fun onResponse(call: Call<GetReviewDTO>, response: Response<GetReviewDTO>) {
+
+            }
+
+            override fun onFailure(call: Call<GetReviewDTO>, t: Throwable) {
+                Log.d("Fail to get review", t.message.toString())
+            }
+        })
+    }
 }

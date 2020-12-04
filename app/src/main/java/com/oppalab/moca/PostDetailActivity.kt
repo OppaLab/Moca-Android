@@ -81,9 +81,7 @@ class PostDetailActivity : AppCompatActivity() {
 
                 likeTag = if (mPost.like) "Liked" else "Like"
 
-                Log.d("태크씨발", like.toString() +"||||||||||" +likeTag)
-
-                if (likeTag == "Liked" || like == true) {
+                if (likeTag == "Liked" || like) {
                     post_image_like_btn.setImageResource(R.drawable.heart_clicked)
                     post_image_like_btn.tag = "Liked"
                 } else {
@@ -261,7 +259,6 @@ class PostDetailActivity : AppCompatActivity() {
             }
         })
 
-        Log.d("돌아와3", currentUser.toString() + "||||"  + postUserId +"|||||"+ reviewId )
         if(currentUser.toString() == postUserId && reviewId == "0")
         {
             add_detail_review_btn.visibility = View.VISIBLE
@@ -278,6 +275,7 @@ class PostDetailActivity : AppCompatActivity() {
             intentAddReview.putExtra("postTitle",subject)
             intentAddReview.putExtra("thumbNailImageFilePath",thumbnailImageFilePath)
             intentAddReview.putExtra("category",categories)
+            intentAddReview.putExtra("reviewId", "")
 //            intentAddReview.putExtra("",postUserId)
 //            intentAddReview.putExtra("likeTag",)
             startActivity(intentAddReview)
@@ -294,6 +292,7 @@ class PostDetailActivity : AppCompatActivity() {
                 intentReview.putExtra("postId",postId.toString())
                 intentReview.putExtra("postTitle",subject)
                 intentReview.putExtra("thumbNailImageFilePath",thumbnailImageFilePath)
+                intentReview.putExtra("likeTag","")
                 startActivity(intentReview)
             }
         }
@@ -406,11 +405,12 @@ class PostDetailActivity : AppCompatActivity() {
         RetrofitConnection.server.getOnePost(userId = currentUser, postId = postId ,search = "", category = "", page = 0).enqueue(object:
             Callback<GetMyPostDTO> {
             override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
-                Log.d("돌아와1", response.body().toString())
 
                 val mPost : MutableList<PostDTO> = ArrayList()
                 mPost.add(response.body()!!.content[0])
-                if(PreferenceManager.getLong(applicationContext,"userId") == mPost[0].userId && mPost[0].reviewId.toString() == "0")
+                if(PreferenceManager.getLong(applicationContext,"userId")
+                    == mPost[0].userId && mPost[0].reviewId.toString()
+                    == "0")
                 {
                     add_detail_review_btn.visibility = View.VISIBLE
                 }
