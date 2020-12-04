@@ -70,6 +70,7 @@ class SearchFragment : Fragment() {
                                     postList!!.add(post)
                                 }
                                 Collections.reverse(postList)
+
                                 myThumbnailAdapter!!.notifyDataSetChanged()
                             }
 
