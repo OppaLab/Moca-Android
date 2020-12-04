@@ -40,12 +40,15 @@ class AddPostActivity : AppCompatActivity() {
     private var userId = 0L
     private var postId = 0L
     private var like = false
+    private lateinit var arr2: ByteArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_post)
 
-        val intent = intent;
+        val intent = intent
+        val thumbnail: ImageView = findViewById(R.id.thumbnail_image)
+
         userId = intent.getLongExtra("userId",0L)
         postId = intent.getLongExtra("postId",0L)
         flag = intent.getBooleanExtra("flag",false)
@@ -53,7 +56,12 @@ class AddPostActivity : AppCompatActivity() {
         storagePostRef = FirebaseStorage.getInstance().reference.child("post_thumbnail/")
 
         if (flag) callPost()
-
+        else{
+            val arr = intent.getByteArrayExtra("image")!!
+            image = BitmapFactory.decodeByteArray(arr, 0, arr!!.size)
+            thumbnail.setImageBitmap(image)
+            arr2 = arr
+        }
         save_new_post_btn.isClickable = true
 
         save_new_post_btn.setOnClickListener {
@@ -61,12 +69,8 @@ class AddPostActivity : AppCompatActivity() {
                 categoriesCheck()
                 updatePost()}
             else {
-                var thumbnail: ImageView = findViewById(R.id.thumbnail_image);
-                thumbnail.setImageBitmap(image);
-                var arr = getIntent().getByteArrayExtra("image")!!
-                image = BitmapFactory.decodeByteArray(arr, 0, arr!!.size)
                 categoriesCheck()
-                uploadPost(arr)
+                uploadPost(arr2)
             }
         }
 
