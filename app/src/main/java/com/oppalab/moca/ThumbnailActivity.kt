@@ -127,6 +127,7 @@ class ThumbnailActivity : AppCompatActivity(), BackgroundFragmentListener, Brush
                     saveBitmap!!.compress(Bitmap.CompressFormat.PNG,100,stream)
                     intent.putExtra("image",stream.toByteArray())
                     intent.putExtra("tag","CREATE")
+                    intent.putExtra("flag", false)
                     startActivity(intent)
                 }
                 override fun onFailure(e: Exception?) {
