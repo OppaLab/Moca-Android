@@ -54,7 +54,7 @@ class PostDetailActivity : AppCompatActivity() {
 
         val intent = intent
 
-        postId = intent.getStringExtra("postId")!!.toLong()!!
+        postId = intent.getStringExtra("postId")!!.toLong()
 //        likeTag = intent.getStringExtra("likeTag")!!
 
         RetrofitConnection.server.getOnePost(
@@ -281,6 +281,7 @@ class PostDetailActivity : AppCompatActivity() {
 //            intentAddReview.putExtra("",postUserId)
 //            intentAddReview.putExtra("likeTag",)
             startActivity(intentAddReview)
+            finish()
         }
         post_detail_review_btn.setOnClickListener{
             if(reviewId == "0")
@@ -295,6 +296,7 @@ class PostDetailActivity : AppCompatActivity() {
                 intentReview.putExtra("postTitle",subject)
                 intentReview.putExtra("thumbNailImageFilePath",thumbnailImageFilePath)
                 startActivity(intentReview)
+                finish()
             }
         }
         val swipe = object: CommentsAdapterRetro.SwipeHelper(this, post_detail_recycler_view_comments, 200) {
