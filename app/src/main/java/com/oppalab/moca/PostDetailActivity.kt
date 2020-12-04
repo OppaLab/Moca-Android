@@ -147,7 +147,8 @@ class PostDetailActivity : AppCompatActivity() {
         content = intent.getStringExtra("content")!!
         categories = intent.getStringExtra("categories")!!
         createdAt = intent.getStringExtra("createdAt")!!.toLong()
-*/
+       */
+
         var comment_linearLayoutManager = LinearLayoutManager(this)
         comment_linearLayoutManager.reverseLayout = true
         post_detail_recycler_view_comments.layoutManager = comment_linearLayoutManager
@@ -366,11 +367,10 @@ class PostDetailActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "post 삭제 : post_id = " + response.body())
                         Toast.makeText(this@PostDetailActivity,"게시글이 삭제되었습니다.", Toast.LENGTH_LONG)
-//                        val intent = Intent(this@PostDetailActivity, MainActivity::class.java)
-//                        intent.putExtra("ProfileFragment","ProfileFragment")
-//                        startActivity(intent)
-//                        finish()
-
+                        val intent = Intent(this@PostDetailActivity, MainActivity::class.java)
+                        intent.putExtra("ProfileFragment","ProfileFragment")
+                        startActivity(intent)
+                        finish()
                     }
                     override fun onFailure(call: Call<Long>, t: Throwable) {
                         Log.d("retrofit", "post 삭제 실패 :  " + t.message.toString())

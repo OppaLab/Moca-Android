@@ -213,6 +213,7 @@ class PostAdapterRetro
                 intentReview.putExtra("userId", post.userId.toString())
                 intentReview.putExtra("reviewId", post.reviewId.toString())
                 intentReview.putExtra("postId",post.postId.toString())
+                intentReview.putExtra("postTitle",post.postTitle)
                 mContext.startActivity(intentReview)
             }
         }
