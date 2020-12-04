@@ -14,23 +14,20 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
+import com.oppalab.moca.dto.GetMyPostDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_account_setting.*
 import kotlinx.android.synthetic.main.activity_add_post.*
-import kotlinx.android.synthetic.main.thumbnail_content.*
 import okhttp3.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Multipart
 import java.io.*
 
 class AddPostActivity : AppCompatActivity() {
@@ -39,34 +36,99 @@ class AddPostActivity : AppCompatActivity() {
     var myUrl = ""
     private var categories = ""
     lateinit var image: Bitmap
-
+    private var flag = false
+    private var userId = 0L
+    private var postId = 0L
+    private var like = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_post)
 
-        var intent: Intent = getIntent();
-        var arr = getIntent().getByteArrayExtra("image")!!
-        image = BitmapFactory.decodeByteArray(arr, 0, arr!!.size)
-        var thumbnail: ImageView = findViewById(R.id.thumbnail_image);
-        thumbnail.setImageBitmap(image);
+        val intent = intent;
+        userId = intent.getLongExtra("userId",0L)
+        postId = intent.getLongExtra("postId",0L)
+        flag = intent.getBooleanExtra("flag",false)
 
         storagePostRef = FirebaseStorage.getInstance().reference.child("post_thumbnail/")
 
+        if (flag) callPost()
+
         save_new_post_btn.isClickable = true
+
         save_new_post_btn.setOnClickListener {
-            if (post_category_family.isChecked) categories += "가족,"
-            if (post_category_friend.isChecked) categories += "친구,"
-            if (post_category_parent.isChecked) categories += "부모님,"
-            if (post_category_couple.isChecked) categories += "연인,"
-            if (post_category_money.isChecked) categories += "금전,"
-            if (post_category_school.isChecked) categories += "학교,"
-            if (post_category_study.isChecked) categories += "학업,"
-            if (post_category_sex.isChecked) categories += "성,"
-            if (post_category_appearence.isChecked) categories += "외모,"
-            uploadPost(arr)
+            if(flag) {
+                categoriesCheck()
+                updatePost()}
+            else {
+                var thumbnail: ImageView = findViewById(R.id.thumbnail_image);
+                thumbnail.setImageBitmap(image);
+                var arr = getIntent().getByteArrayExtra("image")!!
+                image = BitmapFactory.decodeByteArray(arr, 0, arr!!.size)
+                categoriesCheck()
+                uploadPost(arr)
+            }
         }
 
+
+
+    }
+
+    private fun updatePost() {
+        RetrofitConnection.server.updatePost(
+            postId = postId.toString(),
+            postTitle = post_subject.text.toString(),
+            postBody = post_description.text.toString(),
+            userId = userId,
+            postCategories = categories.split(','),
+        ).enqueue(object: Callback<Long>{
+            override fun onResponse(call: Call<Long>, response: Response<Long>) {
+                Log.d("수정된 postId: " ,response.body().toString())
+                Log.d("수정수정수정", post_subject.text.toString()+"|||||"+categories)
+                val postDetailIntent = Intent(applicationContext, PostDetailActivity::class.java)
+                postDetailIntent.putExtra("postId", postId.toString())
+                postDetailIntent.putExtra("categories", categories)
+                postDetailIntent.putExtra("likeTag", if (like) "Liked" else "Like")
+                flag = false
+                startActivity(postDetailIntent)
+                finish()
+            }
+
+            override fun onFailure(call: Call<Long>, t: Throwable) {
+                Log.d("수정실패한 postId: ", postId.toString())
+            }
+
+        })
+    }
+
+    private fun callPost() {
+        RetrofitConnection.server.getOnePost(postId = postId, userId = userId, search = "", category = "", page = 0).enqueue(object:
+            Callback<GetMyPostDTO> {
+            override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
+                val mPost = response.body()!!.content[0]
+
+                post_subject.setText(mPost.postTitle)
+                post_description.setText(mPost.postBody)
+                Picasso.get().load(RetrofitConnection.URL + "/image/thumbnail/" + mPost.thumbnailImageFilePath)
+                    .into(thumbnail_image)
+                val getCategories = mPost.categories.toString()
+                like = mPost.like
+                Log.d("Success to call post(ID", "$postId) at AddPostActivity")
+                if (getCategories.contains("가족")) post_category_family.setChecked(true)
+                if (getCategories.contains("친구")) post_category_friend.setChecked(true)
+                if (getCategories.contains("부모님")) post_category_parent.setChecked(true)
+                if (getCategories.contains("연인")) post_category_couple.setChecked(true)
+                if (getCategories.contains("금전")) post_category_money.setChecked(true)
+                if (getCategories.contains("학교")) post_category_school.setChecked(true)
+                if (getCategories.contains("학업")) post_category_study.setChecked(true)
+                if (getCategories.contains("성")) post_category_sex.setChecked(true)
+                if (getCategories.contains("외모")) post_category_appearence.setChecked(true)
+            }
+
+            override fun onFailure(call: Call<GetMyPostDTO>, t: Throwable) {
+                Log.d("Fail to call post at AddPostActivity", t.message.toString())
+            }
+        })
     }
 
     private fun uploadPost(arr: ByteArray) {
@@ -113,15 +175,6 @@ class AddPostActivity : AppCompatActivity() {
                             val downloadUrl = task.result
                             myUrl = downloadUrl.toString()
 
-                            val postMap = HashMap<String, Any>()
-                            postMap["postId"] = postId!!
-                            postMap["title"] = title
-                            postMap["content"] = content
-                            postMap["publisher"] = FirebaseAuth.getInstance().currentUser!!.uid
-                            postMap["thumbnail"] = myUrl
-                            postMap["category"] = categories.substring(0, categories.length - 1)
-
-
                             val file = File(applicationContext.cacheDir, postId)
                             file.createNewFile()
 
@@ -160,7 +213,7 @@ class AddPostActivity : AppCompatActivity() {
                                         Log.d("retrofit addpost userId", PreferenceManager.getLong(applicationContext,"userId").toString())
                                         Toast.makeText(
                                             getApplicationContext(),
-                                            "File Uploaded Successfully...",
+                                            "고민이 등록되었습니다.",
                                             Toast.LENGTH_LONG
                                         ).show();
                                     }
@@ -170,18 +223,12 @@ class AddPostActivity : AppCompatActivity() {
                                     Log.d("retrofit result", t.message.toString())
                                     Toast.makeText(
                                         getApplicationContext(),
-                                        "Fail",
+                                        "고민 등록을 실패했습니다.",
                                         Toast.LENGTH_LONG
                                     ).show();
                                 }
 
                             })
-                            ref.child(postId).updateChildren(postMap)
-
-
-                            Toast.makeText(this, "고민이 등록되었습니다.", Toast.LENGTH_LONG).show()
-
-
                             val intent = Intent(this@AddPostActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
@@ -194,71 +241,16 @@ class AddPostActivity : AppCompatActivity() {
             }
         }
     }
-//    private fun uploadPost(arr: ByteArray) {
-//        save_new_post_btn.isClickable = false
-//        val title = post_subject.text.toString()
-//        val content = post_description.text.toString()
-//
-//        when {
-//            TextUtils.isEmpty(post_subject.text.toString()) -> Toast.makeText(
-//                this,
-//                "제목을 기입해주세요.",
-//                Toast.LENGTH_LONG
-//            ).show()
-//            TextUtils.isEmpty(post_description.text.toString()) -> Toast.makeText(
-//                this,
-//                "고민을 채워주세요.",
-//                Toast.LENGTH_LONG
-//            ).show()
-//
-//            else -> {
-//                val progressDialog = ProgressDialog(this)
-//                progressDialog.setTitle("고민글 등록")
-//                progressDialog.setMessage("고민을 등록중이에요..")
-//                progressDialog.show()
-//
-//                savePost(title, content, arr)
-//
-//                progressDialog.dismiss()
-//
-//            }
-//        }
-//    }
+    private fun categoriesCheck(){
+        if (post_category_family.isChecked) categories += "가족,"
+        if (post_category_friend.isChecked) categories += "친구,"
+        if (post_category_parent.isChecked) categories += "부모님,"
+        if (post_category_couple.isChecked) categories += "연인,"
+        if (post_category_money.isChecked) categories += "금전,"
+        if (post_category_school.isChecked) categories += "학교,"
+        if (post_category_study.isChecked) categories += "학업,"
+        if (post_category_sex.isChecked) categories += "성,"
+        if (post_category_appearence.isChecked) categories += "외모,"
 
-//    private fun savePost(title: String, content: String, byteArray: ByteArray) {
-//        val ref = FirebaseDatabase.getInstance().reference.child("Posts")
-//        val postId = ref.push().key
-//        val storageReference =
-//            FirebaseStorage.getInstance().reference.child("post_thumbnail/" + postId + ".png")
-//        val uploadTask: StorageTask<*>
-//        uploadTask = storageReference.putBytes(byteArray)
-//
-//        uploadTask.continueWith(Continuation<UploadTask.TaskSnapshot, Task<Uri>> {
-//            if (!it.isSuccessful) {
-//                it.exception?.let {
-//                    throw it
-//                }
-//            }
-//            return@Continuation storageReference.downloadUrl
-//        })
-//            .addOnCompleteListener(OnCompleteListener <Uri> {task ->
-//                if (task.isSuccessful) {
-//                    val postMap = HashMap<String, Any>()
-//                    postMap["postid"] = postId!!
-//                    postMap["title"] = title
-//                    postMap["content"] = content
-//                    postMap["publisher"] = FirebaseAuth.getInstance().currentUser!!.uid
-//                    postMap["thumbnail"] = it.result!!.result.toString()
-//
-//                    ref.child(postId).updateChildren(postMap)
-//
-//                    Toast.makeText(this, "고민이 등록되었습니다.", Toast.LENGTH_LONG).show()
-//
-//                    val intent = Intent(this@AddPostActivity, MainActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-//                }
-//            })
-//
-//    }
+    }
 }
