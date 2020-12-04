@@ -35,18 +35,18 @@ class MyThumbnailAdapter(private val mContext: Context, mPost: List<PostDTO>):
 
         holder.postThumbnail.setOnClickListener {
             val intentPostDetail = Intent(mContext, PostDetailActivity::class.java)
-            intentPostDetail.putExtra("publisherId", post.nickname)
-            intentPostDetail.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
-            intentPostDetail.putExtra("content", post.postBody)
-            intentPostDetail.putExtra("likeCount", post.likeCount.toString())
-            intentPostDetail.putExtra("commentCount", post.commentCount.toString())
-            intentPostDetail.putExtra("like", post.like)
+//            intentPostDetail.putExtra("publisherId", post.nickname)
+//            intentPostDetail.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
+//            intentPostDetail.putExtra("content", post.postBody)
+//            intentPostDetail.putExtra("likeCount", post.likeCount.toString())
+//            intentPostDetail.putExtra("commentCount", post.commentCount.toString())
+//            intentPostDetail.putExtra("like", post.like)
             intentPostDetail.putExtra("likeTag", if (post.like) "Liked" else "Like")
             intentPostDetail.putExtra("postId", post.postId.toString())
-            intentPostDetail.putExtra("subject", post.postTitle)
-            intentPostDetail.putExtra("postUserId",post.userId.toString())
-            intentPostDetail.putExtra("reviewId",post.reviewId.toString())
-            intentPostDetail.putExtra("createdAt", post.createdAt.toString())
+//            intentPostDetail.putExtra("subject", post.postTitle)
+//            intentPostDetail.putExtra("postUserId",post.userId.toString())
+//            intentPostDetail.putExtra("reviewId",post.reviewId.toString())
+//            intentPostDetail.putExtra("createdAt", post.createdAt.toString())
 
             var categoryString = ""
             for (category in post.categories) {

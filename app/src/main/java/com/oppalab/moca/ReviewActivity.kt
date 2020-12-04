@@ -38,6 +38,8 @@ class ReviewActivity : AppCompatActivity() {
     private var commentList: MutableList<CommentsOnPost>? = null
     private var postTitle = ""
     private var thumbNailImageFilePath = ""
+    private var category = ""
+    private var reviewUserId = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,8 @@ class ReviewActivity : AppCompatActivity() {
         reviewId = intent.getStringExtra("reviewId")!!
         postTitle = intent.getStringExtra("postTitle")!!
         thumbNailImageFilePath = intent.getStringExtra("thumbNailImageFilePath")!!
+//        category = intent.getStringExtra("category")!!
+
 
         review_detail_subject.text = postTitle
 
@@ -290,19 +294,28 @@ class ReviewActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.appbar_action, menu)
+        menu.clear()
+        Log.d("menu", "currentUser id:" + currentUser)
+        Log.d("menu", "post User id:" + userId)
+        if (currentUser.toString() == userId){
+            menuInflater.inflate(R.menu.appbar_action, menu)
+        }
+        else {
+            menuInflater.inflate(R.menu.appbar_report_action, menu)
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_delete -> {
-                Log.d("retrofit", "post 삭제버튼 동작 = ")
+                Log.d("retrofit", "review 삭제버튼 동작 = ")
                 RetrofitConnection.server.deleteReview(userId = currentUser, reviewId = reviewId.toLong()).enqueue(object : Callback<Long>{
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {
                         Log.d("retrofit", "review 삭제 : review_id = " + response.body())
                         Toast.makeText(this@ReviewActivity,"게시글이 삭제되었습니다.", Toast.LENGTH_LONG)
                         val intent = Intent(this@ReviewActivity, PostDetailActivity::class.java)
+                        intent.putExtra("postId", "postId")
                         startActivity(intent)
                         finish()
 
@@ -316,6 +329,11 @@ class ReviewActivity : AppCompatActivity() {
             R.id.action_update -> {
                 Log.d("retrofit", "review 수정버튼 동작 = ")
                 return true
+            }
+            R.id.action_report -> {
+                Log.d("retrofit", "review 신고버튼 동작 = ")
+                return true
+
             }
         }
         return super.onOptionsItemSelected(item)
