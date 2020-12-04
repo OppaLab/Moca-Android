@@ -55,7 +55,7 @@ class PostDetailActivity : AppCompatActivity() {
         val intent = intent
 
         postId = intent.getStringExtra("postId")!!.toLong()!!
-        likeTag = intent.getStringExtra("likeTag")!!
+//        likeTag = intent.getStringExtra("likeTag")!!
 
         RetrofitConnection.server.getOnePost(
             userId = currentUser,
@@ -246,7 +246,7 @@ class PostDetailActivity : AppCompatActivity() {
                             post_detail_comments_count.text = commentCount.toString() + "개의 댓글이 있습니다."
                         }
                         add_comment!!.text.clear()
-                        intent.putExtra("likeTag", post_image_like_btn.tag.toString())
+//                        intent.putExtra("likeTag", post_image_like_btn.tag.toString())
                         finish()
                         startActivity(intent)
                     }

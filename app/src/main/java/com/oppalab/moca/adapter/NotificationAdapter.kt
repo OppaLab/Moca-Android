@@ -182,25 +182,25 @@ class NotificationAdapter (
 
                 mPost.add(response.body()!!.content[0])
 
-                intentPostDetail.putExtra("publisherId", mPost[0].nickname)
-                intentPostDetail.putExtra("thumbnailImageFilePath", mPost[0].thumbnailImageFilePath)
-                intentPostDetail.putExtra("content", mPost[0].postBody)
-                intentPostDetail.putExtra("likeCount", mPost[0].likeCount.toString())
-                intentPostDetail.putExtra("commentCount", mPost[0].commentCount.toString())
-                intentPostDetail.putExtra("like", mPost[0].like)
+//                intentPostDetail.putExtra("publisherId", mPost[0].nickname)
+//                intentPostDetail.putExtra("thumbnailImageFilePath", mPost[0].thumbnailImageFilePath)
+//                intentPostDetail.putExtra("content", mPost[0].postBody)
+//                intentPostDetail.putExtra("likeCount", mPost[0].likeCount.toString())
+//                intentPostDetail.putExtra("commentCount", mPost[0].commentCount.toString())
+//                intentPostDetail.putExtra("like", mPost[0].like)
                 intentPostDetail.putExtra("postId", mPost[0].postId.toString())
-                intentPostDetail.putExtra("subject", mPost[0].postTitle)
-                intentPostDetail.putExtra("postUserId",mPost[0].userId.toString())
-                intentPostDetail.putExtra("reviewId",mPost[0].reviewId.toString())
-                intentPostDetail.putExtra("likeTag", if (mPost[0].like) "Liked" else "Like")
-                intentPostDetail.putExtra("createdAt", mPost[0].createdAt.toString())
-                var categoryString = ""
-                for (category in mPost[0].categories) {
-                    if (category == "") continue
-                    categoryString += category
-                    categoryString += ", "
-                }
-                intentPostDetail.putExtra("categories",categoryString.substring(0, categoryString.length-2))
+//                intentPostDetail.putExtra("subject", mPost[0].postTitle)
+//                intentPostDetail.putExtra("postUserId",mPost[0].userId.toString())
+//                intentPostDetail.putExtra("reviewId",mPost[0].reviewId.toString())
+//                intentPostDetail.putExtra("likeTag", if (mPost[0].like) "Liked" else "Like")
+//                intentPostDetail.putExtra("createdAt", mPost[0].createdAt.toString())
+//                var categoryString = ""
+//                for (category in mPost[0].categories) {
+//                    if (category == "") continue
+//                    categoryString += category
+//                    categoryString += ", "
+//                }
+//                intentPostDetail.putExtra("categories",categoryString.substring(0, categoryString.length-2))
 
                 mContext.startActivity(intentPostDetail)
             }

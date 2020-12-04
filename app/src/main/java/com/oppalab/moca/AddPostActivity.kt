@@ -91,8 +91,8 @@ class AddPostActivity : AppCompatActivity() {
                 Log.d("수정수정수정", post_subject.text.toString()+"|||||"+categories)
                 val postDetailIntent = Intent(applicationContext, PostDetailActivity::class.java)
                 postDetailIntent.putExtra("postId", postId.toString())
-                postDetailIntent.putExtra("categories", categories)
-                postDetailIntent.putExtra("likeTag", if (like) "Liked" else "Like")
+//                postDetailIntent.putExtra("categories", categories)
+//                postDetailIntent.putExtra("likeTag", if (like) "Liked" else "Like")
                 flag = false
                 startActivity(postDetailIntent)
                 finish()

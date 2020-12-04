@@ -127,13 +127,19 @@ class AddReviewActivity : AppCompatActivity() {
                                 Toast.LENGTH_LONG
                             ).show();
 
-                            val intentReview = Intent(this@AddReviewActivity, ReviewActivity::class.java)
-                            intentReview.putExtra("userId",userId.toString())
+                            val intentReview = Intent(this@AddReviewActivity, PostDetailActivity::class.java)
+//                            intentReview.putExtra("userId",userId.toString())
                             intentReview.putExtra("postId",postId.toString())
+<<<<<<< HEAD
                             intentReview.putExtra("reviewId",response.body().toString())
                             intentReview.putExtra("postTitle", postTitle)
                             intentReview.putExtra("thumbNailImageFilePath", thumbNailImageFilePath)
                             intentReview.putExtra("likeTag", "")
+=======
+//                            intentReview.putExtra("reviewId",response.body().toString())
+//                            intentReview.putExtra("postTitle", postTitle)
+//                            intentReview.putExtra("thumbNailImageFilePath", thumbNailImageFilePath)
+>>>>>>> 7b70247abfdbcc24f092d3daef0fc6706eae30ba
                             startActivity(intentReview)
                             finish()
                         }
