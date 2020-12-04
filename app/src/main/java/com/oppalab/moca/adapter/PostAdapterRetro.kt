@@ -175,30 +175,30 @@ class PostAdapterRetro
 
         holder.thumbnail.setOnClickListener {
             val intentPostDetail = Intent(mContext, PostDetailActivity::class.java)
-            intentPostDetail.putExtra("publisherId", post.nickname)
-            intentPostDetail.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
-            intentPostDetail.putExtra("content", post.postBody)
-            if (holder.likeButton.tag == "Liked") {
-                intentPostDetail.putExtra("likeCount", (curLikeCount).toString())
-            } else {
-                intentPostDetail.putExtra("likeCount", curLikeCount.toString())
-            }
+//            intentPostDetail.putExtra("publisherId", post.nickname)
+//            intentPostDetail.putExtra("thumbnailImageFilePath", post.thumbnailImageFilePath)
+//            intentPostDetail.putExtra("content", post.postBody)
+//            if (holder.likeButton.tag == "Liked") {
+//                intentPostDetail.putExtra("likeCount", (curLikeCount).toString())
+//            } else {
+//                intentPostDetail.putExtra("likeCount", curLikeCount.toString())
+//            }
 
-            intentPostDetail.putExtra("commentCount", post.commentCount.toString())
-            intentPostDetail.putExtra("likeTag", holder.likeButton.tag.toString())
-            intentPostDetail.putExtra("like", if (holder.likeButton.tag == "Liked") true else false)
+//            intentPostDetail.putExtra("commentCount", post.commentCount.toString())
+//            intentPostDetail.putExtra("likeTag", holder.likeButton.tag.toString())
+//            intentPostDetail.putExtra("like", if (holder.likeButton.tag == "Liked") true else false)
             intentPostDetail.putExtra("postId", post.postId.toString())
-            intentPostDetail.putExtra("subject", post.postTitle)
-            intentPostDetail.putExtra("postUserId",post.userId.toString())
-            intentPostDetail.putExtra("reviewId",post.reviewId.toString())
-            intentPostDetail.putExtra("createdAt", post.createdAt.toString())
-            var categoryString = ""
-            for (category in post.categories) {
-                if (category == "") continue
-                categoryString += category
-                categoryString += ", "
-            }
-            intentPostDetail.putExtra("categories",categoryString.substring(0, categoryString.length-2))
+//            intentPostDetail.putExtra("subject", post.postTitle)
+//            intentPostDetail.putExtra("postUserId",post.userId.toString())
+//            intentPostDetail.putExtra("reviewId",post.reviewId.toString())
+//            intentPostDetail.putExtra("createdAt", post.createdAt.toString())
+//            var categoryString = ""
+//            for (category in post.categories) {
+//                if (category == "") continue
+//                categoryString += category
+//                categoryString += ", "
+//            }
+//            intentPostDetail.putExtra("categories",categoryString.substring(0, categoryString.length-2))
 
             mContext.startActivity(intentPostDetail)
         }
