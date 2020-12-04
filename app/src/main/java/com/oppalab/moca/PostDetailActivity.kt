@@ -41,6 +41,7 @@ class PostDetailActivity : AppCompatActivity() {
     private var commentList: MutableList<CommentsOnPost>? = null
     private var currentUser = 0L
     private var createdAt = 0L
+    private var categories = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,9 +74,7 @@ class PostDetailActivity : AppCompatActivity() {
                 commentCount = mPost.commentCount
                 content = mPost.postBody
                 createdAt = mPost.createdAt
-
-
-
+                categories = mPost.categories.toString()
 
                 Picasso.get().load(RetrofitConnection.URL + "/image/thumbnail/" + thumbnailImageFilePath)
                     .into(post_thumbnail_detail)
