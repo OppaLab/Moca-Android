@@ -3,6 +3,7 @@ package com.oppalab.moca
 import android.content.Intent
 import androidx.fragment.app.Fragment
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.oppalab.moca.fragment.*
@@ -43,8 +44,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         nav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        val isProfile = intent.getStringExtra("ProfileFragment")
+        Log.d("인텐트는 다음과 같습니다. (main)", isProfile.toString())
 
         moveToFragment(HomeFragmentRetro())
+
+        if (isProfile == "ProfileFragment"){
+            moveToFragment(ProfileFragmentRetro())
+        }
+
+
     }
 
     private fun moveToFragment(fragment: Fragment) {
@@ -52,4 +61,6 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.fragment_container, fragment)
             .commit()
     }
+
+
 }

@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.adapter.CommentsAdapterRetro
@@ -50,7 +51,8 @@ class PostDetailActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.post_toolbar))
 
 
-        val currentUser = PreferenceManager.getLong(applicationContext, "userId")
+
+        currentUser = PreferenceManager.getLong(this, "userId")
 
         val intent = intent
 
@@ -76,8 +78,13 @@ class PostDetailActivity : AppCompatActivity() {
                 content = mPost.postBody
                 createdAt = mPost.createdAt
 
+
+
+
                 Picasso.get().load(RetrofitConnection.URL + "/image/thumbnail/" + thumbnailImageFilePath)
                     .into(post_thumbnail_detail)
+
+                likeTag = if (mPost.like) "Liked" else "Like"
 
                 Log.d("태크씨발", like.toString() +"||||||||||" +likeTag)
 
@@ -285,6 +292,9 @@ class PostDetailActivity : AppCompatActivity() {
             intentAddReview.putExtra("userId",currentUser.toString())
             intentAddReview.putExtra("postTitle",subject)
             intentAddReview.putExtra("thumbNailImageFilePath",thumbnailImageFilePath)
+            intentAddReview.putExtra("category",categories)
+//            intentAddReview.putExtra("",postUserId)
+//            intentAddReview.putExtra("likeTag",)
             startActivity(intentAddReview)
         }
         post_detail_review_btn.setOnClickListener{
@@ -355,7 +365,15 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.appbar_action, menu)
+        menu.clear()
+        Log.d("menu", "currentUser id:" + currentUser)
+        Log.d("menu", "post User id:" + postUserId)
+        if (currentUser.toString() == postUserId){
+            menuInflater.inflate(R.menu.appbar_action, menu)
+        }
+        else {
+            menuInflater.inflate(R.menu.appbar_report_action, menu)
+        }
         return true
     }
 
@@ -371,6 +389,10 @@ class PostDetailActivity : AppCompatActivity() {
                         intent.putExtra("ProfileFragment","ProfileFragment")
                         startActivity(intent)
                         finish()
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8c2b6a8f73c77fd6ba5b66089fa29b8cc1af8948
                     }
                     override fun onFailure(call: Call<Long>, t: Throwable) {
                         Log.d("retrofit", "post 삭제 실패 :  " + t.message.toString())
@@ -381,6 +403,9 @@ class PostDetailActivity : AppCompatActivity() {
             R.id.action_update -> {
 //                Log.d("retrofit", "post 수정버튼 동작 = ")
 //                RetrofitConnection.server.updatePost(postId = postId.toString() ,postTitle = post_detail_subject.text.toString(), postBody = post_text.text.toString(), userId = publisherId.toLong(), postCategories = , thumbnailImageFile = thumbnailImageFilePath)
+                return true
+            }
+            R.id.action_report -> {
                 return true
             }
         }

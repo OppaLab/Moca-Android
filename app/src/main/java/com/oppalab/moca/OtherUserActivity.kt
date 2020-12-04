@@ -40,16 +40,6 @@ class OtherUserActivity : AppCompatActivity() {
         publisherProfileId = intent.getStringExtra("publisherId")!!
         currentUser = PreferenceManager.getLong(this, "userId")
 
-
-
-        Toast.makeText(this, "OtherUserActivity", Toast.LENGTH_LONG)
-            .show()
-
-//        val pref = context?.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
-//        if (pref != null) {
-//            this.profileId = pref.getString("profileId", "none").toString()
-//        }
-
         val recyclerview_other_user_profile: RecyclerView
         recyclerview_other_user_profile = findViewById(R.id.other_user_recyclerview_grid_view)
         recyclerview_other_user_profile.setHasFixedSize(true)
