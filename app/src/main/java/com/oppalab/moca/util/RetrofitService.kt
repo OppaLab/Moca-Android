@@ -1,7 +1,6 @@
 package com.oppalab.moca.util
 
 import GetCommentsOnPostDTO
-import android.telephony.ClosedSubscriberGroupInfo
 import com.oppalab.moca.dto.*
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -117,7 +116,6 @@ interface RetrofitService {
         @Query("postBody") postBody:String,
         @Query("userId") userId:Long,
         @Query("postCategories") postCategories:List<String>,
-        @Part thumbnailImageFile: MultipartBody.Part
     ): Call<Long>
 
     @PUT("/review/{reviewId}")

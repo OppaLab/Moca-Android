@@ -21,7 +21,6 @@ import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_post_detail.*
-import kotlinx.android.synthetic.main.thumbnail_item_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,13 +36,12 @@ class PostDetailActivity : AppCompatActivity() {
     private var likeCount = 0L
     private var thumbnailImageFilePath = ""
     private var subject = ""
-    private var commentId = ""
     private var commentCount = 0L
     private var commentAdapter: CommentsAdapterRetro? = null
     private var commentList: MutableList<CommentsOnPost>? = null
-    private var categories = ""
     private var currentUser = 0L
     private var createdAt = 0L
+    private var categories = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +54,7 @@ class PostDetailActivity : AppCompatActivity() {
 
         val intent = intent
 
-        postId = intent.getStringExtra("postId")!!.toLong()
-        categories = intent.getStringExtra("categories")!!
+        postId = intent.getStringExtra("postId")!!.toLong()!!
         likeTag = intent.getStringExtra("likeTag")!!
 
         RetrofitConnection.server.getOnePost(
@@ -65,7 +62,7 @@ class PostDetailActivity : AppCompatActivity() {
             postId = postId,search = "", category = "", page = 0).enqueue(object:
             Callback<GetMyPostDTO> {
             override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
-                var mPost = response.body()!!.content[0]
+                val mPost = response.body()!!.content[0]
 
                 postUserId = mPost.userId.toString()
                 publisherId = mPost.nickname
@@ -77,9 +74,7 @@ class PostDetailActivity : AppCompatActivity() {
                 commentCount = mPost.commentCount
                 content = mPost.postBody
                 createdAt = mPost.createdAt
-
-
-
+                categories = mPost.categories.toString()
 
                 Picasso.get().load(RetrofitConnection.URL + "/image/thumbnail/" + thumbnailImageFilePath)
                     .into(post_thumbnail_detail)
@@ -96,10 +91,15 @@ class PostDetailActivity : AppCompatActivity() {
                     post_image_like_btn.tag = "Like"
                 }
 
+                var post_categories = ""
+                for (category in mPost.categories) {
+                    if (category == "") continue
+                    post_categories += category
+                    post_categories += ", "
+                }
+                post_detail_cateogory.text = post_categories.substring(0, post_categories.length - 2)
 
-                post_detail_cateogory.text = categories
-
-                post_detail_subject.text = intent.getStringExtra("subject")
+                post_detail_subject.text = subject
                 post_detail_publisher.text = "\"" + publisherId + "\"님이 작성해주신 글이에요."
                 if (createdAt <= 60){
                     post_detail_time.text = createdAt.toString() + "초 전에 작성된 글입니다."
@@ -141,6 +141,7 @@ class PostDetailActivity : AppCompatActivity() {
             }
         })
 
+<<<<<<< HEAD
        /* postUserId = intent.getStringExtra("postUserId")!!
         publisherId = intent.getStringExtra("publisherId")!!
         reviewId = intent.getStringExtra("reviewId")!!
@@ -156,6 +157,8 @@ class PostDetailActivity : AppCompatActivity() {
         createdAt = intent.getStringExtra("createdAt")!!.toLong()
        */
 
+=======
+>>>>>>> 1180964e903f731744a91116fe79ff9f4f9495eb
         var comment_linearLayoutManager = LinearLayoutManager(this)
         comment_linearLayoutManager.reverseLayout = true
         post_detail_recycler_view_comments.layoutManager = comment_linearLayoutManager
@@ -401,8 +404,13 @@ class PostDetailActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_update -> {
-//                Log.d("retrofit", "post 수정버튼 동작 = ")
-//                RetrofitConnection.server.updatePost(postId = postId.toString() ,postTitle = post_detail_subject.text.toString(), postBody = post_text.text.toString(), userId = publisherId.toLong(), postCategories = , thumbnailImageFile = thumbnailImageFilePath)
+                Log.d("retrofit", "post 수정버튼 동작 = ")
+                val updatePostIntent = Intent(this, AddPostActivity::class.java)
+                updatePostIntent.putExtra("postId",postId)
+                updatePostIntent.putExtra("userId", postUserId)
+                updatePostIntent.putExtra("flag",true)
+                startActivity(updatePostIntent)
+                finish()
                 return true
             }
             R.id.action_report -> {
