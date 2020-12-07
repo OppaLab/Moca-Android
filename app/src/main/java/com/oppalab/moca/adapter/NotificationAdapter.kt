@@ -2,6 +2,7 @@ package com.oppalab.moca.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.text.Layout
 import android.util.Log
 import android.view.LayoutInflater
@@ -137,14 +138,13 @@ class NotificationAdapter (
         else
         {
             holder.username.text= notification.nickname
-            holder.text.text="어떤 유저가 고민을 푸시했습니다. "
+            holder.text.text= notification.nickname + " 유저가 고민을 푸시했습니다. "
+            holder.text.setTextColor(Color.parseColor(R.color.colorMocaMain.toString()))
             holder.textTime.text = createdAtToText
-            /*
-            * holder.text.setOnClickListener {
+            holder.text.setOnClickListener {
                 moveToPost(notification.userId, notification.postId)
             }
-            * 고민글 푸시기능 개발후 주석해제
-            * */
+
         }
 
     }

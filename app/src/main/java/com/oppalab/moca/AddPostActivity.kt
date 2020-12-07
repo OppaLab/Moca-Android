@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +41,8 @@ class AddPostActivity : AppCompatActivity() {
     private var userId = 0L
     private var postId = 0L
     private var like = false
+    private var randomPushCount = 0L
+    private var isRandomPush = false
     private lateinit var arr2: ByteArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +65,27 @@ class AddPostActivity : AppCompatActivity() {
             thumbnail.setImageBitmap(image)
             arr2 = arr
         }
+
+        random_push_switch.setOnCheckedChangeListener { compoundButton, b ->
+            if (b) {
+                random_push_number_select.visibility = View.VISIBLE
+                isRandomPush = true
+            }
+        }
+
+        plus_button.setOnClickListener {
+            randomPushCount++
+            random_push_count.text = randomPushCount.toString()
+        }
+
+        minus_button.setOnClickListener {
+            if (randomPushCount > 0) {
+                randomPushCount--
+                random_push_count.text = randomPushCount.toString()
+            }
+        }
+
+        
         save_new_post_btn.isClickable = true
 
         save_new_post_btn.setOnClickListener {
@@ -73,8 +97,6 @@ class AddPostActivity : AppCompatActivity() {
                 uploadPost(arr2)
             }
         }
-
-
 
     }
 
@@ -206,8 +228,8 @@ class AddPostActivity : AppCompatActivity() {
                                 postBody = content,
                                 postCategories = categories.split(","),
                                 userId = PreferenceManager.getLong(applicationContext,"userId"),
-                                numberOfRandomUserPushNotification = 0,
-                                isRandomUserPushNotification = false
+                                numberOfRandomUserPushNotification = randomPushCount,
+                                isRandomUserPushNotification = isRandomPush
                             ).enqueue(object : Callback<Long> {
                                 override fun onResponse(
                                     call: Call<Long>,
