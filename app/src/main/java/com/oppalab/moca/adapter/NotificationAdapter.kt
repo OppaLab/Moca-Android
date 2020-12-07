@@ -139,7 +139,6 @@ class NotificationAdapter (
         {
             holder.username.text= notification.nickname
             holder.text.text= notification.nickname + " 유저가 고민을 푸시했습니다. "
-            holder.text.setTextColor(Color.parseColor(R.color.colorMocaMain.toString()))
             holder.textTime.text = createdAtToText
             holder.text.setOnClickListener {
                 moveToPost(notification.userId, notification.postId)

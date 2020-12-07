@@ -55,7 +55,7 @@ class AddReviewActivity : AppCompatActivity() {
                 Log.d("Success to update review : review_id", response.body().toString())
                 Toast.makeText(
                     this@AddReviewActivity,
-                    "후기가 변경되었습니다.",
+                    "후기가 수정되었습니다.",
                     Toast.LENGTH_LONG
                 ).show()
                 flag = false
@@ -75,7 +75,7 @@ class AddReviewActivity : AppCompatActivity() {
                 Log.d("Fail to update review  : review_id", reviewId)
                 Toast.makeText(
                     this@AddReviewActivity,
-                    "후기 변경에 실패 했습니다..",
+                    "후기 수정을 실패 했습니다..",
                     Toast.LENGTH_LONG
                 ).show()
             }

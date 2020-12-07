@@ -57,8 +57,6 @@ class ReviewActivity : AppCompatActivity() {
         thumbNailImageFilePath = intent.getStringExtra("thumbNailImageFilePath")!!
         likeTag = intent.getStringExtra("likeTag")!!
 
-        Log.d("태그씨발:","["+likeTag+"]")
-
         review_detail_subject.text = postTitle
 
         Picasso.get().load(RetrofitConnection.URL + "/image/thumbnail/" + thumbNailImageFilePath)
@@ -89,7 +87,6 @@ class ReviewActivity : AppCompatActivity() {
                 commentCount = response.body()!!.commentCount
 
                 likeTag = if (like) "Liked" else "Like"
-                Log.d("태그씨발2:","["+likeTag+"]")
                 if (likeTag == "Liked" || like) {
                     review_like_btn.setImageResource(R.drawable.heart_clicked)
                     review_like_btn.tag = "Liked"
