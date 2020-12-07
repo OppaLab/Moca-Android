@@ -418,7 +418,7 @@ class PostDetailActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
+        setSupportActionBar(findViewById(R.id.post_toolbar))
         RetrofitConnection.server.getOnePost(userId = currentUser, postId = postId ,search = "", category = "", page = 0).enqueue(object:
             Callback<GetMyPostDTO> {
             override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
@@ -435,6 +435,8 @@ class PostDetailActivity : AppCompatActivity() {
                 {
                     add_detail_review_btn.visibility = View.GONE
                 }
+                postUserId = mPost[0].userId.toString()
+
             }
 
             override fun onFailure(call: Call<GetMyPostDTO>, t: Throwable) {
