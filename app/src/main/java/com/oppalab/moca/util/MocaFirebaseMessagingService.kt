@@ -22,7 +22,7 @@ class MocaFirebaseMessagingService: FirebaseMessagingService() {
         val notificationTitle = remoteMessage.notification!!.title
         val notificationBody = remoteMessage.notification!!.body
         val postId = remoteMessage.data["postId"]
-        val thumbnailImageFilePath = remoteMessage.data["thumbnailFilePath"]
+        val thumbnailImageFilePath = remoteMessage.data["thumbnailImageFilePath"]
 
         val resultIntent = Intent(this, PostDetailActivity::class.java)
         resultIntent.putExtra("postId", postId)
@@ -34,8 +34,7 @@ class MocaFirebaseMessagingService: FirebaseMessagingService() {
 
         val notificationBuilder = NotificationCompat.Builder(this).apply {
             setSmallIcon(R.mipmap.ic_moca_icon)
-            setLargeIcon(Picasso.get()
-                .load(RetrofitConnection.URL + "/image/thumbnail/" + thumbnailImageFilePath).get())
+            setLargeIcon(Picasso.get().load(RetrofitConnection.URL + "/image/thumbnail/" + thumbnailImageFilePath).get()).
             setContentTitle(notificationTitle)
             setContentText(notificationBody)
             setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
