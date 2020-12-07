@@ -277,7 +277,7 @@
                     android:layout_height="16dp"
                     android:src="@drawable/minus"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="185dp"/>
+                    android:layout_marginLeft="180dp"/>
 
                 <TextView
                     android:id="@+id/random_push_count"
