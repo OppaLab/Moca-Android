@@ -320,27 +320,26 @@ class SearchFragment : Fragment() {
             })
         }
 
-//        view.search_category_appearance_btn.setOnClickListener {
-//            curCategory = "외모"
-//            search = ""
-//            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
-//                Callback<GetMyPostDTO> {
-//                override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
-//                    Log.d("retrofit", response.body().toString())
-//                    postList!!.clear()
-//                    for (post in response.body()!!.content) {
-//                        postList!!.add(post)
-//                    }
-//                    Collections.reverse(postList)
-//                    myThumbnailAdapter!!.notifyDataSetChanged()
-//                }
-//
-//                override fun onFailure(call: Call<GetMyPostDTO>, t: Throwable) {
-//                    Log.d("retrofit", t.message.toString())
-//                }
-//
-//            })
-//        }
+        view.search_category_appearance_btn.setOnClickListener {
+            curCategory = "외모"
+            search = ""
+            RetrofitConnection.server.getPosts(userId = currentUser, page = 0, search = search, category = curCategory, sort = sort).enqueue(object:
+                Callback<GetMyPostDTO> {
+                override fun onResponse(call: Call<GetMyPostDTO>, response: Response<GetMyPostDTO>) {
+                    Log.d("retrofit", response.body().toString())
+                    postList!!.clear()
+                    for (post in response.body()!!.content) {
+                        postList!!.add(post)
+                    }
+                    myThumbnailAdapter!!.notifyDataSetChanged()
+                }
+
+                override fun onFailure(call: Call<GetMyPostDTO>, t: Throwable) {
+                    Log.d("retrofit", t.message.toString())
+                }
+
+            })
+        }
 
         return view
     }
