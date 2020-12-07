@@ -1,15 +1,18 @@
 package com.oppalab.moca
 
 import GetCommentsOnPostDTO
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -409,10 +412,28 @@ class PostDetailActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_report -> {
+                Log.d("retrofit", "post 신고버튼 동작 = ")
+                showReportPopup()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showReportPopup() {
+        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(R.layout.report_popup, null)
+
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("신고하기")
+            .setPositiveButton("신고하기") {dialog, which ->
+                Toast.makeText(this@PostDetailActivity, "신고가 접수되었습니다.", Toast.LENGTH_SHORT).show()
+                Log.d("retrofit", "신고가 접수되었습니다. ")
+            }
+            .setNeutralButton("취소", null)
+            .create()
+        alertDialog.setView(view)
+        alertDialog.show()
     }
 
 

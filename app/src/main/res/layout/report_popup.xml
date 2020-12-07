@@ -11,7 +11,7 @@
         android:layout_weight="1"
         android:ems="10"
         android:inputType="textPersonName"
-        android:gravity="center"
         android:layout_gravity="center_vertical"
-        android:text="Name" />
+        android:hint="신고사유를 적어주세요"
+        android:layout_marginHorizontal="50dp"/>
 </LinearLayout>

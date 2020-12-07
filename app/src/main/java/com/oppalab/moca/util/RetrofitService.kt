@@ -198,4 +198,5 @@ interface RetrofitService {
         @Query("page") page: Long
     ): Call<GetNotificationsDTO>
 
+
 }
