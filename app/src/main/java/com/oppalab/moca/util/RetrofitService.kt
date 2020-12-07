@@ -94,7 +94,15 @@ interface RetrofitService {
         @Query("page") page: Long
     ): Call<GetMyPostDTO>
 
-
+    @POST("/report")
+    fun report(
+        @Query("userId") userId: Long,
+        @Query("reportedUserId") reportedUserId: Long,
+        @Query("postId") postId: Long,
+        @Query("reviewId") reviewId: Long,
+        @Query("commentId") commentId: Long,
+        @Query("reportReason") reportReason: String
+    ): Call<Long>
 
     @Multipart
     @POST("/post")                  /******************SUCCEESS*********************/
@@ -197,6 +205,5 @@ interface RetrofitService {
         @Query("userId") userId: Long,
         @Query("page") page: Long
     ): Call<GetNotificationsDTO>
-
 
 }
