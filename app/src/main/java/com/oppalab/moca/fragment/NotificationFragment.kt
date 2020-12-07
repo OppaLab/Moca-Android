@@ -39,6 +39,7 @@ class NotificationFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_notification, container, false)
 
         currentUser= PreferenceManager.getLong(requireContext(),"userId")
+
         var recyclerView: RecyclerView
         recyclerView = view.findViewById(R.id.notification_recycler_view)
         recyclerView?.setHasFixedSize(true)
