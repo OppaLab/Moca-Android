@@ -34,7 +34,12 @@ class MocaFirebaseMessagingService: FirebaseMessagingService() {
 
         val notificationBuilder = NotificationCompat.Builder(this).apply {
             setSmallIcon(R.mipmap.ic_moca_icon)
-            setLargeIcon(Picasso.get().load(RetrofitConnection.URL + "/image/thumbnail/" + thumbnailImageFilePath).get()).
+            setLargeIcon(Picasso.get()
+                .load(RetrofitConnection.URL + "/image/thumbnail/" + thumbnailImageFilePath).get())
+                .setStyle(NotificationCompat.BigPictureStyle()
+                    .bigPicture(Picasso.get()
+                        .load(RetrofitConnection.URL + "/image/thumbnail/" + thumbnailImageFilePath).get())
+                    .bigLargeIcon(null))
             setContentTitle(notificationTitle)
             setContentText(notificationBody)
             setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
