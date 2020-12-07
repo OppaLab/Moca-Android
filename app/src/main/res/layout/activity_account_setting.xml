@@ -157,6 +157,28 @@
             android:textSize="18dp" />
     </GridLayout>
 
+    <TextView
+        android:id="@+id/setting_random_push"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setting_category"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="20dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:text="랜덤푸쉬 수신 설정" />
+
+    <Switch
+        android:id="@+id/setting_random_push_switch"
+        android:scrollbarSize="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setting_category"
+        android:layout_alignLeft="@id/setting_random_push"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="150dp"/>
+
     <Button
         android:id="@+id/setting_logout_btn"
         android:layout_width="match_parent"

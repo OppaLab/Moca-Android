@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.renderscript.Sampler
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.Continuation
@@ -34,6 +35,7 @@ import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_account_setting.*
 import kotlinx.android.synthetic.main.activity_account_setting.view.*
+import kotlinx.android.synthetic.main.activity_add_post.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import retrofit2.Call
@@ -45,6 +47,7 @@ class AccountSettingActivity : AppCompatActivity() {
     private var categories :String = ""
     private var nickname :String = ""
     private var currentUser : Long = 0L
+    private var receiveRandomPush = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,8 @@ class AccountSettingActivity : AppCompatActivity() {
         categories = intent.getStringExtra("categoriesList")!!
         nickname = intent.getStringExtra("nickname")!!
         currentUser = intent.getStringExtra("currentUser")!!.toLong()
+
+        if (receiveRandomPush) setting_random_push_switch.isChecked = true
 
         setting_logout_btn.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
@@ -77,6 +82,14 @@ class AccountSettingActivity : AppCompatActivity() {
             if (categoryIndex.contains("학업")) setting_category_study.setChecked(true)
             if (categoryIndex.contains("성")) setting_category_sex.setChecked(true)
             if (categoryIndex.contains("외모")) setting_category_appearence.setChecked(true)
+
+        setting_random_push_switch.setOnCheckedChangeListener { compoundButton, b ->
+            if (b) {
+                receiveRandomPush = true
+            } else {
+                receiveRandomPush = false
+            }
+        }
 
         delete_account_btn.setOnClickListener {
             RetrofitConnection.server.signOut(userId = PreferenceManager.getLong(applicationContext, "userId")).enqueue(object: Callback<Long> {
@@ -122,7 +135,7 @@ class AccountSettingActivity : AppCompatActivity() {
                     userId = currentUser,
                     nickname=setting_user_name.text.toString(),
                     userCategories = categories.split(','),
-                    subscribeToPushNotification = true
+                    subscribeToPushNotification = receiveRandomPush
                 ).enqueue(object :
                     Callback<Long> {
                     override fun onResponse(call: Call<Long>, response: Response<Long>) {

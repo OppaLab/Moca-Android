@@ -40,7 +40,7 @@ class MocaFirebaseMessagingService: FirebaseMessagingService() {
                     .bigPicture(Picasso.get()
                         .load(RetrofitConnection.URL + "/image/thumbnail/" + thumbnailImageFilePath).get())
                     .bigLargeIcon(null))
-            setContentTitle(notificationTitle)
+            setContentTitle(notificationTitle+"\n")
             setContentText(notificationBody)
             setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
             setContentIntent(pendingIntent)
