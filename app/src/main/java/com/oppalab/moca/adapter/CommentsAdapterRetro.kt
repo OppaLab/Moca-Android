@@ -6,10 +6,8 @@ import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.*
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -70,15 +68,15 @@ class CommentsAdapterRetro(private val mContext: Context,
     abstract class SwipeHelper(context: Context, private val recyclerView: RecyclerView, internal var buttonWidth:Int)
         :ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
 
-        private var buttonList:MutableList<DeleteButton>?=null
+        private var buttonList:MutableList<CommentButton>?=null
         lateinit var gestureDetector: GestureDetector
         var swipePosition=-1
         var swipeThresholds=0.5f
-        val buttonBuffer:MutableMap<Int, MutableList<DeleteButton>>
+        val buttonBuffer:MutableMap<Int, MutableList<CommentButton>>
         lateinit var removerQueue: LinkedList<Int>
 
         abstract fun instantiateDeleteButton(viewHolder: RecyclerView.ViewHolder,
-                                            buffer:MutableList<DeleteButton>)
+                                            buffer:MutableList<CommentButton>)
 
         private val gestureListener = object :GestureDetector.SimpleOnGestureListener(){
             override fun onSingleTapUp(e: MotionEvent?): Boolean {
@@ -214,7 +212,7 @@ class CommentsAdapterRetro(private val mContext: Context,
             }
             if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
                 if (dX < 0) {
-                    var buffer : MutableList<DeleteButton> = ArrayList()
+                    var buffer : MutableList<CommentButton> = ArrayList()
                     if (!buttonBuffer.containsKey(pos)){
                         instantiateDeleteButton(viewHolder,buffer)
                         buttonBuffer[pos] = buffer
@@ -228,7 +226,7 @@ class CommentsAdapterRetro(private val mContext: Context,
             super.onChildDraw(c, recyclerView, viewHolder, translationX, dY, actionState, isCurrentlyActive)
         }
 
-        private fun drawButton(c: Canvas, itemView: View, buffer: MutableList<CommentsAdapterRetro.SwipeHelper.DeleteButton>, pos: Int, translationX: Float) {
+        private fun drawButton(c: Canvas, itemView: View, buffer: MutableList<CommentsAdapterRetro.SwipeHelper.CommentButton>, pos: Int, translationX: Float) {
             var right = itemView.right.toFloat()
             val dButtonWidth = -1*translationX/buffer.size
             for (button in buffer) {
@@ -238,9 +236,9 @@ class CommentsAdapterRetro(private val mContext: Context,
             }
         }
 
-        class DeleteButton(private val context: Context, private val text:String,
-                           private val textSize:Int , private val profileImage:Int, private var color:Int,
-                           private val listener:CommentsAdapterRetro.CommentClickListener) {
+        class CommentButton(private val context: Context, private val text:String,
+                            private val textSize:Int, private val profileImage:Int, private var color:Int,
+                            private val listener:CommentsAdapterRetro.CommentClickListener) {
             private var pos:Int=0
             private var clickRegion: RectF?=null
             private var resources:Resources
