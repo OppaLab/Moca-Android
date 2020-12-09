@@ -1,12 +1,10 @@
 package com.oppalab.moca
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.github.appintro.AppIntro
 import com.github.appintro.AppIntroCustomLayoutFragment
-import com.github.appintro.AppIntroFragment
 
 class MocaIntro : AppIntro() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,13 +27,13 @@ class MocaIntro : AppIntro() {
 
     override fun onSkipPressed(currentFragment: Fragment?) {
         super.onSkipPressed(currentFragment)
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, SignInActivity::class.java))
         finish()
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, SignInActivity::class.java))
         finish()
     }
 }
