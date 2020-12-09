@@ -95,14 +95,30 @@ interface RetrofitService {
     ): Call<GetMyPostDTO>
 
     @POST("/report")
-    fun report(
+    fun reportPost(
         @Query("userId") userId: Long,
         @Query("reportedUserId") reportedUserId: Long,
         @Query("postId") postId: Long,
+        @Query("reportReason") reportReason: String
+    ): Call<Void>
+
+    @POST("/report")
+    fun reportReview(
+        @Query("userId") userId: Long,
+        @Query("reportedUserId") reportedUserId: Long,
         @Query("reviewId") reviewId: Long,
+        @Query("reportReason") reportReason: String
+    ): Call<Void>
+
+    @POST("/report")
+    fun reportComment(
+        @Query("userId") userId: Long,
+        @Query("reportedUserId") reportedUserId: Long,
         @Query("commentId") commentId: Long,
         @Query("reportReason") reportReason: String
-    ): Call<Long>
+    ): Call<Void>
+
+
 
     @Multipart
     @POST("/post")                  /******************SUCCEESS*********************/

@@ -13,7 +13,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.adapter.CommentsAdapterRetro
@@ -24,6 +23,8 @@ import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_post_detail.*
+import kotlinx.android.synthetic.main.report_popup.*
+import kotlinx.android.synthetic.main.report_popup.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -319,10 +320,10 @@ class PostDetailActivity : AppCompatActivity() {
         val swipe = object: CommentsAdapterRetro.SwipeHelper(this, post_detail_recycler_view_comments, 200) {
             override fun instantiateDeleteButton(
                 viewHolder: RecyclerView.ViewHolder,
-                buffer: MutableList<DeleteButton>
+                buffer: MutableList<CommentButton>
             ) {
                 buffer.add(
-                    DeleteButton(this@PostDetailActivity, "Delete", 30, 0,
+                    CommentButton(this@PostDetailActivity, "삭제", 30, 0,
                         Color.parseColor("#FF3C30"),
                         object:CommentsAdapterRetro.CommentClickListener{
                             override fun onClick(pos: Int) {
@@ -363,9 +364,69 @@ class PostDetailActivity : AppCompatActivity() {
                             }
                         })
                 )
+                buffer.add(
+                    CommentButton(this@PostDetailActivity, "신고", 30, 0,
+                        Color.parseColor("#FF9502"),
+                        object:CommentsAdapterRetro.CommentClickListener {
+                            override fun onClick(pos: Int) {
+                                showCommentReportPopup(pos)
+                            }
+                        })
+                )
+
             }
         }
 
+    }
+
+    private fun showCommentReportPopup(pos: Int ) {
+        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(R.layout.report_popup, null)
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("댓글 신고하기")
+            .setPositiveButton("신고하기") { dialog, which ->
+                val reportReason = view.editTextReportReason.text.toString()
+                Log.d("reportReason", "신고사유는 " + reportReason)
+                        if (currentUser != commentList!![pos].userId) {
+                            RetrofitConnection.server.reportComment(
+                                userId = currentUser,
+                                reportedUserId = commentList!![pos].userId,
+                                commentId = commentList!![pos].commentId,
+                                reportReason = reportReason
+                            ).enqueue(object : Callback<Void> {
+                                override fun onResponse(
+                                    call: Call<Void>,
+                                    response: Response<Void>
+                                ) {
+                                    Log.d(
+                                        "retrofit",
+                                        "Comment 신고 : comment_id = " + commentList!![pos].commentId
+                                    )
+                                }
+
+                                override fun onFailure(call: Call<Void>, t: Throwable) {
+                                    Log.d(
+                                        "retrofit",
+                                        "Comment 신고 실패" + t.message.toString()
+                                    )
+                                }
+                            })
+                        } else {
+                            Toast.makeText(
+                                this@PostDetailActivity, "자신을 신고할 수 없습니다.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            Log.d(
+                                "REPORT COMMENT",
+                                "자신을 신고할 수 없습니다."
+                            )
+                        }
+            }
+            .setNeutralButton("취소", null)
+            .create()
+
+        alertDialog.setView(view)
+        alertDialog.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -413,25 +474,49 @@ class PostDetailActivity : AppCompatActivity() {
             }
             R.id.action_report -> {
                 Log.d("retrofit", "post 신고버튼 동작 = ")
-                showReportPopup()
+                showPostReportPopup()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showReportPopup() {
+    private fun showPostReportPopup() {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.report_popup, null)
-
         val alertDialog = AlertDialog.Builder(this)
-            .setTitle("신고하기")
+            .setTitle("게시글 신고하기")
             .setPositiveButton("신고하기") {dialog, which ->
-                Toast.makeText(this@PostDetailActivity, "신고가 접수되었습니다.", Toast.LENGTH_SHORT).show()
-                Log.d("retrofit", "신고가 접수되었습니다. ")
-            }
+                val reportReason = view.editTextReportReason.text.toString()
+                Log.d("reportReason","신고사유는 " + reportReason)
+                RetrofitConnection.server.reportPost(
+                        userId = currentUser,
+                        reportedUserId = postUserId.toLong(),
+                        postId = postId,
+                        reportReason = reportReason
+                    ).enqueue(object : Callback<Void> {
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                        Toast.makeText(
+                            this@PostDetailActivity,
+                            "신고가 접수되었습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.d("report", "신고가 접수되었습니다. ")
+                    }
+
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        Toast.makeText(
+                            this@PostDetailActivity,
+                            "신고에 실패하였습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.d("report", "신고에 실패하였습니다. " + t.message.toString())
+                    }
+                })
+                }
             .setNeutralButton("취소", null)
             .create()
+
         alertDialog.setView(view)
         alertDialog.show()
     }
