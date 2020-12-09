@@ -225,15 +225,6 @@
                         android:layout_weight="1"
                         style="?android:attr/buttonBarButtonStyle"/>
 
-                    <ImageButton
-                        android:id="@+id/other_user_images_save_btn"
-                        android:layout_width="1dp"
-                        android:layout_height="49dp"
-                        android:src="@drawable/save_large_icon"
-                        android:scaleType="fitCenter"
-                        android:layout_weight="1"
-                        style="?android:attr/buttonBarButtonStyle"/>
-
                 </LinearLayout>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/other_user_recyclerview_grid_view"
