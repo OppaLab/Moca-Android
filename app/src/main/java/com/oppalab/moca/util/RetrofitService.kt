@@ -9,7 +9,6 @@ import retrofit2.http.*
 interface RetrofitService {
 
     //user
-
     @FormUrlEncoded
     @POST("/signup")
     fun signUp(

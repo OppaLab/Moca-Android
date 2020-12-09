@@ -15,6 +15,7 @@ class MocaIntro : AppIntro() {
         setColorDoneText(R.color.colorBlack)
         setNextArrowColor(R.color.colorBlack)
 
+        addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.intro_page_0))
         addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.intro_page_1))
         addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.intro_page_2))
         addSlide(AppIntroCustomLayoutFragment.newInstance(R.layout.intro_page_3))
