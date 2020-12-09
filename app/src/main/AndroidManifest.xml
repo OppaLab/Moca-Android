@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_moca_icon"
@@ -19,6 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".MocaIntro"
+            android:label="MocaIntro">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".util.MocaFirebaseMessagingService"
             android:exported="true">
@@ -26,6 +34,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity android:name=".ReviewActivity" />
         <activity android:name=".AddReviewActivity" />
         <!--
@@ -46,15 +55,11 @@
         <activity android:name=".ThumbnailActivity" />
         <activity android:name=".CommentsActivity" />
         <activity android:name=".AddPostActivity" />
-        <activity android:name=".SignUpActivity">
-        </activity>
-        <activity android:name=".PostDetailActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".SignUpActivity"></activity>
+        <activity
+            android:name=".PostDetailActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".SignInActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".AccountSettingActivity" />
         <activity
