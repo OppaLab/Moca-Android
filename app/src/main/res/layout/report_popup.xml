@@ -5,13 +5,13 @@
 
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editTextReportReason"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:layout_gravity="center_vertical"
         android:hint="신고사유를 적어주세요"
         android:layout_marginHorizontal="50dp"/>
+
 </LinearLayout>

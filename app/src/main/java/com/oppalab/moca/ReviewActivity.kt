@@ -17,15 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.oppalab.moca.adapter.CommentsAdapterRetro
 import com.oppalab.moca.dto.CommentsOnPost
-import com.oppalab.moca.dto.GetMyPostDTO
 import com.oppalab.moca.dto.GetReviewDTO
-import com.oppalab.moca.dto.PostDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_add_review.*
 import kotlinx.android.synthetic.main.activity_post_detail.*
 import kotlinx.android.synthetic.main.activity_review.*
+import kotlinx.android.synthetic.main.report_popup.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -235,10 +234,10 @@ class ReviewActivity : AppCompatActivity() {
         val swipe = object: CommentsAdapterRetro.SwipeHelper(this, review_recycler_view_comments, 200) {
             override fun instantiateDeleteButton(
                 viewHolder: RecyclerView.ViewHolder,
-                buffer: MutableList<DeleteButton>
+                buffer: MutableList<CommentButton>
             ) {
                 buffer.add(
-                    DeleteButton(this@ReviewActivity, "Delete", 30, 0,
+                    CommentButton(this@ReviewActivity, "Delete", 30, 0,
                         Color.parseColor("#FF3C30"),
                         object:CommentsAdapterRetro.CommentClickListener{
                             override fun onClick(pos: Int) {
@@ -332,7 +331,7 @@ class ReviewActivity : AppCompatActivity() {
             }
             R.id.action_report -> {
                 Log.d("retrofit", "post 신고버튼 동작 = ")
-                showReportPopup()
+                showReviewReportPopup()
                 return true
 
             }
@@ -340,18 +339,42 @@ class ReviewActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showReportPopup() {
+    private fun showReviewReportPopup() {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.report_popup, null)
-
         val alertDialog = AlertDialog.Builder(this)
-            .setTitle("신고하기")
+            .setTitle("후기글 신고하기")
             .setPositiveButton("신고하기") {dialog, which ->
-                Toast.makeText(this@ReviewActivity, "신고가 접수되었습니다.", Toast.LENGTH_SHORT).show()
-                Log.d("retrofit", "신고가 접수되었습니다. ")
+                val reportReason = view.editTextReportReason.text.toString()
+                Log.d("reportReason","신고사유는 " + reportReason)
+                RetrofitConnection.server.reportReview(
+                    userId = currentUser,
+                    reportedUserId = userId.toLong(),
+                    reviewId = reviewId.toLong(),
+                    reportReason = reportReason
+                ).enqueue(object : Callback<Void> {
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                        Toast.makeText(
+                            this@ReviewActivity,
+                            "신고가 접수되었습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.d("report", "신고가 접수되었습니다. ")
+                    }
+
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        Toast.makeText(
+                            this@ReviewActivity,
+                            "신고에 실패하였습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.d("report", "신고에 실패하였습니다. " + t.message.toString())
+                    }
+                })
             }
             .setNeutralButton("취소", null)
             .create()
+
         alertDialog.setView(view)
         alertDialog.show()
     }
