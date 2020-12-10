@@ -53,7 +53,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="검색어와 카테고리 설정을 통해 고민글 검색\n최신순, 공감순으로 정렬까"
+        android:text="검색어와 카테고리 설정을 통해 고민글 검색\n최신순, 공감순으로 정렬까지"
         android:textSize="20dp"
         android:textColor="@color/colorMocaRed"
         android:textAlignment="center"
