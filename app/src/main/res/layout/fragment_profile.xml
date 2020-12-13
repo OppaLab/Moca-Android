@@ -34,7 +34,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
-                
+
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
