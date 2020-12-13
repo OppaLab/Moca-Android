@@ -35,14 +35,6 @@
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/other_user_options_view"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/options" />
-
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
