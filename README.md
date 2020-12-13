@@ -112,7 +112,7 @@ implementation 'com.github.AppIntro:AppIntro:6.0.0'
 
 프로젝트 소스코드는 다음과 같이 구성된다.
 
-![KakaoTalk_Photo_2020-12-13-14-46-55](/Users/hyunjunkim/Downloads/KakaoTalk_Photo_2020-12-13-14-46-55.png)
+![img_3](/Users/hyunjunkim/AndroidStudioProjects/Moca2/img_3.png)
 
 **activity**:  Moca 서비스의 액티비티
 
@@ -130,4 +130,4 @@ implementation 'com.github.AppIntro:AppIntro:6.0.0'
 
 ## Specification
 
-![KakaoTalk_Photo_2020-12-13-14-33-48](/Users/hyunjunkim/Downloads/KakaoTalk_Photo_2020-12-13-14-33-48.png)
+![img_5](/Users/hyunjunkim/AndroidStudioProjects/Moca2/img_5.png)
