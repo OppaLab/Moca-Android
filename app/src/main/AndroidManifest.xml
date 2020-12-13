@@ -53,7 +53,6 @@
 
         <activity android:name=".activity.OtherUserActivity" />
         <activity android:name=".activity.ThumbnailActivity" />
-        <activity android:name=".activity.CommentsActivity" />
         <activity android:name=".activity.AddPostActivity" />
         <activity android:name=".activity.SignUpActivity"></activity>
         <activity
