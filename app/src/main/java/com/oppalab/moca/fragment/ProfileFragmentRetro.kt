@@ -41,6 +41,7 @@ class ProfileFragmentRetro : Fragment() {
     private var nickname : String = ""
     private var userCategory: String = ""
     private var userEntity: String = ""
+    private var receiveRandomPush = true
 //    var user_full_name:TextView?=null
 
     override fun onCreateView(
@@ -89,6 +90,7 @@ class ProfileFragmentRetro : Fragment() {
                 view.total_posts.text = profile!!.numberOfPosts.toString()
                 view.total_followers.text = profile!!.numberOfFollowers.toString()
                 view.total_following.text = profile!!.numberOfFollowings.toString()
+                receiveRandomPush = profile.subscribeToPushNotification
                 nickname = profile.nickname
                 for (category in profile.userCategories) {
                     if (category == "") continue
@@ -136,6 +138,7 @@ class ProfileFragmentRetro : Fragment() {
             val intentAccountSetting = Intent(this.context, AccountSettingActivity::class.java)
             intentAccountSetting.putExtra("categoriesList", userCategory)
             intentAccountSetting.putExtra("nickname", nickname)
+            intentAccountSetting.putExtra("receiveRandomPush", receiveRandomPush)
             intentAccountSetting.putExtra("currentUser", PreferenceManager.getLong(requireContext(),"userId").toString())
             startActivity(intentAccountSetting)
         }

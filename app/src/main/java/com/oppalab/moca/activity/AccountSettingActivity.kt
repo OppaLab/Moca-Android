@@ -30,8 +30,10 @@ class AccountSettingActivity : AppCompatActivity() {
         categories = intent.getStringExtra("categoriesList")!!
         nickname = intent.getStringExtra("nickname")!!
         currentUser = intent.getStringExtra("currentUser")!!.toLong()
+        receiveRandomPush = intent.getBooleanExtra("receiveRandomPush", true)
 
         if (receiveRandomPush) setting_random_push_switch.isChecked = true
+        else setting_random_push_switch.isChecked = false
 
         setting_logout_btn.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
