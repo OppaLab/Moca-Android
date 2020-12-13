@@ -123,7 +123,7 @@ class AddReviewActivity : AppCompatActivity() {
                         if (response?.isSuccessful) {
                             Toast.makeText(
                                 getApplicationContext(),
-                                "Review Uploaded Successfully...",
+                                "후기가 등록되었습니다.",
                                 Toast.LENGTH_LONG
                             ).show();
 
@@ -149,7 +149,6 @@ class AddReviewActivity : AppCompatActivity() {
                     }
                 })
 
-                Toast.makeText(this, "후기가 등록되었습니다.", Toast.LENGTH_LONG).show()
 
 
 
