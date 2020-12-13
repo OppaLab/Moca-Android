@@ -109,7 +109,7 @@ interface RetrofitService {
         @Query("reportReason") reportReason: String
     ): Call<Void>
 
-    @POST("/report")
+    @POST(                      "/report")
     fun reportComment(
         @Query("userId") userId: Long,
         @Query("reportedUserId") reportedUserId: Long,

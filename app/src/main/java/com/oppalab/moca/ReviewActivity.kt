@@ -278,9 +278,68 @@ class ReviewActivity : AppCompatActivity() {
                             }
                         })
                 )
+                buffer.add(
+                    CommentButton(this@ReviewActivity, "신고", 30, 0,
+                        Color.parseColor("#FF9502"),
+                        object:CommentsAdapterRetro.CommentClickListener {
+                            override fun onClick(pos: Int) {
+                                showCommentReportPopup(pos)
+                            }
+                        })
+                )
             }
         }
 
+    }
+
+    private fun showCommentReportPopup(pos: Int ) {
+        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = inflater.inflate(R.layout.report_popup, null)
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("댓글 신고하기")
+            .setPositiveButton("신고하기") { dialog, which ->
+                val reportReason = view.editTextReportReason.text.toString()
+                Log.d("reportReason", "신고사유는 " + reportReason)
+                if (currentUser != commentList!![pos].userId) {
+                    RetrofitConnection.server.reportComment(
+                        userId = currentUser,
+                        reportedUserId = commentList!![pos].userId,
+                        commentId = commentList!![pos].commentId,
+                        reportReason = reportReason
+                    ).enqueue(object : Callback<Void> {
+                        override fun onResponse(
+                            call: Call<Void>,
+                            response: Response<Void>
+                        ) {
+                            Log.d(
+                                "retrofit",
+                                "Comment 신고 : comment_id = " + commentList!![pos].commentId
+                            )
+                        }
+
+                        override fun onFailure(call: Call<Void>, t: Throwable) {
+                            Log.d(
+                                "retrofit",
+                                "Comment 신고 실패" + t.message.toString()
+                            )
+                        }
+                    })
+                } else {
+                    Toast.makeText(
+                        this@ReviewActivity, "자신을 신고할 수 없습니다.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.d(
+                        "REPORT COMMENT",
+                        "자신을 신고할 수 없습니다."
+                    )
+                }
+            }
+            .setNeutralButton("취소", null)
+            .create()
+
+        alertDialog.setView(view)
+        alertDialog.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
