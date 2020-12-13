@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.fragment_search.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 import kotlin.collections.ArrayList
 
 class SearchFragment : Fragment() {
@@ -70,7 +69,7 @@ class SearchFragment : Fragment() {
                                 for (post in response.body()!!.content) {
                                     postList!!.add(post)
                                 }
-                                Collections.reverse(postList)
+//                                Collections.reverse(postList)
 
                                 myThumbnailAdapter!!.notifyDataSetChanged()
                             }
@@ -331,6 +330,7 @@ class SearchFragment : Fragment() {
                     for (post in response.body()!!.content) {
                         postList!!.add(post)
                     }
+//                    Collections.reverse(postList)
                     myThumbnailAdapter!!.notifyDataSetChanged()
                 }
 
