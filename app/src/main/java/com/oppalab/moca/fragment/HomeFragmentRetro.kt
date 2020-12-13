@@ -53,7 +53,7 @@ class HomeFragmentRetro : Fragment() {
 
 
                     view.home_user_info_name.text = "안녕하세요 " + nickname + "님"
-                    view.home_user_info_category.text = nickname + "님의 고민 카테고리 \n" + categories.substring(0,categories.length-2)
+                    view.home_user_info_category.text = nickname + "님의 고민 카테고리는 \n" + categories.substring(0,categories.length-2) + " 입니다."
                 }
 
                 override fun onFailure(call: Call<GetProfileDTO>, t: Throwable) {
