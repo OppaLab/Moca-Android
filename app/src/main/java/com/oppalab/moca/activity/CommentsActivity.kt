@@ -1,4 +1,4 @@
-package com.oppalab.moca
+package com.oppalab.moca.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.oppalab.moca.R
 import com.oppalab.moca.adapter.CommentsAdapter
 import com.oppalab.moca.model.Comment
 import com.oppalab.moca.model.User

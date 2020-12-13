@@ -1,6 +1,5 @@
 package com.oppalab.moca.fragment
 
-import android.accounts.Account
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -15,8 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
-import com.oppalab.moca.AccountSettingActivity
-import com.oppalab.moca.PostDetailActivity
+import com.oppalab.moca.activity.AccountSettingActivity
 import com.oppalab.moca.R
 import com.oppalab.moca.adapter.MyThumbnailAdapter
 import com.oppalab.moca.dto.GetMyPostDTO
@@ -30,7 +28,6 @@ import kotlinx.android.synthetic.main.fragment_profile.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 import kotlin.collections.ArrayList
 
 class ProfileFragmentRetro : Fragment() {

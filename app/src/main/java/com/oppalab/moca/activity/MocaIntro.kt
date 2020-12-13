@@ -1,10 +1,11 @@
-package com.oppalab.moca
+package com.oppalab.moca.activity
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.github.appintro.AppIntro
 import com.github.appintro.AppIntroCustomLayoutFragment
+import com.oppalab.moca.R
 
 class MocaIntro : AppIntro() {
     override fun onCreate(savedInstanceState: Bundle?) {

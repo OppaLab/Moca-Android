@@ -6,7 +6,7 @@
     android:id="@+id/thumbnail_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ThumbnailActivity">
+    tools:context=".activity.ThumbnailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/thumbnail_app_bar_layout"

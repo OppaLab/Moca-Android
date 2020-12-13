@@ -1,4 +1,4 @@
-package com.oppalab.moca
+package com.oppalab.moca.activity
 
 import android.content.Intent
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import com.oppalab.moca.R
 import com.oppalab.moca.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
 

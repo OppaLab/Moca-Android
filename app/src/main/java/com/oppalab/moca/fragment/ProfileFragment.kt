@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
-import com.oppalab.moca.AccountSettingActivity
+import com.oppalab.moca.activity.AccountSettingActivity
 import com.oppalab.moca.R
 import com.oppalab.moca.adapter.MyThumbnailAdapter
 import com.oppalab.moca.dto.GetMyPostDTO

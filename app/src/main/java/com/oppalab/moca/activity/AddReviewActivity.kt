@@ -1,4 +1,4 @@
-package com.oppalab.moca
+package com.oppalab.moca.activity
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import com.oppalab.moca.R
 import com.oppalab.moca.dto.GetReviewDTO
-import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_add_review.*

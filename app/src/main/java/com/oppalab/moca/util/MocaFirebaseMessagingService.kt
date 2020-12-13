@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.oppalab.moca.PostDetailActivity
+import com.oppalab.moca.activity.PostDetailActivity
 import com.oppalab.moca.R
 import com.squareup.picasso.Picasso
 

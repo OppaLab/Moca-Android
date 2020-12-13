@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddReviewActivity">
+    tools:context=".activity.AddReviewActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/add_review_app_bar_layout"

@@ -1,21 +1,19 @@
-package com.oppalab.moca
+package com.oppalab.moca.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.oppalab.moca.R
 import com.oppalab.moca.adapter.OtherUserAdapter
 import com.oppalab.moca.dto.GetMyPostDTO
 import com.oppalab.moca.dto.GetProfileDTO
 import com.oppalab.moca.dto.PostDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_other_user.*
-import kotlinx.android.synthetic.main.fragment_profile.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

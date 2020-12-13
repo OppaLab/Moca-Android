@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
-import com.oppalab.moca.PostDetailActivity
+import com.oppalab.moca.activity.PostDetailActivity
 import com.oppalab.moca.R
 import com.oppalab.moca.dto.PostDTO
 import com.oppalab.moca.util.RetrofitConnection

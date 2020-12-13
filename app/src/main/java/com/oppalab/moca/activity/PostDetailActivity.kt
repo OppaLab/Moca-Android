@@ -1,4 +1,4 @@
-package com.oppalab.moca
+package com.oppalab.moca.activity
 
 import GetCommentsOnPostDTO
 import android.content.Context
@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.oppalab.moca.R
 import com.oppalab.moca.adapter.CommentsAdapterRetro
 import com.oppalab.moca.dto.CommentsOnPost
 import com.oppalab.moca.dto.GetMyPostDTO

@@ -1,4 +1,4 @@
-package com.oppalab.moca
+package com.oppalab.moca.activity
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -20,6 +20,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
+import com.oppalab.moca.R
 import com.oppalab.moca.dto.GetMyPostDTO
 import com.oppalab.moca.util.PreferenceManager
 import com.oppalab.moca.util.RetrofitConnection

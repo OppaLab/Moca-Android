@@ -1,4 +1,4 @@
-package com.oppalab.moca
+package com.oppalab.moca.activity
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
+import com.oppalab.moca.R
 import com.oppalab.moca.`interface`.*
 import com.oppalab.moca.fragment.*
 import ja.burhanrashid52.photoeditor.OnSaveBitmap
