@@ -430,18 +430,18 @@ class PostDetailActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menu.clear()
-        Log.d("menu", "currentUser id:" + currentUser)
-        Log.d("menu", "post User id:" + postUserId)
-        if (currentUser.toString() == postUserId){
-            menuInflater.inflate(R.menu.appbar_action, menu)
-        }
-        else {
-            menuInflater.inflate(R.menu.appbar_report_action, menu)
-        }
-        return true
-    }
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        menu.clear()
+//        Log.d("menu", "currentUser id:" + currentUser)
+//        Log.d("menu", "post User id:" + postUserId)
+//        if (currentUser.toString() == postUserId){
+//            menuInflater.inflate(R.menu.appbar_action, menu)
+//        }
+//        else {
+//            menuInflater.inflate(R.menu.appbar_report_action, menu)
+//        }
+//        return true
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
@@ -550,5 +550,16 @@ class PostDetailActivity : AppCompatActivity() {
                 Log.d("moveToPost", t.message.toString())
             }
         })
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        menu!!.clear()
+        if (currentUser.toString() == postUserId){
+            menuInflater.inflate(R.menu.appbar_action, menu)
+        }
+        else {
+            menuInflater.inflate(R.menu.appbar_report_action, menu)
+        }
+        return true
     }
 }
