@@ -112,13 +112,13 @@ implementation 'com.github.AppIntro:AppIntro:6.0.0'
 
 프로젝트 소스코드는 다음과 같이 구성된다.
 
-![img_3](/Users/hyunjunkim/AndroidStudioProjects/Moca2/img_3.png)
+![img_3](img_3.png)
 
 **activity**:  Moca 서비스의 액티비티
 
 **adapter**: Moca 서비스의 어댑터
 
-**dto**: API 호출 시 넘겨주는 form-data 를 객체에 매핑
+**	dto**: API 호출 시 넘겨주는 form-data 를 객체에 매핑
 
 **fragment**: Moca 서비스의 프래그먼트
 
@@ -130,4 +130,4 @@ implementation 'com.github.AppIntro:AppIntro:6.0.0'
 
 ## Specification
 
-![img_5](/Users/hyunjunkim/AndroidStudioProjects/Moca2/img_5.png)
+![img_5](img_5.png)
